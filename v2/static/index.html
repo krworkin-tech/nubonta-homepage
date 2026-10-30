@@ -279,43 +279,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <main id="main">
 <!-- ===== section: 20-hero.html ===== -->
-<!-- Section: hero (from Concept 2 "Travertine", chosen 2026-10-30; the old storefront hero is in v2/_removed/20-hero-storefront.html).
-     Light and warm: full-bleed Higgsfield image (woman drinking water at a travertine table with Magnesium, Collagen Peptides, Creatine,
-     olive-branch shadows), charcoal copy on the wall at left: copper n label, 96px serif headline (lines slide up on load), intro,
-     dark "Shop bestsellers" + arrow, outline "Find your path". The photo fades in on load and drifts on scroll.
-     Phones: copy on top on warm beige, photo below it (cropped to her and the products). -->
+<!-- Section: hero (v2, from the user's Figma frame "Frame 1000003799", node 6642:253, 2026-10-30; the travertine hero before it is in
+     v2/_removed/20-hero-travertine.html). Dark and warm: full-bleed family photo (grandparents and a parent with a toddler on the lawn behind a
+     travertine table with Collagen Peptides, Creatine, Magnesium, D3/K2+; `shared/media/hero/hero-family-wide.webp`, 2000px: ask for a bigger
+     export) under, as in Figma: a black left-to-right fade at 20%, the silk-shadow texture in multiply at 80%, and a dark fade (#1D1D1D =
+     Graphite 60% + Charcoal) solid to ~10% of the width, gone at ~61%. White copy on the left: copper n + hairline label, 96px serif headline
+     (lines slide up on load), 24px intro, white "Shop bestsellers" + arrow, white-outline "Find your path". Site buttons (56px / 18px; the
+     Figma frame has 60px / 20px). Phones: copy on top on the dark, photo below cropped to the family and the products. -->
 <style>
-.hero { --hero-wall: color-mix(in srgb, var(--color-stone) 45%, var(--color-white)); position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 41.625vw, 50rem);
-  background: var(--hero-wall); color: var(--color-charcoal); --focus: var(--color-charcoal); }
-.hero__media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.hero__media img { position: absolute; left: 0; top: -4%; width: 100%; height: 108%; object-fit: cover; object-position: 70% 40%; }
-/* soft wash in the photo's own wall colour (user 2026-10-30): eased, solid-ish under the copy, gone at half the image */
-.hero { --hero-wash: color-mix(in srgb, var(--color-stone) 75%, var(--color-copper)); }   /* #CAB9A6, a lighter tone of the travertine wall (#B5A28E) */
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, color-mix(in srgb, var(--hero-wash) 88%, transparent) 0%, color-mix(in srgb, var(--hero-wash) 82%, transparent) 24%, color-mix(in srgb, var(--hero-wash) 66%, transparent) 34%, color-mix(in srgb, var(--hero-wash) 44%, transparent) 41%, color-mix(in srgb, var(--hero-wash) 22%, transparent) 47%, color-mix(in srgb, var(--hero-wash) 7%, transparent) 53%, transparent 58%); }
+.hero { --hero-dark: color-mix(in srgb, var(--color-graphite) 60%, var(--color-charcoal)); position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 41.625vw, 50rem);
+  background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
+.hero__media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
+.hero__media img { position: absolute; left: 0; top: -4%; width: 100%; height: 108%; object-fit: cover; object-position: 50% 37%; }
+/* Figma layer 2 (+ the 20% black fade that sits in the photo layer): silk shadow, multiply 80% */
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; opacity: 0.8; mix-blend-mode: multiply;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.2) 0%, transparent 100%), url("../shared/media/textures/silk-shadow.webp") center / cover no-repeat; }
+/* Figma layer 3: the dark fade from the left that carries the copy */
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg,
+  var(--hero-dark) 0%, var(--hero-dark) 10.5%, color-mix(in srgb, var(--hero-dark) 93%, transparent) 20.6%, color-mix(in srgb, var(--hero-dark) 69%, transparent) 34.7%,
+  color-mix(in srgb, var(--hero-dark) 39%, transparent) 51.4%, transparent 61%); }
 .hero__inner { width: 100%; padding-block: var(--space-96); }
 .hero__copy { max-width: 41.5rem; }
-.hero__label { display: inline-flex; align-items: center; gap: var(--space-8); font: 500 var(--fs-16)/1.25rem var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; }
+.hero__label { display: inline-flex; align-items: center; gap: var(--space-8); font: 500 var(--fs-16)/1.25rem var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; color: color-mix(in srgb, var(--color-white) 90%, transparent); }
 .hero__label img { width: 1.375rem; height: auto; }
-.hero__rule { width: 1px; height: 0.9375rem; background: color-mix(in srgb, var(--color-charcoal) 35%, transparent); }
+.hero__rule { width: 1px; height: 0.9375rem; background: color-mix(in srgb, var(--color-white) 40%, transparent); }
 .hero__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }   /* each line is a mask the words slide up through */
 .hero__title .ln > span { display: inline-block; }
 .hero__title { margin-top: var(--space-48); font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
-.hero__sub { margin-top: var(--space-24); max-width: 41.5rem; text-wrap: balance; font: 400 var(--fs-24)/2rem var(--font-sans); color: var(--color-muted-on-light); }   /* 2 balanced rows on desktop (user 2026-10-30) */
+.hero__sub { margin-top: var(--space-24); max-width: 38.5rem; font: 400 var(--fs-24)/2rem var(--font-sans); text-wrap: balance; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
 .hero__ctas .icon { margin-left: var(--space-8); }
 
 @media (max-width: 1279px) {
   .hero__title { font-size: var(--fs-80); line-height: 5.25rem; }
-  .hero::before { background: linear-gradient(90deg, var(--hero-wash) 0%, color-mix(in srgb, var(--hero-wash) 85%, transparent) 40%, color-mix(in srgb, var(--hero-wash) 40%, transparent) 58%, transparent 72%); }
+  .hero::after { background: linear-gradient(90deg, var(--hero-dark) 0%, color-mix(in srgb, var(--hero-dark) 90%, transparent) 30%, color-mix(in srgb, var(--hero-dark) 55%, transparent) 55%, transparent 75%); }
 }
-@media (max-width: 1023px) { .hero__title { font-size: var(--fs-64); line-height: 4.25rem; } }
-/* phones (designed at 375px): copy on top on the warm wall colour, photo below it (swapped 2026-10-30) */
+@media (max-width: 1023px) { .hero__title { font-size: var(--fs-64); line-height: 4.25rem; } .hero__sub { font-size: var(--fs-20); line-height: 1.75rem; } }
+/* phones (designed at 375px): copy on top on the dark, photo below */
 @media (max-width: 767px) {
   .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
-  .hero::before { display: none; }
-  .hero__media { position: relative; order: 1; height: 20rem; }
-  .hero__media img { object-position: 74% 50%; }
-  .hero__inner { padding-block: var(--space-32) var(--space-48); }
+  .hero::after { display: none; }
+  .hero__media { position: relative; inset: auto; order: 1; height: 20rem; }
+  .hero__media img { object-position: 76% 50%; }
+  .hero__inner { padding-block: var(--space-32) var(--space-32); }
   .hero__label { font-size: var(--fs-14); }
   .hero__title { margin-top: var(--space-24); font-size: var(--fs-48); line-height: 3rem; }
   .hero__sub { margin-top: var(--space-16); font-size: var(--fs-16); line-height: 1.5rem; }
@@ -324,9 +330,9 @@ document.addEventListener('DOMContentLoaded', function () {
 </style>
 
 <section class="hero" id="hero" aria-labelledby="hero-title">
-  <div class="hero__media parallax" data-parallax="8">
-    <img src="../shared/media/hero/hero-travertine-wide.webp" srcset="../shared/media/hero/hero-travertine-wide-1440.webp 1440w, ../shared/media/hero/hero-travertine-wide.webp 2560w" sizes="100vw"
-         alt="A woman with silver hair drinks a glass of water at a travertine table with Nubonta Magnesium, Collagen Peptides and Creatine" width="2560" height="1268">
+  <div class="hero__media parallax" data-parallax="6">
+    <img src="../shared/media/hero/hero-family-wide.webp" srcset="../shared/media/hero/hero-family-wide-1200.webp 1200w, ../shared/media/hero/hero-family-wide.webp 2000w" sizes="100vw"
+         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="2000" height="1116">
   </div>
   <div class="container hero__inner">
     <div class="hero__copy">
@@ -334,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h1 class="hero__title" id="hero-title"><span class="ln"><span>Strengthen the</span></span> <span class="ln"><span>structure that</span></span> <span class="ln"><span>carries your life.</span></span></h1>
       <p class="hero__sub h-in">Daily formulas with named ingredients and clear label amounts, made for every stage of healthy aging.</p>
       <div class="hero__ctas h-in">
-        <a class="btn btn--dark" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
       </div>
     </div>
