@@ -1640,7 +1640,7 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
 .nl__themes .nl__prev .icon { transform: scaleX(-1); }
 .nl__themes output { min-width: 7.5rem; text-align: center; font: 500 var(--fs-14)/1.25rem var(--font-sans); }
 .nl__card { margin-bottom: calc(var(--ft-overlap) * -1);   /* full content width (user 2026-10-30; was 896px like the FAQ) */
-  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; padding: var(--space-48);   /* same padding left, top and bottom: 48px (user 2026-10-30; 64 cropped the photo too tight) */
+  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; padding: var(--space-64) var(--space-48) var(--space-64) var(--space-96);   /* 64 top/bottom, 96 left: the user's Figma update (2026-10-30, node 6642:3) */
   border-radius: var(--radius-lg); background: var(--nl-dark); color: var(--nl-fg); --focus: var(--nl-fg); }
 .nl__photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center; }   /* as in the Figma frame: the pouch stays clear of the button */
 .nl__card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -1657,11 +1657,11 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
 /* the footer's fine grain over the panel */
 .nl__card::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: var(--nl-grain); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
 
-.nl__body { width: 38.25rem; max-width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-32); }
+.nl__body { width: 37.5rem; max-width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-32); }
 .nl__copy { display: grid; justify-items: start; }
-.nl__copy .t-eyebrow { color: var(--nl-eyebrow); font-size: var(--fs-16); line-height: 1.25rem; }
-.nl__copy h2 { margin-top: var(--space-16); font: 400 var(--fs-48)/3.5rem var(--font-serif); }
-.nl__copy p.t-body-lg { margin-top: var(--space-16); max-width: 27.625rem; color: var(--nl-muted); }
+.nl__copy .t-eyebrow { color: var(--nl-eyebrow); font-size: var(--fs-20); line-height: 1.25rem; letter-spacing: 0.12em; }
+.nl__copy h2 { margin-top: var(--space-12); font: 400 var(--fs-48)/3.5rem var(--font-serif); }
+.nl__copy p.t-body-lg { margin-top: var(--space-16); max-width: 37.5rem; color: var(--nl-muted); }
 
 .nl__side { width: 33.75rem; max-width: 100%; display: grid; row-gap: var(--space-16); }
 .nl__form { display: flex; gap: var(--space-8); }
@@ -1708,7 +1708,7 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
         <div class="nl__copy">
           <p class="t-eyebrow">Newsletter</p>
           <h2 id="nl-title">The Nubonta letter.</h2>
-          <p class="t-body-lg">Bone health, explained simply. Recipes for your daily scoop. First word on new formulas.<br class="nl__br">Twice a month, never more.</p>
+          <p class="t-body-lg">Bone health, explained simply. Recipes for your daily scoop. <br class="nl__br">First word on new formulas. Twice a month, never more.</p>
         </div>
         <div class="nl__side">
           <form class="nl__form" onsubmit="event.preventDefault()">
