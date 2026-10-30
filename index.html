@@ -27,7 +27,7 @@
   a.card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px rgba(16, 16, 15, .12); }
   a.card:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 4px; }
   .tag { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--charcoal); color: var(--white); font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
-  .card--dark { background: #161615; color: var(--white); }
+  a.card.card--dark { background: #161615; color: var(--white); }   /* a.card.card--dark: must outweigh "a.card" above */
   .card--dark .tag { background: var(--white); color: var(--charcoal); }
   .card--dark .desc { color: rgba(255, 255, 255, .8); }
   .card--dark:focus-visible { outline-color: var(--charcoal); }
