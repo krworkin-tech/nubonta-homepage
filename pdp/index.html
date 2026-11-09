@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Nubonta | Product page versions</title>
+<meta name="description" content="Product page versions (Collagen Peptides) for the Nubonta (formerly Healthy Bones Co.) redesign.">
+<link rel="icon" href="../v2/assets/logo/nubonta-monogram-charcoal.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500&display=swap">
+<style>
+  @font-face { font-family: "Nimbus Roman"; src: url("../v2/assets/fonts/NimbusRomNo9L-Reg.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+  :root { --charcoal: #10100F; --graphite: #262725; --white: #FFFFFF; --stone: #D5CBBE; --taupe: #A99F8C; --muted: rgba(16, 16, 15, 0.7); --soft: color-mix(in srgb, #D5CBBE 28%, #FFFFFF); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; min-height: 100dvh; display: flex; flex-direction: column; background: var(--white); color: var(--charcoal); font: 400 18px/28px "Inter", system-ui, sans-serif; text-wrap: pretty; }
+  header { padding: 24px 48px; }
+  header img { display: block; width: 148px; height: auto; }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 48px; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px; }
+  h1, h2 { margin: 0; font-family: "Nimbus Roman", "Times New Roman", serif; font-weight: 400; }
+  h1 { font-size: 64px; line-height: 68px; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  .lede { margin-top: 16px; max-width: 560px; color: var(--muted); }
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  a.card { display: flex; flex-direction: column; gap: 16px; padding: 40px; border-radius: 24px; background: var(--soft); color: inherit; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+  a.card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px rgba(16, 16, 15, .12); }
+  a.card:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 4px; }
+  .tag { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--charcoal); color: var(--white); font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+  a.card.card--dark { background: #161615; color: var(--white); }   /* a.card.card--dark: must outweigh "a.card" above */
+  .card--dark .tag { background: var(--white); color: var(--charcoal); }
+  .card--dark .desc { color: rgba(255, 255, 255, .8); }
+  .card--dark:focus-visible { outline-color: var(--charcoal); }
+  h2 { font-size: 40px; line-height: 44px; }
+  .desc { color: var(--muted); }
+  .go { margin-top: auto; padding-top: 16px; font-weight: 500; }
+  footer { padding: 24px 48px; font-size: 16px; line-height: 24px; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { a.card { transition: none; } a.card:hover { transform: none; } }
+  @media (max-width: 760px) {
+    header, footer { padding: 16px; text-align: center; }
+    header img { margin: 0 auto; }
+    main { padding: 32px 16px 48px; gap: 32px; text-align: center; }
+    h1 { font-size: 40px; line-height: 44px; }
+    .lede { margin: 12px auto 0; font-size: 16px; line-height: 24px; }
+    .cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    a.card { padding: 28px 24px; text-align: left; }
+    h2 { font-size: 32px; line-height: 36px; }
+  }
+</style>
+</head>
+<body>
+<header><img src="../v2/assets/logo/nubonta-wordmark-charcoal.svg" width="148" height="30" alt="Nubonta"></header>
+<main>
+  <div>
+    <h1>Product page versions</h1>
+    <p class="lede">Two takes on the Collagen Peptides product page for Nubonta. Open each one to explore it on desktop and mobile.</p>
+  </div>
+  <div class="cards">
+    <a class="card" href="v1/">
+      <span class="tag">Version 1</span>
+      <h2>The full story</h2>
+      <p class="desc">The complete product page: photo gallery with thumbnails, formula, packaging, quantity and offer choices, why collagen, what is in every scoop, how to take it, comparison, founder, reviews, FAQ and pairings.</p>
+      <span class="go">Open Version 1 &rarr;</span>
+    </a>
+    <a class="card card--dark" href="v2/">
+      <span class="tag">Version 2</span>
+      <h2>Straight to the point</h2>
+      <p class="desc">The shorter, sales-focused page: gallery with a customer quote, the same choices, why collagen with the scoop breakdown, how to take it, a full-width photo band, comparison, founder, FAQ and pairings.</p>
+      <span class="go">Open Version 2 &rarr;</span>
+    </a>
+  </div>
+</main>
+<footer>Design preview. Copy, prices and claims are placeholders. Homepage versions: <a href="../">all homepages</a>.</footer>
+</body>
+</html>
