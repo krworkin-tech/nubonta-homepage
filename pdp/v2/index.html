@@ -789,7 +789,7 @@ input:checked + * .pv2b__dot { box-shadow: inset 0 0 0 0.3125rem var(--color-cha
           </div>
           <div class="pv2b__arrows"><button class="pv2b__arrow" type="button" data-step="-1" aria-label="Previous photo"><svg class="icon icon--flip" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="pv2b__arrow" type="button" data-step="1" aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
         </div>
-        <figure class="pv2b__quote" id="reviews">
+        <figure class="pv2b__quote" id="top-review">
           <div class="pv2b__qhead"><span class="pv2b-stars" role="img" aria-label="5 out of 5 stars"></span><span>4.9 &middot; 575 reviews</span></div>
           <blockquote>&ldquo;One scoop in my morning coffee and I can&rsquo;t taste it at all. After a few months it&rsquo;s simply part of my&nbsp;day.&rdquo;</blockquote>
           <figcaption>Mary L.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></figcaption>
@@ -1406,13 +1406,83 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </section>
 
+<!-- ===== section: 70-pdp-reviews.html ===== -->
+<!-- Section: reviews (single-product page, 2026-11-03; same layout as the bundle page v1 reviews). Summary left (average, stars, count, star bars, Write a review), review cards right (3 shown, Load more).
+     Rating 4.93 / 575 reviews and the 537/36/2/0/0 split are from the current Collagen Peptides page; the card texts are PLACEHOLDERS
+     (replace with the real, verified reviews from the review app when it is connected in Shopify). -->
+<style>
+.pr { --pr-line: color-mix(in srgb, var(--color-charcoal) 14%, transparent); --pr-paper: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
+.pr__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+.pr__sum { grid-column: 1 / span 4; position: sticky; top: calc(4.5rem + var(--space-48)); display: grid; row-gap: var(--space-24); }
+.pr__sum .t-eyebrow { color: var(--color-muted-on-light); font-size: var(--fs-16); line-height: 1.5rem; margin-bottom: var(--space-12); }
+.pr__avg { display: flex; align-items: end; gap: var(--space-16); }
+.pr__avg strong { font: 400 var(--fs-96)/0.8 var(--font-serif); letter-spacing: -0.03em; }
+.pr__avg p { color: var(--color-muted-on-light); }
+.pr-stars { height: var(--space-16); width: calc(var(--space-16) * 5 + var(--space-4) * 4); margin-bottom: var(--space-8); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%2310100F' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--space-16) repeat-x; }
+.pr__bars { display: grid; gap: var(--space-8); }
+.pr__bars li { display: grid; grid-template-columns: 1.5rem 1fr 2rem; align-items: center; column-gap: var(--space-12); color: var(--color-muted-on-light); }
+.pr__bar { height: 0.375rem; border-radius: var(--radius-pill); background: var(--pr-paper); overflow: hidden; }
+.pr__bar i { display: block; height: 100%; width: var(--w); border-radius: inherit; background: var(--color-charcoal); transform-origin: left; }
+.motion .pr__bar i { transform: scaleX(0); transition: transform 1.2s var(--ease-out); } .motion .pr.is-in .pr__bar i { transform: none; }
+.pr__sum .btn { justify-self: start; }
+.pr__list { grid-column: 6 / -1; display: grid; }
+.pr-card { display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-24); row-gap: var(--space-16); padding: var(--space-32) 0; border-top: 1px solid var(--pr-line); }
+.pr-card:last-of-type { border-bottom: 1px solid var(--pr-line); }
+.pr-card blockquote { grid-column: 1 / -1; font: 400 calc(var(--fs-16) + 0.125rem)/1.75rem var(--font-sans); }   /* Inter 18px, like the page's body copy (user 2026-11-03) */
+.pr-card__by { font: 500 var(--fs-16)/1.5rem var(--font-sans); }
+.pr-card__by span { display: inline-flex; align-items: center; gap: var(--space-4); margin-left: var(--space-12); font-weight: 400; color: var(--color-muted-on-light); }
+.pr-card__date { color: var(--color-muted-on-light); }
+.pr__more { margin-top: var(--space-32); justify-self: center; }
+@media (max-width: 959px) { .pr__sum, .pr__list { grid-column: 1 / -1; } .pr__sum { position: static; margin-bottom: var(--space-48); } }
+@media (max-width: 767px) { .pr__avg strong { font-size: var(--fs-64); } }
+/* phones (375px, homepage rules, 2026-11-09): heading 32/36, 14px eyebrow, 32px under the summary, Write a review full width */
+@media (max-width: 767px) {
+  .pr__sum { margin-bottom: var(--space-32); } .pr__sum .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
+  .pr__sum h2 { font-size: var(--fs-32); line-height: 2.25rem; }
+  .pr__sum .btn { justify-self: stretch; }
+  .pr-card { padding: var(--space-24) 0; } .pr-card__by span { display: flex; margin: var(--space-4) 0 0; }
+}
+/* user 2026-11-10: Load more reviews as an underlined text link, not a button (v1 and v2) */
+.pr__more--link { font: 500 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-charcoal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25rem; transition: text-underline-offset 0.2s; }
+.pr__more--link:hover { text-underline-offset: 0.375rem; }
+.pr__more--link:focus-visible { outline: 2px solid var(--color-charcoal); outline-offset: 4px; border-radius: 0.125rem; }
+</style>
+<section class="band band--white pr" id="reviews" aria-labelledby="pr-title">
+  <div class="container pr__grid">
+    <div class="pr__sum" data-reveal>
+      <div><p class="t-eyebrow">Reviews</p><h2 class="t-heading-serif" id="pr-title">In their own&nbsp;words.</h2></div>
+      <div class="pr__avg"><strong>4.9</strong><div><div class="pr-stars" role="img" aria-label="4.9 out of 5 stars"></div><p class="t-body">Based on 575 reviews</p></div></div>
+      <ol class="pr__bars t-body" aria-label="Rating breakdown">
+        <li><span>5</span><span class="pr__bar"><i style="--w: 93%"></i></span><span>537</span></li>
+        <li><span>4</span><span class="pr__bar"><i style="--w: 6%"></i></span><span>36</span></li>
+        <li><span>3</span><span class="pr__bar"><i style="--w: 0.4%"></i></span><span>2</span></li>
+        <li><span>2</span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></li>
+        <li><span>1</span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></li>
+      </ol>
+      <a class="btn btn--ghost" href="#">Write a review</a>
+    </div>
+    <div class="pr__list">
+      <article class="pr-card" data-reveal><blockquote>&ldquo;One scoop in my morning coffee and I can&rsquo;t taste it at all. After a few months it&rsquo;s simply part of my&nbsp;day.&rdquo;</blockquote><p class="pr-card__by">Mary L.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Oct 2026</p></article>
+      <article class="pr-card" data-reveal><blockquote>&ldquo;Every amount is printed on the label, which made it easy to go through with my&nbsp;doctor.&rdquo;</blockquote><p class="pr-card__by">Patricia H.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Sep 2026</p></article>
+      <article class="pr-card" data-reveal><blockquote>&ldquo;No clumps, even in cold water. The pouch is easy to refill my tub&nbsp;from.&rdquo;</blockquote><p class="pr-card__by">Carol R.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Aug 2026</p></article>
+      <a class="pr__more pr__more--link" href="#">Load more reviews</a>
+    </div>
+  </div>
+</section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var root = document.getElementById('reviews'); if (!root || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { root.classList.add('is-in'); o.disconnect(); } }, { threshold: 0.3 }).observe(root.querySelector('.pr__bars'));
+});
+</script>
+
 <!-- ===== section: 80-pdp-faq.html ===== -->
 <!-- Section: FAQ (single-product page, 2026-11-03): an exact copy of the homepage 88-faq (user: reused elements must look the same), only the questions differ
      (6 of the 15 on the current Collagen Peptides page, answers shortened). Homepage note: FAQ (main page, after About, 2026-10-29; padding-top 0: white after white), on White (2026-10-29; was on the dark textured band).
      Centred title, then one centred column of questions (numbers removed, user) (native <details>); a contact row closes it.
      PLACEHOLDER ANSWERS: check with the brand. -->
 <style>
-.fqb { /* PDP v2: normal top padding, it follows the dark founder band */ --line: color-mix(in srgb, var(--color-charcoal) 15%, transparent); }
+.fqb { padding-top: 0; --line: color-mix(in srgb, var(--color-charcoal) 15%, transparent); }
 .fqb__wrap { max-width: 56rem; margin-inline: auto; }
 .fqb__head { text-align: center; margin-bottom: var(--space-48); }
 .fqb__head .t-eyebrow { font-size: var(--fs-16); line-height: 1.5rem; color: var(--color-muted-on-light); margin-bottom: var(--space-12); }

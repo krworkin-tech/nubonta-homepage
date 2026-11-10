@@ -1608,6 +1608,10 @@ document.addEventListener('DOMContentLoaded', function () {
   .pr__sum .btn { justify-self: stretch; }
   .pr-card { padding: var(--space-24) 0; } .pr-card__by span { display: flex; margin: var(--space-4) 0 0; }
 }
+/* user 2026-11-10: Load more reviews as an underlined text link, not a button (v1 and v2) */
+.pr__more--link { font: 500 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-charcoal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25rem; transition: text-underline-offset 0.2s; }
+.pr__more--link:hover { text-underline-offset: 0.375rem; }
+.pr__more--link:focus-visible { outline: 2px solid var(--color-charcoal); outline-offset: 4px; border-radius: 0.125rem; }
 </style>
 <section class="band band--white pr" id="reviews" aria-labelledby="pr-title">
   <div class="container pr__grid">
@@ -1627,7 +1631,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <article class="pr-card" data-reveal><blockquote>&ldquo;One scoop in my morning coffee and I can&rsquo;t taste it at all. After a few months it&rsquo;s simply part of my&nbsp;day.&rdquo;</blockquote><p class="pr-card__by">Mary L.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Oct 2026</p></article>
       <article class="pr-card" data-reveal><blockquote>&ldquo;Every amount is printed on the label, which made it easy to go through with my&nbsp;doctor.&rdquo;</blockquote><p class="pr-card__by">Patricia H.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Sep 2026</p></article>
       <article class="pr-card" data-reveal><blockquote>&ldquo;No clumps, even in cold water. The pouch is easy to refill my tub&nbsp;from.&rdquo;</blockquote><p class="pr-card__by">Carol R.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Aug 2026</p></article>
-      <a class="btn btn--ghost pr__more" href="#">Load more reviews</a>
+      <a class="pr__more pr__more--link" href="#">Load more reviews</a>
     </div>
   </div>
 </section>
