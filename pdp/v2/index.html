@@ -1070,6 +1070,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .pv2w__dot { align-self: baseline; transform: translateY(-0.125rem); }
 /* user 2026-11-12: the grams centred on the name + line under it (it sat on the name's baseline and rose above the copy) */
 .pv2w__row strong { grid-row: 1 / span 2; align-self: center; }
+/* ...but that made each row 18px shorter (127 -> 109 at 1440), and the photo, which stretches to this column's height, shrank and cropped tighter (user 2026-11-12: "it was not like this").
+   33px top/bottom puts the rows back at 127px so the photo is exactly as before. Only where the photo stretches (>= 960px); below that it has its own 4:5 ratio. */
+@media (min-width: 960px) { .pv2w__row { padding-block: calc(var(--space-32) + 0.0625rem); } }
 </style>
 <section class="band band--charcoal pv2w" id="why" aria-labelledby="pv2w-title">
   <div class="container pv2w__grid">
