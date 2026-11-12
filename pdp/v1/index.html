@@ -1233,12 +1233,33 @@ document.addEventListener('DOMContentLoaded', function () {
 .ps2-card p:not(.ps2-card__num) { color: var(--color-muted-on-light); font-size: calc(var(--fs-16) + 0.125rem); line-height: 1.75rem; flex: 1; }   /* 18px, like the buy box copy */
 .ps2-card cite { display: block; min-height: 3.5rem; padding-top: var(--space-16);   /* room for 2 lines in every card, so the hairlines line up */ border-top: 1px solid var(--ps-line); font: normal 400 var(--fs-14)/1.25rem var(--font-sans); color: var(--color-muted-on-light); }
 
-.ps2__foot { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); margin-top: var(--space-32); color: var(--color-muted-on-light); }
-.ps2__free { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.ps2__free li { display: inline-flex; align-items: center; height: 2rem; padding: 0 var(--space-12); border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--ps-line); font: 500 var(--fs-14)/1.25rem var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-charcoal); }
+/* free-from seals (option F, picked 2026-11-12): copy left, 4 round seals right, on the same soft beige as the cards.
+   Each seal: the claim upright on the top arc, a short descriptor upright on the bottom arc, two dots between, the icon in the middle.
+   Text sizes are in the seal's own 120-unit space: at the 9.5rem (152px) size 11 units = 14px (badge size), both lines.
+   (Was 12rem with 16px text: too big, user 2026-11-12.) */
+.ps2__clean { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: center; margin-top: var(--gutter); padding: var(--space-48); border-radius: var(--radius-card); background: var(--ps-paper); }
+.ps2__clean-copy { grid-column: 1 / span 5; }
+.ps2__clean-title { font: 400 var(--fs-32)/2.5rem var(--font-serif); letter-spacing: -0.005em; }
+.ps2__clean-text { margin-top: var(--space-12); color: var(--color-muted-on-light); font-size: calc(var(--fs-16) + 0.125rem); line-height: 1.75rem; max-width: 24rem; }
+.ps2__seals { grid-column: 6 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); justify-items: center; }
+.ps2__seals li { width: 100%; max-width: 9.5rem; }
+.seal { display: block; width: 100%; height: auto; color: var(--color-charcoal); --ic-bg: var(--color-white); }
+.seal__top { font: 500 11px var(--font-sans); letter-spacing: 0.1em; fill: currentColor; }
+.seal__sub { font: 400 11px var(--font-sans); letter-spacing: 0.06em; fill: var(--color-muted-on-light); }
+.seal__dot { fill: currentColor; opacity: 0.35; }
+.motion .seal__ring { transform-origin: 60px 60px; transition: transform 1.2s var(--ease-out); }
+.motion .ps2__seals li:hover .seal__ring { transform: rotate(-12deg); }
+@media (max-width: 1199px) { .ps2__clean-copy { grid-column: 1 / -1; margin-bottom: var(--space-32); } .ps2__seals { grid-column: 1 / -1; } }
+@media (max-width: 767px) {
+  .ps2__clean { padding: var(--space-32) var(--space-16); }
+  .ps2__clean-copy { padding-inline: var(--space-8); }
+  .ps2__clean-title { font-size: var(--fs-24); line-height: 2rem; }
+  .ps2__seals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16); }
+  /* phones: 2 per row, each ~148px, so the same type as desktop */
+}
 
 @media (max-width: 1199px) { .ps2__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 959px) { .ps2__head > div, .ps2__head p.t-body-lg { grid-column: 1 / -1; } .ps2__head { row-gap: var(--space-16); } .ps2__foot { flex-direction: column; align-items: start; } }
+@media (max-width: 959px) { .ps2__head > div, .ps2__head p.t-body-lg { grid-column: 1 / -1; } .ps2__head { row-gap: var(--space-16); } }
 @media (max-width: 767px) { .ps2__grid { grid-template-columns: 1fr; } .ps2-card { padding: var(--space-24); } .ps2-card__num { font-size: var(--fs-64); } }
 /* phones (375px, homepage rules, 2026-11-09): the 4 peptide cards become a sideways swipe row (as the homepage reviews) */
 @media (max-width: 767px) {
@@ -1297,9 +1318,27 @@ document.addEventListener('DOMContentLoaded', function () {
       </li>
     </ul>
 
-    <div class="ps2__foot t-body" data-reveal>
-      <p>Type I and III collagen from grass-fed bovine sources. Hydrolyzed, so it dissolves&nbsp;fully.</p>
-      <ul class="ps2__free" aria-label="Free from"><li>Dairy free</li><li>Gluten free</li><li>GMO free</li><li>Sugar free</li></ul>
+    <!-- 2026-11-12 (user): the source line + free-from pills became a row of icons with titles -->
+    <!-- free-from icons: one system, the object drawn whole, then a slash that cuts through it (a white "gap" stroke under the slash) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <path id="seal-arc-top" d="M17,60 A43,43 0 0 1 103,60"/>
+      <path id="seal-arc-bot" d="M8,60 A52,52 0 0 0 112,60"/>
+      <symbol id="i-ff-dairy" viewBox="0 0 24 24"><path d="M9 2.75h6v2.5l2 3V20a1.25 1.25 0 0 1-1.25 1.25h-7.5A1.25 1.25 0 0 1 7 20V8.25l2-3Z"/><path d="M7 8.25h10"/><path d="M10 13h4"/><path style="stroke: var(--ic-bg, #fff); stroke-width: 3.25" d="M3.5 3.5l17 17"/><path d="M3.5 3.5l17 17"/></symbol>
+      <symbol id="i-ff-gluten" viewBox="0 0 24 24"><path d="M12 21.25V8"/><path d="M12 8c-1.3-1.2-1.3-3.6 0-5.25 1.3 1.65 1.3 4.05 0 5.25Z"/><path d="M12 12.5c-2.4 0-4-1.4-4-3.75 2.4 0 4 1.4 4 3.75Zm0 0c2.4 0 4-1.4 4-3.75-2.4 0-4 1.4-4 3.75Z"/><path d="M12 17.25c-2.4 0-4-1.4-4-3.75 2.4 0 4 1.4 4 3.75Zm0 0c2.4 0 4-1.4 4-3.75-2.4 0-4 1.4-4 3.75Z"/><path style="stroke: var(--ic-bg, #fff); stroke-width: 3.25" d="M3.5 3.5l17 17"/><path d="M3.5 3.5l17 17"/></symbol>
+      <symbol id="i-ff-gmo" viewBox="0 0 24 24"><path d="M8 2.75c0 6.5 8 5.75 8 9.25s-8 2.75-8 9.25"/><path d="M16 2.75c0 6.5-8 5.75-8 9.25s8 2.75 8 9.25"/><path d="M9 5.5h6M9.75 9h4.5M9.75 15h4.5M9 18.5h6"/><path style="stroke: var(--ic-bg, #fff); stroke-width: 3.25" d="M3.5 3.5l17 17"/><path d="M3.5 3.5l17 17"/></symbol>
+      <symbol id="i-ff-sugar" viewBox="0 0 24 24"><path d="M12 3 19.5 7.25v9.5L12 21l-7.5-4.25v-9.5Z"/><path d="M4.5 7.25 12 11.5l7.5-4.25M12 11.5V21"/><path style="stroke: var(--ic-bg, #fff); stroke-width: 3.25" d="M3.5 3.5l17 17"/><path d="M3.5 3.5l17 17"/></symbol>
+    </svg>
+    <div class="ps2__clean" data-reveal>
+      <div class="ps2__clean-copy">
+        <h3 class="ps2__clean-title">Pure collagen, nothing&nbsp;else.</h3>
+        <p class="ps2__clean-text">Type I and III collagen from grass-fed bovine sources, hydrolyzed so it dissolves&nbsp;fully.</p>
+      </div>
+      <ul class="ps2__seals" aria-label="Free from">
+        <li><svg class="seal" viewBox="0 0 120 120" role="img" aria-label="Dairy free: no lactose"><circle cx="60" cy="60" r="60" fill="#fff"/><circle cx="60" cy="60" r="33" fill="none" stroke="currentColor" stroke-opacity=".14" stroke-width=".7"/><g class="seal__ring" aria-hidden="true"><text class="seal__top"><textPath href="#seal-arc-top" startOffset="50%" text-anchor="middle">DAIRY FREE</textPath></text><text class="seal__sub"><textPath href="#seal-arc-bot" startOffset="50%" text-anchor="middle">NO LACTOSE</textPath></text><circle class="seal__dot" cx="12.5" cy="60" r="1.25"/><circle class="seal__dot" cx="107.5" cy="60" r="1.25"/></g><g fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-ff-dairy" x="46" y="46" width="28" height="28"/></g></svg></li>
+        <li><svg class="seal" viewBox="0 0 120 120" role="img" aria-label="Gluten free: no wheat"><circle cx="60" cy="60" r="60" fill="#fff"/><circle cx="60" cy="60" r="33" fill="none" stroke="currentColor" stroke-opacity=".14" stroke-width=".7"/><g class="seal__ring" aria-hidden="true"><text class="seal__top"><textPath href="#seal-arc-top" startOffset="50%" text-anchor="middle">GLUTEN FREE</textPath></text><text class="seal__sub"><textPath href="#seal-arc-bot" startOffset="50%" text-anchor="middle">NO WHEAT</textPath></text><circle class="seal__dot" cx="12.5" cy="60" r="1.25"/><circle class="seal__dot" cx="107.5" cy="60" r="1.25"/></g><g fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-ff-gluten" x="46" y="46" width="28" height="28"/></g></svg></li>
+        <li><svg class="seal" viewBox="0 0 120 120" role="img" aria-label="GMO free: non-gmo"><circle cx="60" cy="60" r="60" fill="#fff"/><circle cx="60" cy="60" r="33" fill="none" stroke="currentColor" stroke-opacity=".14" stroke-width=".7"/><g class="seal__ring" aria-hidden="true"><text class="seal__top"><textPath href="#seal-arc-top" startOffset="50%" text-anchor="middle">GMO FREE</textPath></text><text class="seal__sub"><textPath href="#seal-arc-bot" startOffset="50%" text-anchor="middle">NON-GMO</textPath></text><circle class="seal__dot" cx="12.5" cy="60" r="1.25"/><circle class="seal__dot" cx="107.5" cy="60" r="1.25"/></g><g fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-ff-gmo" x="46" y="46" width="28" height="28"/></g></svg></li>
+        <li><svg class="seal" viewBox="0 0 120 120" role="img" aria-label="Sugar free: no added sugar"><circle cx="60" cy="60" r="60" fill="#fff"/><circle cx="60" cy="60" r="33" fill="none" stroke="currentColor" stroke-opacity=".14" stroke-width=".7"/><g class="seal__ring" aria-hidden="true"><text class="seal__top"><textPath href="#seal-arc-top" startOffset="50%" text-anchor="middle">SUGAR FREE</textPath></text><text class="seal__sub"><textPath href="#seal-arc-bot" startOffset="50%" text-anchor="middle">NO ADDED SUGAR</textPath></text><circle class="seal__dot" cx="12.5" cy="60" r="1.25"/><circle class="seal__dot" cx="107.5" cy="60" r="1.25"/></g><g fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-ff-sugar" x="46" y="46" width="28" height="28"/></g></svg></li>
+      </ul>
     </div>
   </div>
 </section>
