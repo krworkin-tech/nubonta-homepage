@@ -1068,6 +1068,8 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 767px) { .pv2w__photo { margin-bottom: var(--space-32); } }
 /* user 2026-11-09: dots centred on the peptide name (the row is baseline-aligned to the big grams, so 'center' sat low): sit on the name's baseline, lifted to the middle of its capitals */
 .pv2w__dot { align-self: baseline; transform: translateY(-0.125rem); }
+/* user 2026-11-12: the grams centred on the name + line under it (it sat on the name's baseline and rose above the copy) */
+.pv2w__row strong { grid-row: 1 / span 2; align-self: center; }
 </style>
 <section class="band band--charcoal pv2w" id="why" aria-labelledby="pv2w-title">
   <div class="container pv2w__grid">
