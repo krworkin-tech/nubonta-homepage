@@ -1635,8 +1635,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .pr-card:last-of-type { border-bottom: 1px solid var(--pr-line); }
 .pr-card blockquote { grid-column: 1 / -1; font: 400 calc(var(--fs-16) + 0.125rem)/1.75rem var(--font-sans); }   /* Inter 18px, like the page's body copy (user 2026-11-03) */
 .pr-card__by { font: 500 var(--fs-16)/1.5rem var(--font-sans); }
-.pr-card__by span { display: inline-flex; align-items: center; gap: var(--space-4); margin-left: var(--space-12); font-weight: 400; color: var(--color-muted-on-light); }
-.pr-card__date { color: var(--color-muted-on-light); }
+/* user 2026-11-12: no date; Verified buyer sits on the right where the date was */
+.pr-card__verified { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--color-muted-on-light); }
 .pr__more { margin-top: var(--space-32); justify-self: center; }
 @media (max-width: 959px) { .pr__sum, .pr__list { grid-column: 1 / -1; } .pr__sum { position: static; margin-bottom: var(--space-48); } }
 @media (max-width: 767px) { .pr__avg strong { font-size: var(--fs-64); } }
@@ -1645,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .pr__sum { margin-bottom: var(--space-32); } .pr__sum .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .pr__sum h2 { font-size: var(--fs-32); line-height: 2.25rem; }
   .pr__sum .btn { justify-self: stretch; }
-  .pr-card { padding: var(--space-24) 0; } .pr-card__by span { display: flex; margin: var(--space-4) 0 0; }
+  .pr-card { padding: var(--space-24) 0; }
 }
 /* user 2026-11-10: Load more reviews as an underlined text link, not a button (v1 and v2) */
 .pr__more--link { font: 500 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-charcoal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25rem; transition: text-underline-offset 0.2s; }
@@ -1667,9 +1667,9 @@ document.addEventListener('DOMContentLoaded', function () {
       <a class="btn btn--ghost" href="#">Write a review</a>
     </div>
     <div class="pr__list">
-      <article class="pr-card" data-reveal><blockquote>&ldquo;One scoop in my morning coffee and I can&rsquo;t taste it at all. After a few months it&rsquo;s simply part of my&nbsp;day.&rdquo;</blockquote><p class="pr-card__by">Mary L.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Oct 2026</p></article>
-      <article class="pr-card" data-reveal><blockquote>&ldquo;Every amount is printed on the label, which made it easy to go through with my&nbsp;doctor.&rdquo;</blockquote><p class="pr-card__by">Patricia H.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Sep 2026</p></article>
-      <article class="pr-card" data-reveal><blockquote>&ldquo;No clumps, even in cold water. The pouch is easy to refill my tub&nbsp;from.&rdquo;</blockquote><p class="pr-card__by">Carol R.<span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</span></p><p class="t-body pr-card__date">Aug 2026</p></article>
+      <article class="pr-card" data-reveal><blockquote>&ldquo;One scoop in my morning coffee and I can&rsquo;t taste it at all. After a few months it&rsquo;s simply part of my&nbsp;day.&rdquo;</blockquote><p class="pr-card__by">Mary L.</p><p class="t-body pr-card__verified"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</p></article>
+      <article class="pr-card" data-reveal><blockquote>&ldquo;Every amount is printed on the label, which made it easy to go through with my&nbsp;doctor.&rdquo;</blockquote><p class="pr-card__by">Patricia H.</p><p class="t-body pr-card__verified"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</p></article>
+      <article class="pr-card" data-reveal><blockquote>&ldquo;No clumps, even in cold water. The pouch is easy to refill my tub&nbsp;from.&rdquo;</blockquote><p class="pr-card__by">Carol R.</p><p class="t-body pr-card__verified"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verified buyer</p></article>
       <a class="pr__more pr__more--link" href="#">Load more reviews</a>
     </div>
   </div>
