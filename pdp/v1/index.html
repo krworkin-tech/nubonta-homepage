@@ -1199,6 +1199,7 @@ input:checked + .fc__row { --ring: inset 0 0 0 2px var(--color-charcoal); backgr
 /* compare sheet: the highlighted (selected) column gets round ends, top on its header cell, bottom on its Choose cell (user 2026-11-18) */
 .cmp__table .c.h.is-sel { border-top-left-radius: var(--radius-md); border-top-right-radius: var(--radius-md); }
 .cmp__table > .c.is-sel:nth-last-child(-n+3) { border-bottom-left-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md); }
+@media (max-width: 767px) { .h-card .pv2b__qtag { padding: 0 var(--space-12); letter-spacing: 0.08em; } }   /* Version 2 "Bioactive" tags: phones get 12px side padding back (the quantity tags stay tight: "Most popular" needs the room) */
 </style>
 
 <section class="band band--white pb" id="product" aria-labelledby="pb-title" data-buy>
