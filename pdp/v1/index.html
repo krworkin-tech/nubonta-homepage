@@ -1200,6 +1200,9 @@ input:checked + .fc__row { --ring: inset 0 0 0 2px var(--color-charcoal); backgr
 .cmp__table .c.h.is-sel { border-top-left-radius: var(--radius-md); border-top-right-radius: var(--radius-md); }
 .cmp__table > .c.is-sel:nth-last-child(-n+3) { border-bottom-left-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md); }
 @media (max-width: 767px) { .h-card .pv2b__qtag { padding: 0 var(--space-12); letter-spacing: 0.08em; } }   /* Version 2 "Bioactive" tags: phones get 12px side padding back (the quantity tags stay tight: "Most popular" needs the room) */
+@media (max-width: 767px) {   /* quantity tags on phones (user 2026-11-18): Starter and Best value get the same 12px side padding as the Bioactive tags; Most popular stays tight, with 12px it would be 122px wide on a 109px card */
+  .pv2b__qty:not(.h-row) > :nth-child(1) .pv2b__qtag, .pv2b__qty:not(.h-row) > :nth-child(3) .pv2b__qtag { padding: 0 var(--space-12); letter-spacing: 0.08em; }
+}
 </style>
 
 <section class="band band--white pb" id="product" aria-labelledby="pb-title" data-buy>
