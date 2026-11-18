@@ -280,64 +280,83 @@ document.addEventListener('DOMContentLoaded', function () {
      (lines slide up on load), 24px intro, white "Shop bestsellers" + arrow, white-outline "Find your path". Site buttons (56px / 18px; the
      Figma frame has 60px / 20px). Phones: copy on top on the dark, photo below cropped to the family and the products. -->
 <style>
-.hero { --hero-dark: color-mix(in srgb, var(--color-graphite) 60%, var(--color-charcoal)); position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 41.625vw, 50rem);
+.hero { --hero-dark: color-mix(in srgb, var(--color-graphite) 60%, var(--color-charcoal)); position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 34.167vw, 41rem); /* 2026-11-18 user's new hero, Figma 6933:3123: 656px at 1920 */
   background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
 .hero__media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
-.hero__media img { position: absolute; left: 0; top: -4%; width: 100%; height: 108%; object-fit: cover; object-position: 50% 37%; }
-/* Figma layer 2 (+ the 20% black fade that sits in the photo layer): silk shadow, multiply 80% */
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; opacity: 0.8; mix-blend-mode: multiply;
-  background: linear-gradient(90deg, rgb(0 0 0 / 0.2) 0%, transparent 100%), url("shared/media/textures/silk-shadow.webp") center / cover no-repeat; }
-/* Figma layer 3: the dark fade from the left that carries the copy */
-.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg,
-  var(--hero-dark) 0%, var(--hero-dark) 10.5%, color-mix(in srgb, var(--hero-dark) 93%, transparent) 20.6%, color-mix(in srgb, var(--hero-dark) 69%, transparent) 34.7%,
-  color-mix(in srgb, var(--hero-dark) 39%, transparent) 51.4%, transparent 61%); }
+/* user Figma 2026-11-17 (node 6872:4422): the extended photo, shifted ~4% to the left so the Healthy Bones Co. tag fits to the right of the bottles */
+.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }   /* right edge anchored: on screens narrower than 1920 the dark left side is cropped, so the bottles move left of the tag */
+/* 2026-11-18 new hero (Figma 6933:3123): new photo (dark left side is in the photo) fills the hero exactly, no parallax, so the products are always whole */
+/* (old silk-shadow layer removed with the new hero, 2026-11-18; it's in _backup-2026-11-18/20-hero-before-new-hero.html) */
+/* Figma 6933:3124: gradient #1a1a18 (user's own value, kept as given) -> transparent, over the left 65.2% (1252 of 1920) */
+.hero::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 65.2%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, #1a1a18 0%, rgb(26 26 24 / 0) 100%); }
 .hero__inner { width: 100%; padding-block: var(--space-96); }
 .hero__copy { max-width: 41.5rem; }
-.hero__label { display: inline-flex; align-items: center; gap: var(--space-8); font: 500 var(--fs-16)/1.25rem var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; color: color-mix(in srgb, var(--color-white) 90%, transparent); }
-.hero__label img { width: 1.375rem; height: auto; }
-.hero__rule { width: 1px; height: 0.9375rem; background: color-mix(in srgb, var(--color-white) 40%, transparent); }
 .hero__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }   /* each line is a mask the words slide up through */
 .hero__title .ln > span { display: inline-block; }
-.hero__title { margin-top: var(--space-48); font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
+.hero__title { font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
 .hero__sub { margin-top: var(--space-24); max-width: 38.5rem; font: 400 var(--fs-24)/2rem var(--font-sans); text-wrap: balance; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
 .hero__ctas .icon { margin-left: var(--space-8); }
+/* user Figma 2026-11-17 ("Tag small banner", node 6872:5079): "Formerly Healthy Bones Co." tag with the HBC logo, Charcoal, flush to the right edge
+   next to the bottles (replaces the copper n label; client: don't force the n). The magenta is Healthy Bones Co.'s own logo colour. */
+.hero__tag { position: absolute; right: 0; bottom: 5.1875rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.3125rem; width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem;
+  background: var(--color-charcoal); color: var(--color-white); font: 400 1.125rem/1.2 var(--font-sans); }
+.hero__tag img { flex: none; width: 6.3125rem; height: auto; }
 
 @media (max-width: 1279px) {
   .hero__title { font-size: var(--fs-80); line-height: 5.25rem; }
-  .hero::after { background: linear-gradient(90deg, var(--hero-dark) 0%, color-mix(in srgb, var(--hero-dark) 90%, transparent) 30%, color-mix(in srgb, var(--hero-dark) 55%, transparent) 55%, transparent 75%); }
+  .hero::after { width: 85%; }
 }
 @media (max-width: 1023px) { .hero__title { font-size: var(--fs-64); line-height: 4.25rem; } .hero__sub { font-size: var(--fs-20); line-height: 1.75rem; } }
 /* phones (designed at 375px): copy on top on the dark, photo below */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
   .hero::after { display: none; }
-  .hero__media { position: relative; inset: auto; order: 1; height: 20rem; }
-  .hero__media img { object-position: 76% 50%; }
-  .hero__inner { padding-block: var(--space-32) var(--space-32); }
-  .hero__label { font-size: var(--fs-14); }
-  .hero__title { margin-top: var(--space-24); font-size: var(--fs-48); line-height: 3rem; }
+  /* 2026-11-18 user: own phone/tablet crop (products centred, bigger), shown whole at its own shape; stacked layout up to 1023px (user 2026-11-18: tablets too) */
+  .hero__media { position: relative; inset: auto; order: 1; height: auto; aspect-ratio: 750 / 800; }
+  .hero__media img { object-position: 50% 50%; }
+  /* user: the top of the photo melts into the dark copy area above it */
+  .hero__media::after { content: ""; position: absolute; inset: 0 0 auto; height: 55%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--hero-dark) 0%, color-mix(in srgb, var(--hero-dark) 85%, transparent) 15%, color-mix(in srgb, var(--hero-dark) 55%, transparent) 40%, color-mix(in srgb, var(--hero-dark) 20%, transparent) 70%, transparent 100%); }   /* user: fade pushed as far as it can go, ends just above the jar lids */
+  .hero__inner { padding-block: var(--space-64) var(--space-32); }   /* user 2026-11-18: more room at the top (was 32) */
+  /* phones: the tag would cover the bottles, so it sits under the buttons on the dark (flex order: copy, tag, photo) */
+  .hero__tag { position: static; width: auto; justify-content: flex-start; align-self: flex-start; margin: 0 var(--page-margin, var(--space-16)) var(--space-32); padding: var(--space-8) var(--space-12); border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-white) 20%, transparent); font-size: var(--fs-14); }
+  .hero__tag img { width: 4.5rem; }
+  /* user 2026-11-18: centred copy on phones/tablets (title, line, buttons and tag together) */
+  .hero__copy { margin-inline: auto; text-align: center; }
+  .hero__sub { margin-inline: auto; }
+  .hero__ctas { justify-content: center; }
+  .hero__tag { align-self: center; }
+}
+/* tablets: a square crop anchored at the bottom keeps the products whole without a very tall photo */
+@media (min-width: 768px) and (max-width: 1023px) { .hero__media { aspect-ratio: 1 / 1; } .hero__media img { object-position: 50% 100%; } }
+@media (max-width: 767px) {
+  .hero__tag { display: none; }   /* user 2026-11-18: no Formerly Healthy Bones Co. badge on phones */
+  .hero__title { font-size: 3.25rem; line-height: 3.5rem; }   /* user 2026-11-18: a bit bigger (52/56, off the type scale; 56+ wraps "carries your life." at 375) */
   .hero__sub { margin-top: var(--space-16); font-size: var(--fs-16); line-height: 1.5rem; }
   .hero__ctas { margin-top: var(--space-32); gap: var(--space-12); }
 }
+
 </style>
 
 <section class="hero" id="hero" aria-labelledby="hero-title">
-  <div class="hero__media parallax" data-parallax="6">
-    <img src="shared/media/hero/hero-family-wide.webp" srcset="shared/media/hero/hero-family-wide-1200.webp 1200w, shared/media/hero/hero-family-wide.webp 2000w" sizes="100vw"
-         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="2000" height="1116">
+  <div class="hero__media">
+    <picture>
+      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-family-mobile.webp" width="750" height="800">
+      <img src="shared/media/hero/hero-family-new-1920.webp" srcset="shared/media/hero/hero-family-new-1200.webp 1200w, shared/media/hero/hero-family-new-1920.webp 1920w, shared/media/hero/hero-family-new.webp 2346w" sizes="100vw"
+         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="1920" height="690">
+    </picture>
   </div>
   <div class="container hero__inner">
     <div class="hero__copy">
-      <p class="hero__label h-in"><img src="assets/logo/nubonta-monogram-copper.svg" alt="" width="22" height="23"><span class="hero__rule" aria-hidden="true"></span>Healthy Bones Co. is now Nubonta</p>
       <h1 class="hero__title" id="hero-title"><span class="ln"><span>Strengthen the</span></span> <span class="ln"><span>structure that</span></span> <span class="ln"><span>carries your life.</span></span></h1>
-      <p class="hero__sub h-in">Daily formulas with named ingredients and clear label amounts, made for every stage of healthy aging.</p>
+      <p class="hero__sub h-in">Daily formulas for healthy aging.</p>
       <div class="hero__ctas h-in">
         <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
       </div>
     </div>
   </div>
+  <p class="hero__tag h-in"><img src="shared/media/partners/healthy-bones-co-logo.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
 </section>
 
 <script>
@@ -471,6 +490,10 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
   .bs-card__price, .bs-card__was { font-size: var(--fs-16); line-height: 1.5rem; }
   .bs-add { height: 2.75rem; margin-top: var(--space-12); font-size: var(--fs-14); }
 }
+/* sold-out state (client 2026-11-17: launch with D3K2 shown as sold out): Charcoal "Sold out" tag replaces the offer tag,
+   the button greys out and is disabled. Add class is-soldout to the card, the tag, and disabled + the label to the button. */
+.bs-card__badge--soldout { background: var(--color-charcoal); color: var(--color-white); }
+.bs-add:disabled, .bs-add:disabled:hover { background: color-mix(in srgb, var(--color-charcoal) 8%, var(--color-white)); color: var(--color-muted-on-light); cursor: not-allowed; }
 </style>
 
 <section class="band band--white bs" id="bestsellers" aria-labelledby="bs-title">
@@ -493,7 +516,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
       <ul class="bs__grid">
         <li class="bs-card" data-goals="bone practitioner" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/osteofrax.webp" alt="" width="900" height="900" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/osteofrax.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-osteofrax.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">New</span></div>
           </div>
           <div class="bs-card__info">
@@ -506,7 +529,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
         <li class="bs-card" data-goals="bone longevity practitioner" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hf-080053-6af4.webp" alt="" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-annatrol.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -519,7 +542,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
         <li class="bs-card" data-goals="bone prevention" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/collagen-bone-tub.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hf-081512-f583.webp" alt="" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-collagen.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -532,7 +555,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
         <li class="bs-card" data-goals="prevention longevity" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-creatine.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -543,22 +566,22 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
           <button class="bs-add" type="button" data-name="Creatine + HMB"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Creatine + HMB</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
 
-        <li class="bs-card" data-goals="bone prevention" data-reveal>
+        <li class="bs-card is-soldout" data-goals="bone prevention" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hf-081947-7750.webp" alt="" loading="lazy"></a>
-            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-d3k2.webp" alt="" loading="lazy"></a>
+            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--soldout">Sold out</span></div>
           </div>
           <div class="bs-card__info">
             <h3 class="t-title-sm"><a href="#">Daily D3 + K2</a></h3>
             <p class="t-body muted bs-card__facts">2,000 IU D3 &middot; K2 as MK-4<br>+ MK-7 &middot; Plus K1</p>
-            <div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$29.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$26.10</p></div>
+            <div class="bs-card__buy"><p class="bs-card__price">$29.00</p></div>
           </div>
-          <button class="bs-add" type="button" data-name="Daily D3 + K2"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Daily D3 + K2</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
+          <button class="bs-add" type="button" data-name="Daily D3 + K2" disabled>Sold out<span class="sr-only"> Daily D3 + K2</span></button>
         </li>
 
         <li class="bs-card" data-goals="bone longevity" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-d3k2-plus.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -571,7 +594,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
         <li class="bs-card" data-goals="prevention longevity" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hf-082110-c942.webp" alt="" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-magnesium.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -584,7 +607,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
         <li class="bs-card" data-goals="longevity" data-reveal>
           <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"></a>
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-omega3.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
           </div>
           <div class="bs-card__info">
@@ -809,9 +832,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a class="btn btn--dark" href="#">Shop bestsellers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
               <div class="reasons__products">
-                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-bone-tub.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Bone Health Formula</span></a>
+                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Bone Health Formula</span></a>
                 <a class="reasons__product" href="#"><img src="shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><strong>D3/K2+</strong><span class="t-small muted">Advanced Bone Support</span></a>
-                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-basic-tub.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Basic Formula</span></a>
+                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-basic-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Basic Formula</span></a>
               </div>
             </div>
           </div>
@@ -828,7 +851,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a class="btn btn--dark" href="#">Shop the basics <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
               <div class="reasons__products">
-                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-basic-tub.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Basic Formula</span></a>
+                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-basic-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Basic Formula</span></a>
                 <a class="reasons__product" href="#"><img src="shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"><strong>Creatine+</strong><span class="t-small muted">Muscle Support</span></a>
                 <a class="reasons__product" href="#"><img src="shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><strong>Magnesium</strong><span class="t-small muted">Sleep Support</span></a>
               </div>
@@ -849,7 +872,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <div class="reasons__products">
                 <a class="reasons__product" href="#"><img src="shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"><strong>Omega-3</strong><span class="t-small muted">Fish Oil</span></a>
                 <a class="reasons__product" href="#"><img src="shared/media/products/d3k2.webp" alt="" width="900" height="900" loading="lazy"><strong>D3/K2</strong><span class="t-small muted">Bone Support</span></a>
-                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-total-tub.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Total Body Formula</span></a>
+                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-total-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Total Body Formula</span></a>
               </div>
             </div>
           </div>
@@ -1231,6 +1254,9 @@ document.addEventListener('DOMContentLoaded', function () {
      the photo fades in on hover with an "Add bundle" pill; below: serif name, contents, struck-through old price + new price (10% off badge top left; user 2026-10-30).
      PLACEHOLDER PRICES: old price = the current site's (Healthy Bones Co.), new price = 10% off. The Ultimate group shows 4 of its 6 formulas. -->
 <style>
+/* 2026-11-18 (user): pouch versions. Main = cut-out group on soft beige (bundle-*-group.webp, made by compositing the transparent
+   product PNGs, pouch for Collagen), hover = the user's studio photo of the same set (bundle-*-pouch.webp). Placeholder sets
+   until the client defines the bundles. Tub versions: _backup-2026-11-18/70-bundles-before-pouch-photos.html */
 .bd { --bd-paper: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); --bd-radius: 1rem; }
 .bd__head { display: flex; justify-content: space-between; align-items: end; gap: var(--gutter); margin-bottom: var(--space-48); }
 .bd__head .t-eyebrow { margin-bottom: var(--space-12); font-size: var(--fs-16); line-height: 1.5rem; }
@@ -1244,9 +1270,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .bd-card__img { width: var(--bd-w, 70%); height: auto; object-fit: contain;   /* contact + ambient shadows are baked into the images, under each jar's own base */ transition: transform 0.8s var(--ease-out); }
 /* one jar scale for all groups (widths follow the Figma frames: 2154 / 2584 / 3065px wide at the same jar size), kept smaller to sit
    like the single products in the bestsellers (user, 2026-10-29) */
-.bd-card__img[src*="clinical"] { --bd-w: 48%; }
-.bd-card__img[src*="ritual"] { --bd-w: 57%; }
-.bd-card__img[src*="ultimate"] { --bd-w: 68%; }
+.bd-card__img[src*="clinical"] { --bd-w: 64%; }   /* pouch groups (2026-11-18): widths tuned so the pouches are the same size in all 3 cards */
+.bd-card__img[src*="ritual"] { --bd-w: 77%; }
+.bd-card__img[src*="ultimate"] { --bd-w: 85%; }
 .bd-card__alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 0.6s var(--ease-out), transform 1.2s var(--ease-out); }
 .bd-card:hover .bd-card__img, .bd-card:focus-within .bd-card__img { transform: scale(1.03); }
 .bd-card:hover .bd-card__alt, .bd-card:focus-within .bd-card__alt { opacity: 1; transform: none; }
@@ -1303,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <ul class="bd__grid">
       <li class="bd-card" data-reveal>
         <div class="bd-card__media">
-          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-clinical.webp" alt="" width="1400" height="1201" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-clinical-photo.webp" alt="" width="1200" height="1067" loading="lazy"></a>
+          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-clinical-group.webp" alt="" width="1160" height="1093" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-clinical-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
         </div>
         <div class="bd-card__info">
@@ -1315,7 +1341,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </li>
       <li class="bd-card" data-reveal>
         <div class="bd-card__media">
-          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-ritual.webp" alt="" width="1400" height="999" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-ritual-photo.webp" alt="" width="1200" height="1067" loading="lazy"></a>
+          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-ritual-group.webp" alt="" width="1384" height="1103" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-ritual-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
         </div>
         <div class="bd-card__info">
@@ -1327,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </li>
       <li class="bd-card" data-reveal>
         <div class="bd-card__media">
-          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-ultimate.webp" alt="" width="1400" height="886" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-ultimate-photo.webp" alt="" width="1200" height="1067" loading="lazy"></a>
+          <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="shared/media/bundles/bundle-ultimate-group.webp" alt="" width="1400" height="997" loading="lazy"></span><img class="bd-card__alt" src="shared/media/bundles/bundle-ultimate-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
         </div>
         <div class="bd-card__info">
@@ -1393,9 +1419,9 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="std__copy">
       <div class="std__head" data-reveal><p class="t-eyebrow">Our standards</p><h2 class="t-heading-serif" id="std-title">Four promises in <br>every formula.</h2></div>
       <ul class="std__list">
-        <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><h3>Superior quality ingredients</h3><p class="t-body">Named, patented forms you can look up on every&nbsp;label.</p></li>
+        <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><h3>Premium ingredients</h3><p class="t-body">High-quality ingredients backed by&nbsp;science.</p></li>
         <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-molecule"/></svg><h3>Research-supported</h3><p class="t-body">Ingredients chosen for the studies behind them, in the amounts&nbsp;studied.*</p></li>
-        <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-drop"/></svg><h3>Highly absorbable forms</h3><p class="t-body">Forms your body can use, like bisglycinate magnesium and liquid&nbsp;capsules.</p></li>
+        <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-drop"/></svg><h3>Highly absorbable forms</h3><p class="t-body">Forms your body can&nbsp;use.</p></li>
         <li class="std__item" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><h3>Good manufacturing</h3><p class="t-body">Made in the USA in GMP facilities and third-party&nbsp;tested.</p></li>
       </ul>
     </div>
@@ -1420,9 +1446,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .reviews__head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-48); margin-bottom: var(--space-64); }
 .reviews__head .t-eyebrow { font-size: var(--fs-16); line-height: 1.5rem; }
 .reviews__head h2 { margin-top: var(--space-16); }
-.reviews__badge { display: flex; align-items: center; gap: var(--space-16); max-width: 22rem; }   /* no box: copper n + two lines of text */
+.reviews__badge { display: flex; align-items: center; gap: var(--space-12); max-width: 24rem; }   /* user Figma 2026-11-17 ("Bonecoach approved", node 6872:5019): the real Bonecoach Approved stamp + two lines (was the copper n) */
 .reviews__badge .muted { color: var(--color-muted-on-light); }
-.reviews__badge img { flex: none; height: 3rem; width: auto; }   /* the n is as tall as the two lines of text (2 x 24px) */
+.reviews__badge img { flex: none; width: 4.375rem; height: auto; }   /* 70 x 66.5, as in Figma */
 .reviews__badge strong { font-weight: 500; }
 
 .reviews__rows { display: grid; gap: var(--gutter); }
@@ -1455,7 +1481,7 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
   .reviews__head { gap: var(--space-24); margin-bottom: var(--space-32); }
   .reviews__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .reviews__head h2 { margin-top: var(--space-12); }
-  .reviews__badge img { height: 2.5rem; }
+  .reviews__badge img { width: 3.5rem; }
   .reviews__rows { gap: var(--space-16); }
   .reviews__row { gap: var(--space-16); }
   .review { width: 17.5rem; gap: var(--space-16); padding: var(--space-24); }
@@ -1471,7 +1497,7 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
       <h2 class="t-heading-serif" id="reviews-title" data-reveal>In their own words.</h2>
     </div>
     <div class="reviews__badge" data-reveal>
-      <img src="assets/logo/nubonta-monogram-copper.svg" alt="" width="32" height="34">
+      <img src="shared/media/partners/bonecoach-approved-stamp.png" alt="Bonecoach Approved stamp" width="70" height="67">
       <p class="t-body"><strong>Bonecoach&trade; Approved.</strong><br><span class="muted">Trusted by the Bonecoach community.</span></p>
     </div>
   </div>
@@ -1620,7 +1646,8 @@ document.addEventListener('DOMContentLoaded', function () {
 body:has(#newsletter) { --ft-overlap: 8rem; }
 .nl { position: relative; z-index: 1; padding-bottom: 0; display: flow-root; padding-top: 0;   /* white after the white FAQ: the FAQ's 96px bottom padding is the gap */   /* flow-root: the white band ends 8rem above the card bottom, so the card overlaps the footer */ --nl-dark: color-mix(in srgb, var(--color-graphite) 25%, var(--color-charcoal)); }   /* #161615, the footer's dark (user 2026-10-30) */
 
-/* colour themes (2026-10-30): every theme sets the same variables; --nl-dark is the panel + gradient colour whatever its lightness.
+/* Charcoal confirmed by the client 2026-11-17; the review-link colour switcher was removed (copy in _backup-2026-11-17-copy/890-newsletter-with-switcher.html). Theme variables kept below.
+   colour themes (2026-10-30): every theme sets the same variables; --nl-dark is the panel + gradient colour whatever its lightness.
    Contrast (WCAG): text 4.8-19:1 everywhere, field edge 3:1+; the Charcoal theme keeps the user's copper button (3.45:1, below 4.5). */
 .nl { --nl-fg: var(--color-white); --nl-muted: color-mix(in srgb, var(--color-white) 76%, transparent); --nl-eyebrow: var(--color-stone);
   --nl-btn-bg: var(--color-copper); --nl-btn-fg: var(--color-white); --nl-btn-hover: color-mix(in srgb, var(--color-copper) 85%, var(--color-white));
@@ -1636,15 +1663,6 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
 .nl[data-nl-theme="white"] { --nl-dark: var(--color-white); --nl-muted: color-mix(in srgb, var(--color-charcoal) 70%, transparent); }
 .nl[data-nl-theme="copper"] { --nl-dark: var(--color-copper); --nl-muted: color-mix(in srgb, var(--color-charcoal) 88%, transparent); --nl-eyebrow: var(--color-charcoal); --nl-field-edge: transparent; }
 
-/* colour switcher: review link only (html.nb-preview, or ?themes on the URL); hidden on the real page and in exports */
-.nl__themes { position: absolute; top: var(--space-16); right: var(--space-16); z-index: 2; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4);
-  border-radius: var(--radius-pill); background: var(--color-white); color: var(--color-charcoal); --focus: var(--color-charcoal); box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.18); }
-.nl__themes[hidden] { display: none; }
-.nl__themes button { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
-.nl__themes button:hover { background: color-mix(in srgb, var(--color-stone) 45%, var(--color-white)); }
-.nl__themes .icon { font-size: var(--fs-20); }
-.nl__themes .nl__prev .icon { transform: scaleX(-1); }
-.nl__themes output { min-width: 7.5rem; text-align: center; font: 500 var(--fs-14)/1.25rem var(--font-sans); }
 .nl__card { margin-bottom: calc(var(--ft-overlap) * -1);   /* full content width (user 2026-10-30; was 896px like the FAQ) */
   position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; padding: var(--space-64) var(--space-48) var(--space-64) var(--space-96);   /* 64 top/bottom, 96 left: the user's Figma update (2026-10-30, node 6642:3) */
   border-radius: var(--radius-lg); background: var(--nl-dark); color: var(--nl-fg); --focus: var(--nl-fg); }
@@ -1705,16 +1723,11 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
       <img class="nl__photo" src="shared/media/newsletter/panel.webp" srcset="shared/media/newsletter/panel-1200.webp 1200w, shared/media/newsletter/panel.webp 2640w" sizes="(min-width: 1440px) 1320px, 100vw"
            alt="A smiling woman holding a Nubonta Collagen Peptides pouch to her cheek" loading="lazy" decoding="async">
       <span class="nl__edge" aria-hidden="true"></span>
-      <div class="nl__themes" role="group" aria-label="Banner colour (design preview)" hidden>
-        <button class="nl__prev" type="button" aria-label="Previous colour"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <output aria-live="polite">Charcoal</output>
-        <button class="nl__next" type="button" aria-label="Next colour"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </div>
       <div class="nl__body">
         <div class="nl__copy">
           <p class="t-eyebrow">Newsletter</p>
           <h2 id="nl-title">The Nubonta letter.</h2>
-          <p class="t-body-lg">Bone health, explained simply. Recipes for your daily scoop. <br class="nl__br">First word on new formulas. Twice a month, never more.</p>
+          <p class="t-body-lg">Our email newsletter: bone health tips, easy recipes and the first word on new formulas, straight to your inbox.</p>
         </div>
         <div class="nl__side">
           <form class="nl__form" onsubmit="event.preventDefault()">
@@ -1729,179 +1742,146 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
   </div>
 </section>
 
-<script>
-/* banner colour switcher (design preview only): cycles data-nl-theme on the section */
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.getElementById('newsletter'); if (!root) return;
-  var box = root.querySelector('.nl__themes');
-  if (!(document.documentElement.classList.contains('nb-preview') || /[?&]themes\b/.test(location.search))) return;
-  var themes = [['charcoal', 'Charcoal'], ['graphite', 'Graphite'], ['stone', 'Stone'], ['soft', 'Soft beige'], ['white', 'White'], ['copper', 'Copper']];
-  var i = 0, out = box.querySelector('output');
-  function show(n) { i = (n + themes.length) % themes.length; root.setAttribute('data-nl-theme', themes[i][0]); out.textContent = themes[i][1] + ' ' + (i + 1) + '/' + themes.length; }
-  box.querySelector('.nl__prev').addEventListener('click', function () { show(i - 1); });
-  box.querySelector('.nl__next').addEventListener('click', function () { show(i + 1); });
-  box.hidden = false; show(0);
-});
-</script>
-
 </main>
 <!-- ===== section: 900-footer.html ===== -->
-<!-- Section: footer (Figma node 6488:4986, 2026-10-29). Same dark band as the hero, Small daily steps and tub stats: #161615 + silk-shadow texture (multiply) + fine grain.
-     Top (v2): a brand line (left, 4 columns) and four link groups in one row (right, 7 columns): Shop, Learn, Company, Follow (round social icons, placeholder links).
-     Then the Stronger Bones companies (Bonecoach, OsteoIQ) and the 4 causes they support, logos from healthybonesco.com shown white (user 2026-10-30).
-     Middle: the full-width white wordmark. Bottom: a legal card (FDA disclaimer + ingredient trademarks, 12px = legal text),
-     then the copper n | NUBONTA.COM lockup, copyright, legal links and a back-to-top button.
-     PLACEHOLDERS: link targets (#), newsletter backend, Instagram/YouTube handles. -->
+<!-- Section: footer. REBUILT 2026-11-17 from the user's Figma frame "footer update" (node 6872:4522), after the client's video:
+     tagline "Strengthen the structure that carries your life." (THE tagline), wordmark at a normal size, link columns like the client's
+     other sites (Shop / Learn / Policies / Connect), then a Charcoal card: Bonecoach Approved stamp, the Stronger Bones companies
+     (Nubonta, Bonecoach, OsteoIQ), the press logos running, the 4 causes; copyright bar. No copper n.
+     Same dark band as before (#161615 + silk shadow + grain). Previous footer: v2/_backup-2026-11-17-figma/900-footer.html.
+     PLACEHOLDERS: link targets (#), phone number (from the Figma frame), social handles. -->
 <style>
 .ft { position: relative; isolation: isolate; overflow: hidden; background: color-mix(in srgb, var(--color-graphite) 25%, var(--color-charcoal)); color: var(--color-white); --focus: var(--color-white); padding-top: calc(var(--space-96) + var(--ft-overlap, 0rem)); }   /* --ft-overlap: room for the newsletter banner that hangs into the footer (set in 890-newsletter) */
 .ft::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url("shared/media/textures/silk-shadow.webp") center / cover no-repeat; mix-blend-mode: multiply; }
 .ft::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.07; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
-.ft__panel { background: color-mix(in srgb, var(--color-charcoal) 30%, transparent); }
 
 .ft__top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-
-/* newsletter card */
-
-/* link groups, 2 x 2 */
-.ft__tagline { grid-column: 1 / span 4; font: 400 var(--fs-32)/2.5rem var(--font-serif); color: var(--color-stone); }   /* v2: the newsletter moved to its own banner above the footer */
-.ft__nav { grid-column: 6 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--space-40); }
-.ft__nav h3 { font: 400 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-taupe); margin-bottom: var(--space-16); }
+.ft__brand { grid-column: 1 / span 4; display: grid; row-gap: var(--space-32); }
+.ft__logo { width: 23rem; max-width: 100%; height: auto; }   /* 369px, as in Figma */
+.ft__tagline { font: 400 var(--fs-32)/2.5rem var(--font-serif); color: var(--color-stone); }
+.ft__nav { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.25fr); column-gap: var(--gutter); }
+.ft__nav h3 { font: 400 1.125rem/1.5rem var(--font-sans); color: var(--color-stone); margin-bottom: var(--space-12); }
 .ft__nav ul { display: grid; row-gap: var(--space-12); }
-.ft__nav a { font: 400 var(--fs-16)/1.5rem var(--font-sans); text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.4s var(--ease-out); }
-.ft__nav a:hover { background-size: 100% 1px; }
+.ft__nav ul a { font: 400 var(--fs-16)/1.5rem var(--font-sans); text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.4s var(--ease-out); }
+.ft__nav ul a:hover { background-size: 100% 1px; }
+/* Connect column */
+.ft__connect h3 { margin-bottom: var(--space-16); padding-bottom: var(--space-16); border-bottom: 1px solid color-mix(in srgb, var(--color-white) 30%, transparent); }
+.ft__connect p { font: 400 var(--fs-16)/1.5rem var(--font-sans); }
+.ft__connect > * + * { margin-top: var(--space-16); }
+.ft__phone { white-space: nowrap; display: inline-flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.5rem var(--font-sans); text-decoration: none; }
+.ft__phone:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ft__phone span { display: grid; place-items: center; width: 1.875rem; height: 1.875rem; border-radius: var(--radius-sm); background: var(--color-charcoal); }
+.ft__phone img { width: 0.875rem; height: auto; }
+.ft__nav .ft__social { display: flex; gap: var(--space-16); }
+.ft__nav .ft__social a { display: block; border-radius: var(--radius-sm); background: none; transition: opacity 0.25s; }
+.ft__nav .ft__social a:hover { opacity: 0.7; }
+.ft__social img { display: block; width: 1.875rem; height: 1.875rem; }
 
-/* social icons (Follow column): round outline buttons */
-.ft__nav .ft__social { display: flex; gap: var(--space-12); }
-.ft__nav .ft__social a { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--color-white) 30%, transparent); background: none; transition: background-color 0.25s, border-color 0.25s; }
-.ft__nav .ft__social a:hover { background-color: color-mix(in srgb, var(--color-white) 12%, transparent); border-color: var(--color-white); }
-.ft__nav .ft__social .icon { font-size: var(--fs-24); stroke-width: 1.5; }
-
-/* the Stronger Bones companies + the causes they support (from healthybonesco.com, user 2026-10-30); logos shown white */
-.ft__family { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); margin-top: var(--space-64); padding-top: var(--space-48); border-top: 1px solid color-mix(in srgb, var(--color-white) 18%, transparent); }
-.ft__group h3 { font: 400 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-taupe); margin-bottom: var(--space-40); }   /* 40px to the logos (was 24), user 2026-10-30 */
-.ft__group--co { grid-column: 1 / span 4; }
-.ft__group--causes { grid-column: 5 / -1; }
-.ft__group h3 { text-align: center; }   /* both titles centred over their logos (user 2026-10-30) */   /* starts one column closer to the companies (was 6), user 2026-10-30 */
-.ft__family img { filter: brightness(0) invert(1); opacity: 0.8; transition: opacity 0.3s; }
-.ft__family a:hover img { opacity: 1; }
+/* the card: Bonecoach Approved, the Stronger Bones companies, press, causes */
+.ft__card { margin-top: var(--space-48); padding: var(--space-24) 0; border-radius: var(--radius-card); background: var(--color-charcoal); display: grid; justify-items: center; row-gap: var(--space-24); text-align: center; overflow: hidden; }
+.ft__stamp { width: 5rem; height: auto; }
+.ft__card h3 { font: 500 var(--fs-16)/1.5rem var(--font-sans); letter-spacing: 0.02em; text-transform: uppercase; }
 .ft__logos { display: flex; justify-content: center; align-items: center; gap: var(--space-48); }
-.ft__logos img { height: 2.5rem; width: auto; }
-.ft__causes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
-.ft__causes li { display: grid; align-content: start; justify-items: center; row-gap: var(--space-12); text-align: center; }   /* caption centred under its logo (user 2026-10-30) */
-.ft__causes img { height: 2.5rem; width: auto; }
-.ft__causes span { font: 400 var(--fs-14)/1.25rem var(--font-sans); color: color-mix(in srgb, var(--color-white) 75%, transparent); }
+.ft__logos li, .ft__logos a { display: flex; align-items: center; }   /* 2026-11-18: no inline-image baseline gap, so the 3 logos are centred on one line */
+.ft__logos img { display: block; }
+.ft__logos .ft__nb { width: 8.375rem; height: auto; }
+.ft__logos .ft__bc, .ft__logos .ft__oiq { width: 9.375rem; height: auto; }
+.ft__logos .ft__bc { transform: translateY(0.5rem); }   /* 2026-11-18 user: optical centring, Bonecoach 8px lower */
+.ft__press { width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.ft__press-row { display: flex; align-items: center; gap: 4.6875rem; width: max-content; }
+.ft__press-row img { height: 2.1875rem; width: auto; opacity: 0.3; }
+.motion .ft__press-row { animation: ft-press 60s linear infinite; }
+@keyframes ft-press { to { transform: translateX(calc(-50% - 2.34375rem)); } }
+html:not(.motion) .ft__press-row { flex-wrap: wrap; justify-content: center; width: auto; row-gap: var(--space-24); padding-inline: var(--space-24); }
+html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
+.ft__causes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--space-48); width: min(61.25rem, 100% - 3rem); align-items: end; }
+.ft__causes li { display: grid; justify-items: center; row-gap: var(--space-12); }
+.ft__causes img { height: 3.5rem; width: auto; }
+.ft__causes span { font: 400 var(--fs-14)/1.25rem var(--font-sans); }
 
-/* the wordmark across the full content width */
-.ft__mark { margin-top: var(--space-48); }
-.ft__mark img { width: 100%; height: auto; display: block; }
+.ft__fda { max-width: 48rem; margin: var(--space-32) auto 0; text-align: center; font: 400 var(--fs-12)/1rem var(--font-sans); color: color-mix(in srgb, var(--color-white) 75%, transparent); }   /* 2026-11-18: FDA line back (required) */
+.ft__bottom { margin-top: var(--space-24); padding: var(--space-12) 0; background: var(--color-charcoal); text-align: center; }
+.ft__bottom p { font: 400 var(--fs-12)/1rem var(--font-sans); }
 
-/* legal card */
-.ft__legal { display: grid; grid-template-columns: 1fr; column-gap: var(--gutter); margin-top: var(--space-96); padding: var(--space-24) var(--space-32); border-radius: var(--radius-card); }
-.ft__legal p { max-width: 60rem; font: 400 var(--fs-12)/1rem var(--font-sans); }
-.ft__legal p + p { color: var(--color-taupe); }
-
-/* bottom row */
-.ft__bottom { display: flex; align-items: center; gap: var(--space-32); margin-top: var(--space-32); padding: var(--space-32) 0 var(--space-40); border-top: 1px solid color-mix(in srgb, var(--color-white) 18%, transparent); }   /* hairline between the wordmark and the bottom row: 32px above it, 32px below it */
-.ft__lockup { display: flex; align-items: center; gap: var(--space-12); text-decoration: none; color: var(--color-copper); font: 500 var(--fs-14)/1.25rem var(--font-sans); letter-spacing: 0.15em; text-transform: uppercase; }
-.ft__lockup img { width: 1.25rem; height: auto; }
-.ft__lockup span { width: 1px; height: 1.25rem; background: var(--color-copper); }
-.ft__copy { font: 400 var(--fs-14)/1.25rem var(--font-sans); color: var(--color-white); }
-.ft__links { margin-left: auto; display: flex; gap: var(--space-24); }
-.ft__links a { font: 400 var(--fs-14)/1.25rem var(--font-sans); text-decoration: none; }
-.ft__links a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.ft__top-btn { flex: none; width: 3rem; height: 3rem; border-radius: 50%; background: var(--color-charcoal); color: var(--color-white); display: grid; place-items: center; font-size: 0.75rem; transition: transform 0.3s var(--ease-out); }
-.ft__top-btn:hover { transform: translateY(-0.25rem); }
-.ft__top-btn .icon { stroke-width: 2; }
-
+@media (max-width: 1279px) { .ft__brand { grid-column: 1 / span 3; } .ft__nav { grid-column: 4 / -1; } }
 @media (max-width: 1023px) {
-  .ft__tagline, .ft__nav, .ft__group--co, .ft__group--causes { grid-column: 1 / -1; }
-  .ft__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ft__group--causes { margin-top: var(--space-48); }
+  .ft__brand, .ft__nav { grid-column: 1 / -1; }
+  .ft__nav { margin-top: var(--space-48); grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-40); }
   .ft__causes { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-32); }
-  .ft__nav { margin-top: var(--space-48); }
-  .ft__legal { grid-template-columns: 1fr; row-gap: var(--space-16); }
-  .ft__bottom { flex-wrap: wrap; }
-  .ft__links { margin-left: 0; flex-wrap: wrap; }
 }
-/* phones (designed at 375px, user 2026-10-30): 48px section spacing, nothing under 14px */
+/* phones (designed at 375px): 48px section spacing, nothing under 14px except the copyright */
 @media (max-width: 767px) {
   .ft { padding-top: calc(var(--space-48) + var(--ft-overlap, 0rem)); }
-  .ft__nav { margin-top: var(--space-32); row-gap: var(--space-32); }
-  .ft__family { margin-top: var(--space-48); padding-top: var(--space-32); row-gap: 0; }
-  .ft__group--causes { margin-top: var(--space-32); }
-  .ft__group h3 { margin-bottom: var(--space-24); font-size: var(--fs-14); line-height: 1.25rem; }
-  .ft__logos { gap: var(--space-32); }
-  .ft__logos img { height: 2rem; }
-  .ft__causes { row-gap: var(--space-24); }
-  .ft__causes img { height: 2rem; }
-  .ft__mark { margin-top: var(--space-32); }
-  /* bottom row centred under the wordmark (user 2026-10-30) */
-  .ft__bottom { flex-direction: column; align-items: center; gap: var(--space-16); margin-top: var(--space-24); padding: var(--space-24) 0 var(--space-32); text-align: center; }
-  .ft__links { justify-content: center; gap: var(--space-8) var(--space-16); }
+  .ft__brand { row-gap: var(--space-16); }
+  .ft__logo { width: 12rem; }
   .ft__tagline { font-size: var(--fs-24); line-height: 2rem; }
+  .ft__nav { margin-top: var(--space-32); row-gap: var(--space-32); }
+  .ft__connect { grid-column: 1 / -1; }
+  .ft__card { margin-top: var(--space-32); }
+  /* 2026-11-18 user: phone card laid out like healthybonesco.com's footer box: one centred column (stamp, heading, the 3 company logos
+     stacked, press marquee, heading, the 4 causes stacked) */
+  .ft__card { padding: var(--space-24) var(--space-16); }
+  .ft__card h3 { padding-inline: 0; }
+  .ft__logos { flex-direction: column; gap: var(--space-24); }
+  .ft__logos .ft__nb { width: 8.375rem; }
+  .ft__logos .ft__bc, .ft__logos .ft__oiq { width: 8.5rem; }
+  .ft__logos .ft__bc { transform: none; }   /* the 8px optical nudge only matters when the logos share a line */
+  .ft__press-row { gap: var(--space-40); }
+  .ft__press-row img { height: 1.5rem; }
+  .ft__press { margin-inline: calc(-1 * var(--space-16)); width: calc(100% + 2 * var(--space-16)); }
+  .ft__causes { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-32); width: 100%; }
+  .ft__causes span { max-width: 14rem; }
+  .ft__causes img { height: 2.75rem; }
 }
 </style>
 
 <footer class="ft" id="footer">
   <div class="container">
     <div class="ft__top">
-      <p class="ft__tagline">Healthy aging starts within.</p>
+      <div class="ft__brand">
+        <img class="ft__logo" src="assets/logo/nubonta-wordmark-white.svg" alt="Nubonta" width="369" height="75">
+        <p class="ft__tagline">Strengthen the structure that carries your life.</p>
+      </div>
 
       <nav class="ft__nav" aria-label="Footer">
         <div><h3>Shop</h3><ul><li><a href="#">All products</a></li><li><a href="#">Bundles</a></li><li><a href="#bestsellers">Bestsellers</a></li><li><a href="#">Subscribe &amp; save</a></li></ul></div>
-        <div><h3>Learn</h3><ul><li><a href="#">Blog</a></li><li><a href="#">Recipes</a></li><li><a href="#">Ingredients</a></li><li><a href="#">FAQ</a></li></ul></div>
-        <div><h3>Company</h3><ul><li><a href="#about">About</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#">Contact</a></li><li><a href="#">Log in</a></li></ul></div>
-        <div><h3>Follow</h3><ul class="ft__social"><li><a href="#" aria-label="Nubonta on Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a></li><li><a href="#" aria-label="Nubonta on Facebook"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a></li><li><a href="#" aria-label="Nubonta on YouTube"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></a></li></ul></div>
+        <div><h3>Learn</h3><ul><li><a href="#about">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Recipes</a></li><li><a href="#">Ingredients</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#">FAQ</a></li></ul></div>
+        <div><h3>Policies</h3><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Returns</a></li><li><a href="#">Shipping Policies</a></li><li><a href="#">Medical Disclaimer</a></li><li><a href="#">Subscriptions</a></li><li><a href="#">Terms of service</a></li><li><a href="#">Accessibility Statement</a></li></ul></div>
+        <div class="ft__connect">
+          <h3>Connect</h3>
+          <p>If you have any questions, please get in&nbsp;touch!</p>
+          <p><a class="ft__phone" href="tel:+18888475556"><span><img src="shared/media/partners/icon-phone.svg" alt="" width="14" height="14"></span>+1 (888) 847-5556</a></p>
+          <p>Follow us on Social Media.</p>
+          <ul class="ft__social"><li><a href="#" aria-label="Nubonta on Facebook"><img src="shared/media/partners/footer-facebook.svg" alt="" width="30" height="30"></a></li><li><a href="#" aria-label="Nubonta on Instagram"><img src="shared/media/partners/footer-instagram.svg" alt="" width="30" height="30"></a></li></ul>
+        </div>
       </nav>
     </div>
 
-    <div class="ft__family">
-      <div class="ft__group ft__group--co">
-        <h3>The Stronger Bones Companies</h3>
-        <ul class="ft__logos">
-          <li><a href="https://bonecoach.com/"><img src="shared/media/partners/bonecoach-logo.svg" alt="Bonecoach" width="152" height="38"></a></li>
-          <li><a href="https://osteoiq.com/"><img src="shared/media/partners/logo-osteo-iq.svg" alt="OsteoIQ" width="149" height="48"></a></li>
-        </ul>
+    <div class="ft__card">
+      <img class="ft__stamp" src="shared/media/partners/bonecoach-approved-stamp.png" alt="Bonecoach Approved" width="80" height="77">
+      <h3>The Stronger Bones Companies</h3>
+      <ul class="ft__logos">
+        <li><img class="ft__nb" src="assets/logo/nubonta-wordmark-white.svg" alt="Nubonta" width="134" height="27"></li>
+        <li><a href="https://bonecoach.com/"><img class="ft__bc" src="shared/media/partners/bonecoach-logo-white-large.svg" alt="Bonecoach" width="150" height="50"></a></li>
+        <li><a href="https://osteoiq.com/"><img class="ft__oiq" src="shared/media/partners/logo-osteo-iq.svg" alt="OsteoIQ" width="149" height="48"></a></li>
+      </ul>
+      <div class="ft__press" role="group" aria-label="As seen in">
+        <div class="ft__press-row"><img src="shared/media/press/cbs.svg" alt="CBS"><img src="shared/media/press/verywell.svg" alt="Verywell"><img src="shared/media/press/pbs.svg" alt="PBS"><img src="shared/media/press/nbc.svg" alt="NBC"><img src="shared/media/press/oz.svg" alt="The Dr. Oz Show"><img src="shared/media/press/ww.svg" alt="Woman's World"><img src="shared/media/press/abc.svg" alt="ABC"><img src="shared/media/press/fox.svg" alt="FOX"><img src="shared/media/press/elle.svg" alt="Elle"><img src="shared/media/press/iin.svg" alt="IIN"><img src="shared/media/press/forbes.svg" alt="Forbes"><img src="shared/media/press/glamour.svg" alt="Glamour"><span aria-hidden="true" style="display:contents"><img src="shared/media/press/cbs.svg" alt=""><img src="shared/media/press/verywell.svg" alt=""><img src="shared/media/press/pbs.svg" alt=""><img src="shared/media/press/nbc.svg" alt=""><img src="shared/media/press/oz.svg" alt=""><img src="shared/media/press/ww.svg" alt=""><img src="shared/media/press/abc.svg" alt=""><img src="shared/media/press/fox.svg" alt=""><img src="shared/media/press/elle.svg" alt=""><img src="shared/media/press/iin.svg" alt=""><img src="shared/media/press/forbes.svg" alt=""><img src="shared/media/press/glamour.svg" alt=""></span></div>
       </div>
-      <div class="ft__group ft__group--causes">
-        <h3>By supporting these companies you also support</h3>
-        <ul class="ft__causes">
-          <li><img src="shared/media/partners/developing-kids.svg" alt="" width="64" height="64"><span>Meals for hungry &amp; developing kids</span></li>
-          <li><a href="https://mentoramillion.com/"><img src="shared/media/partners/logo-mentor-a-milion.svg" alt="Mentor a Million" width="179" height="56"></a><span>Mentorship for children who need strong role models</span></li>
-          <li><a href="https://strengthismystory.com/"><img src="shared/media/partners/logo-sims-footer.svg" alt="Strength Is My Story" width="140" height="40"></a><span>A mantra-driven movement for perseverance and growth</span></li>
-          <li><img src="shared/media/partners/rescue-dogs.svg" alt="" width="64" height="64"><span>Forever homes for rescue&nbsp;dogs</span></li>
-        </ul>
-      </div>
+      <h3>By supporting these companies you also support</h3>
+      <ul class="ft__causes">
+        <li><img src="shared/media/partners/developing-kids.svg" alt="" width="56" height="56"><span>Meals For Hungry &amp; Developing Kids</span></li>
+        <li><a href="https://mentoramillion.com/"><img src="shared/media/partners/logo-mentor-a-milion.svg" alt="Mentor a Million" width="179" height="56"></a><span>Mentorship For Children Who Need Strong Role Models</span></li>
+        <li><a href="https://strengthismystory.com/"><img src="shared/media/partners/logo-sims-footer.svg" alt="Strength Is My Story" width="140" height="40"></a><span>A Mantra-Driven Movement For Perseverance And Growth</span></li>
+        <li><img src="shared/media/partners/rescue-dogs.svg" alt="" width="56" height="56"><span>Forever Homes For Rescue Dogs</span></li>
+      </ul>
     </div>
 
-    <div class="ft__mark" aria-hidden="true"><img src="assets/logo/nubonta-wordmark-white.svg" alt=""></div>
-
-    <!-- legal card (FDA disclaimer + ingredient trademarks) hidden for now (user, 2026-10-29).
-         The FDA disclaimer is REQUIRED on the live site: restore before launch.
-    <div class="ft__legal ft__panel">
-      <p>*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p>
-       ingredient trademark line hidden for now (user, 2026-10-29); legal may still require it before launch:
-      <p>OsteoCaf&reg;, Calzbone&reg;, MenaQ7&reg;, FORTIBONE&reg;, FORTIGEL&reg;, VERISOL&reg;, CREAVITALIS&reg; and myHMB&reg; are registered trademarks of their respective owners.</p> 
-    </div>
-    -->
-
-    <div class="ft__bottom">
-      <a class="ft__lockup" href="#top" aria-label="Back to top, nubonta.com"><img src="assets/logo/nubonta-monogram-copper.svg" alt="" width="20" height="22"><span></span>Nubonta.com</a>
-      <p class="ft__copy">&copy; 2027 Nubonta. Formerly Healthy Bones Co.</p>
-      <ul class="ft__links"><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Accessibility</a></li><li><a href="#">Shipping &amp; returns</a></li></ul>
-      <a class="ft__top-btn" href="#top" aria-label="Back to top"><svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a>
-    </div>
+    <!-- FDA disclaimer: required; restored 2026-11-18 (user asked), centred under the card, 12px legal text -->
+    <p class="ft__fda">*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p>
   </div>
+  <div class="ft__bottom"><p>&copy;2027 Nubonta. All Rights Reserved.</p></div>
 </footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.getElementById('footer'); if (!root) return;
-  var g = window.gsap; if (!g || !window.ScrollTrigger || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  /* the wordmark rises into place as it scrolls in */
-  g.from(root.querySelector('.ft__mark img'), { yPercent: 30, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: root.querySelector('.ft__mark'), start: 'top 90%', once: true } });
-});
-</script>
 
 
 </body>

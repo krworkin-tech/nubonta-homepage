@@ -42,7 +42,7 @@
   --section-y: 6rem;
   --page-margin: 2rem;            /* below 1440: margins appear; at 1440+: edge to edge */
 
-  --radius-card: 1.5rem; --radius-lg: 2rem; --radius-pill: 999px;
+  --radius-sm: 0.5rem; --radius-md: 1rem; --radius-card: 1.5rem; --radius-lg: 2rem; --radius-pill: 999px;   /* 8 thumbnails / 16 small cards / 24 cards / 32 large photos and panels */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --surface-glass: color-mix(in srgb, var(--color-charcoal) 72%, transparent);
