@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
   background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
 .hero__media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
 /* user Figma 2026-11-17 (node 6872:4422): the extended photo, shifted ~4% to the left so the Healthy Bones Co. tag fits to the right of the bottles */
-.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }   /* right edge anchored: on screens narrower than 1920 the dark left side is cropped, so the bottles move left of the tag */
+.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 80% 50%; }   /* 2026-11-18 new zoomed-out photo (Figma 6933:3123 update): 80% keeps the products between the copy and the tag at 1280-1440 (100% put them under the headline) */   /* right edge anchored: on screens narrower than 1920 the dark left side is cropped, so the bottles move left of the tag */
 /* 2026-11-18 new hero (Figma 6933:3123): new photo (dark left side is in the photo) fills the hero exactly, no parallax, so the products are always whole */
 /* (old silk-shadow layer removed with the new hero, 2026-11-18; it's in _backup-2026-11-18/20-hero-before-new-hero.html) */
 /* Figma 6933:3124: gradient #1a1a18 (user's own value, kept as given) -> transparent, over the left 65.2% (1252 of 1920) */
@@ -299,8 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero__ctas .icon { margin-left: var(--space-8); }
 /* user Figma 2026-11-17 ("Tag small banner", node 6872:5079): "Formerly Healthy Bones Co." tag with the HBC logo, Charcoal, flush to the right edge
    next to the bottles (replaces the copper n label; client: don't force the n). The magenta is Healthy Bones Co.'s own logo colour. */
-.hero__tag { position: absolute; right: 0; bottom: 5.1875rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.3125rem; width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem;
-  background: var(--color-charcoal); color: var(--color-white); font: 400 1.125rem/1.2 var(--font-sans); }
+.hero__tag { position: absolute; right: 0; bottom: 5.1875rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.3125rem; width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
+  background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }
 .hero__tag img { flex: none; width: 6.3125rem; height: auto; }
 
 @media (max-width: 1279px) {
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="hero__media">
     <picture>
       <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-family-mobile.webp" width="750" height="800">
-      <img src="shared/media/hero/hero-family-new-1920.webp" srcset="shared/media/hero/hero-family-new-1200.webp 1200w, shared/media/hero/hero-family-new-1920.webp 1920w, shared/media/hero/hero-family-new.webp 2346w" sizes="100vw"
+      <img src="shared/media/hero/hero-family-new-1920.webp" srcset="shared/media/hero/hero-family-new-1200.webp 1200w, shared/media/hero/hero-family-new-1920.webp 1920w, shared/media/hero/hero-family-new.webp 2537w" sizes="100vw"
          alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="1920" height="690">
     </picture>
   </div>
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
     </div>
   </div>
-  <p class="hero__tag h-in"><img src="shared/media/partners/healthy-bones-co-logo.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
+  <p class="hero__tag h-in"><img src="shared/media/partners/healthy-bones-co-logo-dark.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
 </section>
 
 <script>
