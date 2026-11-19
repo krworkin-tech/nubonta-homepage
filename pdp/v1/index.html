@@ -32,7 +32,7 @@
   --font-serif: "Nimbus Roman", "Times New Roman", Times, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-20: 1.25rem; --fs-24: 1.5rem;
+  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-18: 1.125rem; --fs-20: 1.25rem; --fs-24: 1.5rem;
   --fs-32: 2rem; --fs-40: 2.5rem; --fs-48: 3rem; --fs-64: 4rem; --fs-80: 5rem; --fs-96: 6rem;
 
   --type-display: var(--fs-48);       --lh-display: 3rem;
@@ -583,15 +583,15 @@ input:checked + .pb__pill small { color: color-mix(in srgb, var(--color-white) 7
 .pb__flag { position: absolute; top: calc(-1 * var(--space-16)); left: 50%; transform: translateX(-50%); height: 1.5rem; padding: 0 var(--space-12); border-radius: var(--radius-pill); background: var(--color-copper); color: var(--color-white); font: 500 var(--fs-12)/1.5rem var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 /* plan: two cards */
 .pb__plan { display: grid; gap: var(--space-8); }
-.pb__card { display: grid; grid-template-columns: auto 1fr auto; column-gap: var(--space-12); align-items: start; padding: var(--space-16) var(--space-24) var(--space-16) var(--space-16); border-radius: var(--radius-md); --ring: inset 0 0 0 1px var(--pb-line); cursor: pointer; transition: background-color 0.2s, background-color 0.2s; }
+.pb__card { display: grid; grid-template-columns: auto 1fr auto; column-gap: var(--space-8); align-items: start; padding: var(--space-16) var(--space-24) var(--space-16) var(--space-16); border-radius: var(--radius-md); --ring: inset 0 0 0 1px var(--pb-line); cursor: pointer; transition: background-color 0.2s, background-color 0.2s; }
 .pb__card:hover { --ring: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 40%, transparent); }
 input:checked + .pb__card { --ring: inset 0 0 0 2px var(--color-charcoal); background: var(--pb-paper); }
 .pb__dot { width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 40%, transparent); transition: box-shadow 0.2s; }
 input:checked + .pb__card .pb__dot { box-shadow: inset 0 0 0 0.3125rem var(--color-charcoal); }
 .pb__card strong { font-weight: 500; }
-.pb__save { display: inline-flex; margin-left: var(--space-8); height: 1.5rem; align-items: center; padding: 0 var(--space-8); border-radius: var(--radius-pill); background: var(--color-charcoal); color: var(--color-white); font: 500 var(--fs-12)/1.5rem var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; vertical-align: 0.125rem; }
+.pb__save { display: inline-flex; margin-left: var(--space-8); height: 1.5rem; align-items: center; padding: 0 var(--space-12); border-radius: var(--radius-pill); background: var(--color-charcoal); color: var(--color-white); font: 500 var(--fs-12)/1.5rem var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; vertical-align: 0.125rem; }
 .pb__price { text-align: right; } .pb__price s { display: block; color: var(--color-muted-on-light); }
-.pb__perks { display: none; grid-column: 2 / -1; margin-top: var(--space-4); gap: var(--space-4); }   /* 4px between the perks (user 2026-11-09, was 8); 4px under the price (user 2026-11-19, was 12) */
+.pb__perks { display: none; grid-column: 1 / -1; margin-top: 0; padding-left: var(--space-8); gap: var(--space-4); }   /* 4px between the perks (user 2026-11-09, was 8); Figma 7007:166 (user 2026-11-19): right where the price ends, full width, 8px in from the selector */
 input:checked + .pb__card .pb__perks { display: grid; }
 .pb__perks li { display: flex; align-items: center; gap: var(--space-8); color: var(--color-muted-on-light); }
 .pb__perks .icon { color: var(--color-charcoal); }
@@ -828,7 +828,7 @@ input:checked + * .pv2b__qtag { background: var(--color-copper); color: var(--co
 /* user 2026-11-09: packaging cards show the name only (no sub-line), on every screen */
 .pb__fcard small { display: none; }
 /* user 2026-11-09: the "10% off" tag stays on the same row as "Subscribe & save" (it wrapped under it on phones) */
-.pb__card > span:has(> .pb__save) { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-8); }
+.pb__card > span:has(> .pb__save) { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-12); }   /* 12px title to tag (Figma 7007:166) */
 .pb__card > span:has(> .pb__save) > strong { white-space: nowrap; }
 .pb__card > span:has(> .pb__save) > .pb__save { margin-left: 0; flex: none; }
 .pb__card > span:has(> .pb__save) > :not(strong):not(.pb__save) { flex-basis: 100%; }
@@ -853,6 +853,18 @@ input:checked + * .pv2b__qtag { background: var(--color-copper); color: var(--co
 /* user 2026-11-12: "Deliver every" sits inside the Subscribe & save card, under the perks (as on v2); only there while Subscribe is chosen */
 .pb__card .pb__every { flex-wrap: wrap; margin-top: var(--space-16); }
 input:not(:checked) + .pb__card .pb__every { display: none; }
+/* user 2026-11-19, Figma 7007:81 + 7007:166 (offer cards): 20px titles, a 16px tag 26px tall, 18px perks with 16px ticks, 20px price over an
+   18px struck price (both cards). Keyed to the cards' own width (440px+), not the screen: the buy column is only ~330px at 1024, and phones
+   keep 16px, so the title and tag always fit beside the price. "Deliver every" stays (not in those frames). */
+.pb__plan { container-type: inline-size; }
+@container (min-width: 440px) {
+  .pb__card > span > strong { font-size: var(--fs-20); vertical-align: top; }   /* top: a 20px word on the 16px line would make the row 25px */
+  .pb__save { height: 1.625rem; font-size: var(--fs-16); letter-spacing: 0; }   /* 12px each side (user 2026-11-19, was 8), like the other tags */
+  .pb__card > .pb__price strong { font-size: var(--fs-20); }
+  .pb__card > .pb__price s { font-size: var(--fs-18); }
+  .pb__card > .pb__perks { font-size: var(--fs-18); }
+  .pb__card > .pb__perks .icon { font-size: var(--fs-16); stroke-width: 2; }   /* the Figma ticks are a touch bolder */
+}
 /* short screens (laptops, e.g. 1536 x 700 at 125% scaling; user 2026-11-17): with the thumbnails under the photo, the photo shrank to ~380px
    and the buy column grew to ~900px. Below 860px of height the thumbnails move to a strip on the left (as on v2), so the photo can use the
    full screen height and the two columns stay balanced. Tall screens keep the thumbnails under the photo. */
@@ -1204,9 +1216,37 @@ input:checked + .fc__row { --ring: inset 0 0 0 2px var(--color-charcoal); backgr
   .pv2b__qty:not(.h-row) > :nth-child(1) .pv2b__qtag, .pv2b__qty:not(.h-row) > :nth-child(3) .pv2b__qtag { padding: 0 var(--space-12); letter-spacing: 0.08em; }
 }
 /* Subscribe card (user 2026-11-18): the perks and Deliver every are rows of the card's own grid, so they run under the price to the
-   card's right edge; on desktop they line up with the title, on phones they start under the round selector (no extra indent) */
-.pb__card > .pb__perks, .pb__card > .pb__every { grid-column: 2 / -1; }
-@media (max-width: 767px) { .pb__card > .pb__perks, .pb__card > .pb__every { grid-column: 1 / -1; } }
+   card's right edge. Figma 7007:166 (user 2026-11-19): at every width they start 8px in from the round selector */
+.pb__card > .pb__perks, .pb__card > .pb__every { grid-column: 1 / -1; }
+.pb__card > .pb__every { padding-left: var(--space-8); }
+/* quantity tags (Starter / Most popular / Best value), user 2026-11-19: 14px (tried 16), 26px tall like the 10% off tag, wherever the row is
+   560px+ wide (the cards are ~190px and up there). Narrower rows (1024 laptops ~105px cards, phones) keep 12px. */
+.pv2b__qty:not(.h-row) { container-type: inline-size; }
+@container (min-width: 560px) {
+  .pv2b__qty:not(.h-row) .pv2b__qtag { height: 1.625rem; font-size: var(--fs-14); }
+}
+/* "Bioactive" tags, user 2026-11-19: copper like the 10% off and quantity tags, 12px each side like Starter / Best value (was charcoal, 8px), 14px.
+   The white "not bioactive" variant and the tight phone tiles keep their own look. */
+.bio:not(.bio--no) { height: 1.625rem; padding: 0 var(--space-12); background: var(--color-copper); font-size: var(--fs-14); }   /* 14px, 26px tall (user 2026-11-19, was 12/24) */
+@media (max-width: 767px) { .f-tile > .bio:not(.bio--no) { height: 1.5rem; padding: 0 var(--space-4); font-size: var(--fs-12); } }
+/* Add to bag, user 2026-11-19: label and price match the offer cards: 20px where the cards are, 16px where they stay small (overrides the
+   site-wide 18px buttons for this one; the slim sticky bar keeps its own small button) */
+.pb__buy { container-type: inline-size; }
+.pb__buy .pb__add { min-height: 4rem; font-size: var(--fs-16); }   /* 64px tall like the v2 hero buttons (user 2026-11-19, was 56) */
+@container (min-width: 440px) { .pb__buy .pb__add { font-size: var(--fs-20); } }
+/* formula rows (Basic / Bone Health / Total Body), user 2026-11-19: names 18px (was 16); trying the round selector top-left, on the name's line */
+.d-list .d-name strong { font-size: var(--fs-18); }
+.d-list .d-dot { align-self: start; margin-top: 0.125rem; }
+/* offer cards, user 2026-11-19 (test): 24px padding on every side (was 16 / 24 right / 16 / 16; small phones had 16 on the right too) */
+.pb__plan .pb__card, .pb__plan .pb__card:has(.pb__save) { padding: var(--space-24); }
+/* trust row and accordion titles, user 2026-11-19: 18px (were 16); the text inside an open accordion stays 16px.
+   A trust row under 340px wide (the 1024 laptop column) keeps 16px: at 18px "Third-party tested" broke onto three lines there. */
+.pb__trust { container-type: inline-size; }
+.pb__trust li { font-size: var(--fs-18); }
+@container (max-width: 340px) { .pb__trust li { font-size: var(--fs-16); } }
+.pb__acc summary { font-size: var(--fs-18); }
+/* quantity photos, user 2026-11-19: 6px lower in their card (6px less space under them, so the cards keep their height) */
+.pv2b__qty:not(.h-row) .pv2b__qimg { margin-top: 0.375rem; margin-bottom: 0.375rem; }
 </style>
 
 <section class="band band--white pb" id="product" aria-labelledby="pb-title" data-buy>
@@ -2122,6 +2162,12 @@ document.addEventListener('DOMContentLoaded', function () {
 .pr-card__verified { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--color-muted-on-light); }
 .pr-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .pr-card__meta span { display: inline-flex; align-items: center; height: 1.75rem; padding: 0 var(--space-12); border-radius: var(--radius-pill); background: var(--pr-paper); font: 400 var(--fs-14)/1 var(--font-sans); }
+/* user 2026-11-19 (test): the formula + age tags sit on the same line as the name and Verified buyer; where they don't fit they wrap under it */
+.pr-card { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-24); }
+.pr-card > * { flex: 1 0 100%; }
+.pr-card > .pr-card__by, .pr-card > .pr-card__meta { flex: 0 1 auto; margin-top: var(--space-4); }
+.pr-card > .pr-card__meta { margin-left: auto; justify-content: flex-end; }   /* right-aligned, on the right edge (user 2026-11-19) */
+@media (max-width: 767px) { .pr-card > .pr-card__meta { margin-left: 0; justify-content: flex-start; } }   /* phones: they wrap under the name, so they stay on the left */
 .pr__empty { padding: var(--space-32) 0; border-top: 1px solid var(--pr-line); color: var(--color-muted-on-light); }
 .pr__empty[hidden] { display: none; }
 .pr__more { margin-top: var(--space-32); justify-self: center; }
