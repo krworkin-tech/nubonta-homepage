@@ -279,8 +279,10 @@ document.addEventListener('DOMContentLoaded', function () {
      Graphite 60% + Charcoal) solid to ~10% of the width, gone at ~61%. White copy on the left: copper n + hairline label, 96px serif headline
      (lines slide up on load), 24px intro, white "Shop bestsellers" + arrow, white-outline "Find your path". Site buttons (56px / 18px; the
      Figma frame has 60px / 20px). Phones: copy on top on the dark, photo below cropped to the family and the products. -->
+<!-- 2026-11-19 user Figma 7002:144 (Desktop) + 7003:6 (Mobile), page "Page 21": new photo, Stone caps sub-line, 64px/20px buttons, tag padding 16/24;
+     phones: copy, photo, then full-width buttons on #1a1a18. Previous version: _backup-2026-11-19/20-hero-before-figma-7002.html -->
 <style>
-.hero { --hero-dark: color-mix(in srgb, var(--color-graphite) 60%, var(--color-charcoal)); position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 34.167vw, 41rem); /* 2026-11-18 user's new hero, Figma 6933:3123: 656px at 1920 */
+.hero { --hero-dark: #1a1a18; position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 39.0625vw, 46.875rem); /* Figma 7002:144: 750px at 1920 */
   background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
 .hero__media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
 /* user Figma 2026-11-17 (node 6872:4422): the extended photo, shifted ~4% to the left so the Healthy Bones Co. tag fits to the right of the bottles */
@@ -288,52 +290,46 @@ document.addEventListener('DOMContentLoaded', function () {
 /* 2026-11-18 new hero (Figma 6933:3123): new photo (dark left side is in the photo) fills the hero exactly, no parallax, so the products are always whole */
 /* (old silk-shadow layer removed with the new hero, 2026-11-18; it's in _backup-2026-11-18/20-hero-before-new-hero.html) */
 /* Figma 6933:3124: gradient #1a1a18 (user's own value, kept as given) -> transparent, over the left 65.2% (1252 of 1920) */
-.hero::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 65.2%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, #1a1a18 0%, rgb(26 26 24 / 0) 100%); }
+.hero::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 100%; z-index: -1; pointer-events: none;   /* Figma 7002:145, stops as given */
+  background: linear-gradient(90deg, rgb(26 26 24) 0.11%, rgb(26 26 24 / 0.88) 26.53%, rgb(26 26 24 / 0.801) 36.3%, rgb(26 26 24 / 0.736) 41.76%, rgb(26 26 24 / 0.633) 47.12%, rgb(26 26 24 / 0) 62.27%); }
 .hero__inner { width: 100%; padding-block: var(--space-96); }
 .hero__copy { max-width: 41.5rem; }
 .hero__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }   /* each line is a mask the words slide up through */
 .hero__title .ln > span { display: inline-block; }
 .hero__title { font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
-.hero__sub { margin-top: var(--space-24); max-width: 38.5rem; font: 400 var(--fs-24)/2rem var(--font-sans); text-wrap: balance; }
+.hero__sub { margin-top: var(--space-16); max-width: 38.5rem; font: 400 var(--fs-24)/2rem var(--font-sans); text-transform: uppercase; color: var(--color-stone); text-wrap: balance; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
+.hero__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }   /* Figma: 64px tall, 20px */
 .hero__ctas .icon { margin-left: var(--space-8); }
 /* user Figma 2026-11-17 ("Tag small banner", node 6872:5079): "Formerly Healthy Bones Co." tag with the HBC logo, Charcoal, flush to the right edge
    next to the bottles (replaces the copper n label; client: don't force the n). The magenta is Healthy Bones Co.'s own logo colour. */
-.hero__tag { position: absolute; right: 0; bottom: 5.1875rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
+.hero__tag { position: absolute; right: 0; bottom: 8.3125rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); padding: var(--space-16) var(--space-24) var(--space-16) var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
   background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }
 .hero__tag img { flex: none; width: 6.3125rem; height: auto; }
 
 @media (max-width: 1279px) {
   .hero__title { font-size: var(--fs-80); line-height: 5.25rem; }
-  .hero::after { width: 85%; }
+  .hero::after { width: 137%; }   /* fade ends at ~85% of the width, as before */
 }
-@media (max-width: 1023px) { .hero__title { font-size: var(--fs-64); line-height: 4.25rem; } .hero__sub { font-size: var(--fs-20); line-height: 1.75rem; } }
-/* phones (designed at 375px): copy on top on the dark, photo below */
+/* 1024-1439: photo a bit further right so the D3/K2+ bottle clears the Healthy Bones Co. tag */
+@media (min-width: 1024px) and (max-width: 1439px) { .hero__media img { object-position: 92% 50%; } }
+/* phones + tablets (Figma 7003:6, 375 x 750): copy on #1a1a18, the photo, then the buttons */
 @media (max-width: 1023px) {
-  .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
+  .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding-block: var(--space-48); }
   .hero::after { display: none; }
-  /* 2026-11-18 user: own phone/tablet crop (products centred, bigger), shown whole at its own shape; stacked layout up to 1023px (user 2026-11-18: tablets too) */
-  .hero__media { position: relative; inset: auto; order: 1; height: auto; aspect-ratio: 750 / 800; }
+  .hero__inner, .hero__copy { display: contents; }
+  .hero__title { order: 0; margin-inline: var(--page-margin, var(--space-16)); text-align: center; font-size: var(--fs-64); line-height: 4rem; }
+  .hero__sub { order: 1; margin: var(--space-4) auto 0; padding-inline: var(--page-margin, var(--space-16)); font: 500 var(--fs-16)/2rem var(--font-sans); text-align: center; }
+  .hero__media { position: relative; inset: auto; order: 2; margin-top: var(--space-16); aspect-ratio: 375 / 314; }
   .hero__media img { object-position: 50% 50%; }
-  /* user: the top of the photo melts into the dark copy area above it */
-  .hero__media::after { content: ""; position: absolute; inset: 0 0 auto; height: 55%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--hero-dark) 0%, color-mix(in srgb, var(--hero-dark) 85%, transparent) 15%, color-mix(in srgb, var(--hero-dark) 55%, transparent) 40%, color-mix(in srgb, var(--hero-dark) 20%, transparent) 70%, transparent 100%); }   /* user: fade pushed as far as it can go, ends just above the jar lids */
-  .hero__inner { padding-block: var(--space-64) var(--space-32); }   /* user 2026-11-18: more room at the top (was 32) */
-  /* phones: the tag would cover the bottles, so it sits under the buttons on the dark (flex order: copy, tag, photo) */
-  .hero__tag { position: static; width: auto; justify-content: flex-start; align-self: flex-start; margin: 0 var(--page-margin, var(--space-16)) var(--space-32); padding: var(--space-8) var(--space-12); border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-white) 20%, transparent); font-size: var(--fs-14); }
-  .hero__tag img { width: 4.5rem; }
-  /* user 2026-11-18: centred copy on phones/tablets (title, line, buttons and tag together) */
-  .hero__copy { margin-inline: auto; text-align: center; }
-  .hero__sub { margin-inline: auto; }
-  .hero__ctas { justify-content: center; }
-  .hero__tag { align-self: center; }
+  /* no fades on the photo (user 2026-11-19, as in the Figma Mobile frame); fade version in _backup-2026-11-19/20-hero-before-figma-7002.html is older, the 55/97px fades were .hero__media::before/::after */
+  .hero__ctas { order: 3; justify-content: center; gap: var(--space-16); margin: var(--space-16) var(--page-margin, var(--space-16)) 0; }
+  .hero__tag { display: none; }
 }
-/* tablets: a square crop anchored at the bottom keeps the products whole without a very tall photo */
-@media (min-width: 768px) and (max-width: 1023px) { .hero__media { aspect-ratio: 1 / 1; } .hero__media img { object-position: 50% 100%; } }
 @media (max-width: 767px) {
-  .hero__tag { display: none; }   /* user 2026-11-18: no Formerly Healthy Bones Co. badge on phones */
-  .hero__title { font-size: 3.25rem; line-height: 3.5rem; }   /* user 2026-11-18: a bit bigger (52/56, off the type scale; 56+ wraps "carries your life." at 375) */
-  .hero__sub { margin-top: var(--space-16); font-size: var(--fs-16); line-height: 1.5rem; }
-  .hero__ctas { margin-top: var(--space-32); gap: var(--space-12); }
+  .hero__title { font-size: var(--fs-48); line-height: 3rem; }
+  .hero__ctas { flex-direction: column; }
+  .hero__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); line-height: 1.5rem; }
 }
 
 </style>
@@ -341,9 +337,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero__media">
     <picture>
-      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-family-mobile.webp" width="750" height="800">
-      <img src="shared/media/hero/hero-family-2026-11-18b-1920.webp" srcset="shared/media/hero/hero-family-2026-11-18b-1200.webp 1200w, shared/media/hero/hero-family-2026-11-18b-1920.webp 1920w, shared/media/hero/hero-family-2026-11-18b.webp 2537w" sizes="100vw"
-         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="1920" height="690">
+      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-family-2026-11-19b-mobile.webp" width="750" height="628">
+      <img src="shared/media/hero/hero-family-2026-11-19b-1920.webp" srcset="shared/media/hero/hero-family-2026-11-19b-1200.webp 1200w, shared/media/hero/hero-family-2026-11-19b-1920.webp 1920w, shared/media/hero/hero-family-2026-11-19b.webp 2000w" sizes="100vw"
+         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="1920" height="750">
     </picture>
   </div>
   <div class="container hero__inner">
