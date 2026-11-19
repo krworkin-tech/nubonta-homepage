@@ -370,6 +370,135 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- ===== section: 20-hero2.html ===== -->
+<!-- Section: hero, option 2 (2026-11-19, user's Figma "deskto" node 6992:79 + "Mobile" node 6995:1090, page "Test"). Shown INSTEAD of
+     hero 1 (20-hero.html) when the white "Hero 1 / Hero 2" pill is switched (design preview so the client can compare; `?hero=2` in the
+     link opens it). Desktop: full-bleed photo of a woman with the D3/K2+ bottle (dark room on the left is in the photo, no gradient
+     layer), copper stars + "4.9 Rating based on 576 reviews" (Figma's wording and count; the PDP says 575), 96px serif headline, 24px
+     Stone uppercase line, 64px-tall buttons with 20px text (Figma), white "Formerly Healthy Bones Co." tag. 800px tall at 1920.
+     Phones/tablets: copy centred on near-black #060705 (user's value from Figma, kept as given), then the photo cropped to the woman with
+     a fade at its top and bottom, the two full-width buttons sitting on the bottom fade. No tag on phones. Photo
+     shared/media/hero/hero-woman-2026-11-19*.webp (3577px source). The pill and the swap script are at the end of this file. -->
+<style>
+.hero2 { position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 41.667vw, 50rem);   /* Figma: 800px at 1920 */
+  background: #060705; color: var(--color-white); --focus: var(--color-white); }
+.hero2[hidden], .hero[hidden] { display: none !important; }
+.hero2__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero2__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0%; }   /* Figma: anchored at the top; the woman stays on the right on narrower screens */
+.hero2__inner { width: 100%; padding-block: var(--space-96); }
+.hero2__copy { max-width: 41.5rem; }
+.hero2__rating { display: flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.4 var(--font-sans); }   /* Figma: 18px */
+.hero2__rating img { display: block; width: 8.25rem; height: 1.5rem; }
+.hero2__title { margin-top: var(--space-8); font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
+.hero2__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.hero2__title .ln > span { display: inline-block; }
+.hero2__sub { margin-top: var(--space-16); font: 500 var(--fs-24)/2rem var(--font-sans); text-transform: uppercase; color: var(--color-stone); text-wrap: balance; }
+.hero2__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
+.hero2__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.75rem; }   /* Figma: 64px tall, 20px */
+.hero2__ctas .icon { margin-left: var(--space-8); }
+.hero2__tag { position: absolute; right: 0; bottom: 8.9375rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
+  background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }   /* Figma: 143px from the bottom */
+.hero2__tag img { flex: none; width: 6.3125rem; height: auto; }
+@media (max-width: 1279px) { .hero2__title { font-size: var(--fs-80); line-height: 5.25rem; } }
+
+/* phones and tablets: copy on top, the photo cropped to the woman, buttons over its bottom fade (Figma "Mobile") */
+@media (max-width: 1023px) {
+  .hero2 { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding-bottom: var(--space-48); }
+  .hero2__inner { display: contents; }
+  .hero2__copy { order: 0; max-width: none; padding: var(--space-48) var(--page-margin) 0; text-align: center; }
+  .hero2__rating { justify-content: center; font-size: var(--fs-14); }
+  .hero2__rating img { width: 5.5rem; height: 1rem; }
+  .hero2__title { margin-top: var(--space-16); font-size: var(--fs-64); line-height: 4rem; }
+  .hero2__sub { margin-top: calc(var(--space-16) + 0.25rem); font-size: var(--fs-16); line-height: 1.5rem; }   /* user 2026-11-19: even 16px between rating, title and line (Figma had 16 / 4) */
+  .hero2__media { position: relative; inset: auto; order: 1; z-index: 0; aspect-ratio: 375 / 395; }
+  .hero2__media::before, .hero2__media::after { content: ""; position: absolute; inset-inline: 0; z-index: 1; pointer-events: none; }
+  .hero2__media::before { top: 0; height: 12.2%; background: linear-gradient(180deg, #060705, rgb(6 7 5 / 0)); }      /* Figma: 48px fade at the top */
+  .hero2__media::after { bottom: 0; height: 31.4%; background: linear-gradient(0deg, #060705, rgb(6 7 5 / 0)); }       /* Figma: 124px fade at the bottom */
+  .hero2__media img { inset: auto; top: -4%; left: -155%; width: auto; height: 120.87%; max-width: none; object-fit: fill; }   /* Figma crop (top -14.14%) pushed down to -4% so her head clears the top fade (user 2026-11-19) */
+  .hero2__ctas { order: 2; position: relative; z-index: 2; flex-direction: column; gap: var(--space-16); margin: -4rem var(--page-margin) 0; }   /* Figma: buttons start 64px above the photo's bottom */
+  .hero2__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); line-height: 1.5rem; }
+  .hero2__tag { display: none; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {   /* tablets: a wider crop instead of a very tall one */
+  .hero2__media { aspect-ratio: 16 / 10; }
+  .hero2__media img { inset: 0; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 20%; }
+  .hero2__ctas { flex-direction: row; justify-content: center; }
+  .hero2__ctas .btn { width: auto; }
+}
+@media (max-width: 767px) { .hero2__title { font-size: var(--fs-48); line-height: 3rem; } }
+
+/* the "Hero 1 / Hero 2" pill (design preview, remove once the client picks): same white pill as the PDP version switch,
+   top-right of the hero on desktop, on the photo's top-right corner on phones and tablets */
+.hero-switch { position: absolute; top: var(--space-24); right: var(--space-24); z-index: 5; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-pill);
+  background: var(--color-white); color: var(--color-charcoal); box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.25); --focus: var(--color-charcoal); }
+.hero-switch button { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; color: var(--color-charcoal); transition: background-color 0.2s; }
+.hero-switch button:hover { background: color-mix(in srgb, var(--color-stone) 35%, var(--color-white)); }
+.hero-switch button:focus-visible { outline: 2px solid var(--color-charcoal); outline-offset: 1px; }
+.hero-switch .icon { font-size: var(--fs-20); }
+.hero-switch [data-hstep="-1"] .icon { transform: scaleX(-1); }
+.hero-switch output { min-width: 4.5rem; text-align: center; font: 500 var(--fs-14)/1.25rem var(--font-sans); }
+@media (max-width: 1023px) {   /* user 2026-11-19: phones/tablets: small, see-through pill in the top-right corner of the hero, clear of the copy */
+  .hero-switch { top: var(--space-8) !important; right: var(--space-8); left: auto; gap: 0; padding: 0.125rem; background: rgb(255 255 255 / 0.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: none; opacity: 0.85; }
+  .hero-switch button { width: 1.75rem; height: 1.75rem; }
+  .hero-switch .icon { font-size: var(--fs-14); }
+  .hero-switch output { min-width: 3rem; font-size: var(--fs-12); line-height: 1rem; }
+}
+</style>
+
+<section class="hero2" id="hero2" aria-labelledby="hero2-title" hidden>
+  <div class="hero2__media">
+    <img src="shared/media/hero/hero-woman-2026-11-19-1920.webp" srcset="shared/media/hero/hero-woman-2026-11-19-1200.webp 1200w, shared/media/hero/hero-woman-2026-11-19-1920.webp 1920w, shared/media/hero/hero-woman-2026-11-19.webp 2560w" sizes="(max-width: 767px) 300vw, 100vw"
+         alt="A smiling woman in a warm cardigan takes a capsule, holding a bottle of Nubonta D3/K2+ by a sunny window" width="1920" height="834" loading="lazy">
+  </div>
+  <div class="container hero2__inner">
+    <div class="hero2__copy">
+      <p class="hero2__rating h2-in"><img src="shared/media/hero/stars-copper.svg" alt="" width="132" height="24"><span>4.9 Rating based on 576 reviews</span></p>
+      <h1 class="hero2__title" id="hero2-title"><span class="ln"><span>Strengthen the</span></span> <span class="ln"><span>structure that</span></span> <span class="ln"><span>carries your life.</span></span></h1>
+      <p class="hero2__sub h2-in">Daily formulas for healthy aging.</p>
+    </div>
+    <div class="hero2__ctas h2-in">
+      <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
+    </div>
+  </div>
+  <p class="hero2__tag"><img src="shared/media/partners/healthy-bones-co-logo-dark.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
+</section>
+
+<script>
+/* Hero 1 / Hero 2 switch (design preview): one white pill in each hero; ?hero=2 opens the second one */
+document.addEventListener('DOMContentLoaded', function () {
+  var h1 = document.getElementById('hero'), h2 = document.getElementById('hero2'); if (!h1 || !h2) return;
+  var heroes = [h1, h2], at = 0;
+  var pill = '<div class="hero-switch" role="group" aria-label="Hero version (design preview)"><button type="button" data-hstep="-1" aria-label="Previous hero"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button><output aria-live="polite" data-hlabel>Hero 1</output><button type="button" data-hstep="1" aria-label="Next hero"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>';
+  heroes.forEach(function (h) {
+    var host = h.querySelector('.hero__media, .hero2__media');
+    var wrap = document.createElement('div'); wrap.innerHTML = pill; var el = wrap.firstChild;
+    /* desktop: top-right of the section; phones/tablets: top-right corner of the photo */
+    var mq = window.matchMedia('(max-width: 1023px)');
+    function place() { h.appendChild(el); }   /* always the section's own corner (phones: top-right, see CSS) */
+    place(); (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place));
+    el.addEventListener('click', function (e) { var b = e.target.closest('[data-hstep]'); if (b) show(at + +b.dataset.hstep, true); });
+  });
+  function show(n, animate) {
+    at = (n + heroes.length) % heroes.length;
+    heroes.forEach(function (h, i) { h.hidden = i !== at; });
+    document.querySelectorAll('[data-hlabel]').forEach(function (o) { o.textContent = 'Hero ' + (at + 1); });
+    try { history.replaceState(null, '', location.pathname + (at ? '?hero=' + (at + 1) : '') + location.hash); } catch (e) {}
+    if (animate && at === 1) intro2();
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  }
+  function intro2() {
+    var g = window.gsap; if (!g || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    g.timeline({ defaults: { ease: 'expo.out' } })
+      .fromTo(h2.querySelector('.hero2__media'), { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0)
+      .fromTo(h2.querySelectorAll('h1 .ln > span'), { yPercent: 130 }, { yPercent: 0, stagger: 0.1, duration: 1.1 }, 0.05)
+      .fromTo(h2.querySelectorAll('.h2-in'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.06, duration: 0.9 }, 0.25);
+  }
+  var q = +((location.search.match(/[?&]hero=(\d)/) || [])[1] || 1);
+  show(q - 1, q === 2);
+});
+</script>
+
 <!-- ===== section: 21-press.html ===== -->
 <!-- Section: as seen in. The press logos from the healthybonesco.com footer (white SVGs, shown in Charcoal on White here),
      running in a slow endless row; hovering pauses it. Sits right under the hero (2026-10-29); bestsellers' 96px top padding gives the gap below. Static row under reduced motion. -->
