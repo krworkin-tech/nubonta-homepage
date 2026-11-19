@@ -591,7 +591,7 @@ input:checked + .pb__card .pb__dot { box-shadow: inset 0 0 0 0.3125rem var(--col
 .pb__card strong { font-weight: 500; }
 .pb__save { display: inline-flex; margin-left: var(--space-8); height: 1.5rem; align-items: center; padding: 0 var(--space-8); border-radius: var(--radius-pill); background: var(--color-charcoal); color: var(--color-white); font: 500 var(--fs-12)/1.5rem var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; vertical-align: 0.125rem; }
 .pb__price { text-align: right; } .pb__price s { display: block; color: var(--color-muted-on-light); }
-.pb__perks { display: none; grid-column: 2 / -1; margin-top: var(--space-12); gap: var(--space-4); }   /* 4px between the perks (user 2026-11-09, was 8) */
+.pb__perks { display: none; grid-column: 2 / -1; margin-top: var(--space-4); gap: var(--space-4); }   /* 4px between the perks (user 2026-11-09, was 8); 4px under the price (user 2026-11-19, was 12) */
 input:checked + .pb__card .pb__perks { display: grid; }
 .pb__perks li { display: flex; align-items: center; gap: var(--space-8); color: var(--color-muted-on-light); }
 .pb__perks .icon { color: var(--color-charcoal); }
