@@ -1554,7 +1554,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .pw2__img.is-on { opacity: 1; }
 .pw2__img[hidden] { display: none; }
 /* Basic formula photo (user 2026-11-20): a landscape shot in the portrait card, cropped to the face and the white pouch */
-.pw2__img--bone { object-position: 50% 62%; }   /* Bone Health photo (user 2026-11-20): black pouch on the travertine counter, portrait 3:4; label kept above the 90% card */
+.pw2__img--bone { object-position: 50% 62%; }
+[data-formula="bone"] .pw2__stat::after { background: linear-gradient(180deg, transparent 0%, transparent 60%, color-mix(in srgb, var(--color-charcoal) 45%, transparent) 92%); }   /* user 2026-11-20: no top fade, and only a light fade low down (the photo is dark already) */   /* Bone Health photo (user 2026-11-20): black pouch on the travertine counter, portrait 3:4; label kept above the 90% card */
 .pw2__img--basic { object-position: 50% 50%; transform: scale(1.15); transform-origin: 50% 72%; }   /* user 2026-11-20: 15% closer, scaled from the bottom of the pouch so it stays above the 90% card; near-square photo (2000 x 1966, user 2026-11-20): fills the card, pouch above the 90% card on desktop */
 /* user 2026-11-20: no dark fade at the top on the Basic photo (bright blue sky); the bottom fade under the 90% card stays */
 [data-formula="basic"] .pw2__stat::after { background: linear-gradient(180deg, transparent 0%, transparent 45%, color-mix(in srgb, var(--color-charcoal) 55%, transparent) 88%); }   /* user 2026-11-20: no top fade on the Basic photo; the bottom fade is back but lighter (55%, was 88%) */
