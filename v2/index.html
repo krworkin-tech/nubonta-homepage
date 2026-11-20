@@ -7,9 +7,7 @@
 <title>Nubonta | Homepage v2</title>
 <meta name="description" content="Nubonta: bone health supplements. Strengthen the structure that carries your life.">
 <meta name="theme-color" content="#10100F">
-<link rel="icon" href="assets/logo/favicon-2026-11-20.svg" type="image/svg+xml">
-<link rel="icon" href="assets/logo/favicon-2026-11-20-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon-2026-11-20.png">
+<link rel="icon" href="assets/logo/nubonta-monogram-white.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -274,94 +272,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <main id="main">
 <!-- ===== section: 20-hero.html ===== -->
-<!-- Section: hero 1 (user Figma "deskto" 7031:3826, 2026-11-20). Replaces the family hero (kept in _backup-2026-11-20/20-hero-family-before-capsule-hero.html).
-     Woman taking a capsule with D3/K2+ by a window; the dark left side is in the photo itself (no overlay). Left: FORMERLY | Healthy Bones Co. logo,
-     copper stars + "124.829+ Trusted Customers" (copy as in Figma), the tagline in its fixed form ("Strengthen the structure" / "that carries your
-     *life.*", life in Nimbus italic, life + period in Copper, as designed), 24px Stone sub-line, the two 64px buttons, and the 4 brand icons with their
-     outlined labels (Figma SVGs: never retype the labels). Figma has no phone frame: phones/tablets stack copy, photo, buttons, icons. -->
+<!-- Section: hero (v2, from the user's Figma frame "Frame 1000003799", node 6642:253, 2026-10-30; the travertine hero before it is in
+     v2/_removed/20-hero-travertine.html). Dark and warm: full-bleed family photo (grandparents and a parent with a toddler on the lawn behind a
+     travertine table with Collagen Peptides, Creatine, Magnesium, D3/K2+; `shared/media/hero/hero-family-wide.webp`, 2000px: ask for a bigger
+     export) under, as in Figma: a black left-to-right fade at 20%, the silk-shadow texture in multiply at 80%, and a dark fade (#1D1D1D =
+     Graphite 60% + Charcoal) solid to ~10% of the width, gone at ~61%. White copy on the left: copper n + hairline label, 96px serif headline
+     (lines slide up on load), 24px intro, white "Shop bestsellers" + arrow, white-outline "Find your path". Site buttons (56px / 18px; the
+     Figma frame has 60px / 20px). Phones: copy on top on the dark, photo below cropped to the family and the products. -->
+<!-- 2026-11-19 user Figma 7002:144 (Desktop) + 7003:6 (Mobile), page "Page 21": new photo, Stone caps sub-line, 64px/20px buttons, tag padding 16/24;
+     phones: copy, photo, then full-width buttons on #1a1a18. Previous version: _backup-2026-11-19/20-hero-before-figma-7002.html -->
 <style>
-.hero { --hero-dark: #050605; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: stretch; min-height: clamp(37.5rem, 39.0625vw, 46.875rem);   /* 750px at 1920, as in Figma */
+.hero { --hero-dark: #1a1a18; position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 39.0625vw, 46.875rem); /* Figma 7002:144: 750px at 1920 */
   background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
-.hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0%; }   /* top-aligned as in Figma (the photo runs past the bottom); right edge kept, so on narrower screens the dark left side is what gets cropped */
-.hero__inner { width: 100%; display: flex; flex-direction: column; align-items: flex-start; padding-block: 2.5rem var(--space-96); }
-.hero__formerly { display: flex; align-items: center; gap: var(--space-8); font: 400 var(--fs-14)/1.2 var(--font-sans); letter-spacing: 1px; text-transform: uppercase; }
-.hero__formerly i { width: 1px; height: 1.5rem; background: #383838; }   /* Figma divider colour, kept as given */
-.hero__formerly img { width: 6.3125rem; height: auto; }
-.hero__copy { margin-top: 5.5rem; max-width: 38.5625rem; }   /* 88px under the tag: the copy starts 178px from the top, as in Figma */
-.hero__rating { display: flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.4 var(--font-sans); }
-.hero__rating img { width: 7.6875rem; height: auto; }
-.hero__title { margin-top: var(--space-24); font: 400 var(--fs-64)/1 var(--font-serif); letter-spacing: -0.015em; }
-.hero__title .ln { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }   /* each line is a mask the words slide up through */
+.hero__media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
+/* user Figma 2026-11-17 (node 6872:4422): the extended photo, shifted ~4% to the left so the Healthy Bones Co. tag fits to the right of the bottles */
+.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 80% 50%; }   /* 2026-11-18 new zoomed-out photo (Figma 6933:3123 update): 80% keeps the products between the copy and the tag at 1280-1440 (100% put them under the headline) */   /* right edge anchored: on screens narrower than 1920 the dark left side is cropped, so the bottles move left of the tag */
+/* 2026-11-18 new hero (Figma 6933:3123): new photo (dark left side is in the photo) fills the hero exactly, no parallax, so the products are always whole */
+/* (old silk-shadow layer removed with the new hero, 2026-11-18; it's in _backup-2026-11-18/20-hero-before-new-hero.html) */
+/* Figma 6933:3124: gradient #1a1a18 (user's own value, kept as given) -> transparent, over the left 65.2% (1252 of 1920) */
+.hero::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 100%; z-index: -1; pointer-events: none;   /* Figma 7002:145, stops as given */
+  background: linear-gradient(90deg, rgb(26 26 24) 0.11%, rgb(26 26 24 / 0.88) 26.53%, rgb(26 26 24 / 0.801) 36.3%, rgb(26 26 24 / 0.736) 41.76%, rgb(26 26 24 / 0.633) 47.12%, rgb(26 26 24 / 0) 62.27%); }
+.hero__inner { width: 100%; padding-block: var(--space-96); }
+.hero__copy { max-width: 41.5rem; }
+.hero__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }   /* each line is a mask the words slide up through */
 .hero__title .ln > span { display: inline-block; }
-.hero .hero__title em { font-style: italic; color: var(--color-copper); }   /* .hero prefix: beats the site-wide "no italics" rule (body.theme-final em) */   /* the tagline rule (client 2026-11-20): "life" always italic; Copper as in the Figma design */
-.hero__sub { margin-top: var(--space-8); font: 400 var(--fs-24)/2rem var(--font-sans); color: var(--color-stone); }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-48); }
-.hero__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }
+.hero__title { font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
+.hero__sub { margin-top: var(--space-16); max-width: 38.5rem; font: 400 var(--fs-24)/2rem var(--font-sans); text-transform: uppercase; color: var(--color-stone); text-wrap: balance; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
+.hero__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }   /* Figma: 64px tall, 20px */
 .hero__ctas .icon { margin-left: var(--space-8); }
-.hero__icons { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.5rem; margin-left: 1.3125rem; }   /* 40px under the buttons, 21px in (Figma) */
-.hero__icons li { display: grid; justify-items: center; row-gap: var(--space-16); }
-.hero__icons li > img:first-child { width: 3.5rem; height: 3.5rem; }
-.hero__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
-.hero__icons .sep { width: 1px; height: 2.9375rem; background: #383838; }
+/* user Figma 2026-11-17 ("Tag small banner", node 6872:5079): "Formerly Healthy Bones Co." tag with the HBC logo, Charcoal, flush to the right edge
+   next to the bottles (replaces the copper n label; client: don't force the n). The magenta is Healthy Bones Co.'s own logo colour. */
+.hero__tag { position: absolute; right: 0; bottom: 8.3125rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); padding: var(--space-16) var(--space-24) var(--space-16) var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
+  background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }
+.hero__tag img { flex: none; width: 6.3125rem; height: auto; }
 
-@media (max-width: 1279px) { .hero__title { font-size: 3.5rem; } }
-/* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
+@media (max-width: 1279px) {
+  .hero__title { font-size: var(--fs-80); line-height: 5.25rem; }
+  .hero::after { width: 137%; }   /* fade ends at ~85% of the width, as before */
+}
+/* 1024-1439: photo a bit further right so the D3/K2+ bottle clears the Healthy Bones Co. tag */
+@media (min-width: 1024px) and (max-width: 1439px) { .hero__media img { object-position: 92% 50%; } }
+/* phones + tablets (Figma 7003:6, 375 x 750): copy on #1a1a18, the photo, then the buttons */
 @media (max-width: 1023px) {
-  .hero { flex-direction: column; min-height: 0; }
-  .hero__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
-  .hero__media img { object-position: 50% 0%; }
-  .hero__inner { display: contents; }
-  .hero__formerly { order: 0; align-self: center; margin-top: var(--space-32); }
-  .hero__copy { order: 0; margin: var(--space-40) auto var(--space-32); padding-inline: var(--page-margin, var(--space-16)); text-align: center; }
-  .hero__rating { justify-content: center; font-size: var(--fs-16); }
-  .hero__title { font-size: var(--fs-48); line-height: 3rem; }
-  .hero__sub { font-size: var(--fs-20); line-height: 1.75rem; }
-  .hero__ctas { order: 2; justify-content: center; margin: var(--space-32) var(--page-margin, var(--space-16)) 0; }
-  .hero__icons { order: 3; align-self: center; margin: var(--space-32) 0 var(--space-48); }
+  .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding-block: var(--space-48); }
+  .hero::after { display: none; }
+  .hero__inner, .hero__copy { display: contents; }
+  .hero__title { order: 0; margin-inline: var(--page-margin, var(--space-16)); text-align: center; font-size: var(--fs-64); line-height: 4rem; }
+  .hero__sub { order: 1; margin: var(--space-4) auto 0; padding-inline: var(--page-margin, var(--space-16)); font: 500 var(--fs-16)/2rem var(--font-sans); text-align: center; }
+  .hero__media { position: relative; inset: auto; order: 2; margin-top: var(--space-16); aspect-ratio: 375 / 314; }
+  .hero__media img { object-position: 50% 50%; }
+  /* no fades on the photo (user 2026-11-19, as in the Figma Mobile frame); fade version in _backup-2026-11-19/20-hero-before-figma-7002.html is older, the 55/97px fades were .hero__media::before/::after */
+  .hero__ctas { order: 3; justify-content: center; gap: var(--space-16); margin: var(--space-16) var(--page-margin, var(--space-16)) 0; }
+  .hero__tag { display: none; }
 }
 @media (max-width: 767px) {
-  .hero__title { font-size: 2.5rem; line-height: 2.75rem; }
-  .hero__sub { font-size: var(--fs-16); line-height: 1.5rem; }
-  .hero__rating { gap: var(--space-8); font-size: var(--fs-14); white-space: nowrap; } .hero__rating img { width: 5.5rem; }   /* one line at 375 */
-  .hero__ctas { flex-direction: column; align-self: stretch; gap: var(--space-16); }
-  .hero__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); }
-  .hero__icons { gap: var(--space-8); }
-  .hero__icons li > img:first-child { width: 2.75rem; height: 2.75rem; }
-  .hero__icons .lbl { height: 1.25rem; }
-  .hero__icons .sep { height: 2.25rem; }
+  .hero__title { font-size: var(--fs-48); line-height: 3rem; }
+  .hero__ctas { flex-direction: column; }
+  .hero__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); line-height: 1.5rem; }
 }
+
 </style>
 
 <section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero__media">
     <picture>
-      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-capsule-2026-11-20-mobile.webp" width="800" height="800">
-      <img src="shared/media/hero/hero-capsule-2026-11-20-1920.webp" srcset="shared/media/hero/hero-capsule-2026-11-20-1200.webp 1200w, shared/media/hero/hero-capsule-2026-11-20-1920.webp 1920w, shared/media/hero/hero-capsule-2026-11-20.webp 3577w" sizes="100vw"
-         alt="A woman with silver-streaked hair smiles as she takes a capsule by a sunny window, holding a jar of Nubonta D3/K2+" width="1920" height="834">
+      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-family-2026-11-19b-mobile.webp" width="750" height="628">
+      <img src="shared/media/hero/hero-family-2026-11-19b-1920.webp" srcset="shared/media/hero/hero-family-2026-11-19b-1200.webp 1200w, shared/media/hero/hero-family-2026-11-19b-1920.webp 1920w, shared/media/hero/hero-family-2026-11-19b.webp 2000w" sizes="100vw"
+         alt="A grandmother laughs as she lifts her grandchild on a sunny lawn while the grandfather and a parent look on; Nubonta Collagen Peptides, Creatine, Magnesium and D3/K2+ stand on a travertine table in front" width="1920" height="750">
     </picture>
   </div>
   <div class="container hero__inner">
-    <p class="hero__formerly h-in">Formerly <i aria-hidden="true"></i><img src="shared/media/hero/hero3-hbc-logo-white.svg" alt="Healthy Bones Co." width="101" height="50"></p>
     <div class="hero__copy">
-      <p class="hero__rating h-in"><img src="shared/media/hero/hero3-stars.svg" alt="Rated 5 out of 5 stars" width="123" height="24"><span>124,829+ Trusted Customers</span></p>
-      <h1 class="hero__title" id="hero-title"><span class="ln"><span>Strengthen the structure</span></span> <span class="ln"><span>that carries your <em>life.</em></span></span></h1>
+      <h1 class="hero__title" id="hero-title"><span class="ln"><span>Strengthen the</span></span> <span class="ln"><span>structure that</span></span> <span class="ln"><span>carries your life.</span></span></h1>
       <p class="hero__sub h-in">Daily formulas for healthy aging.</p>
+      <div class="hero__ctas h-in">
+        <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
+      </div>
     </div>
-    <div class="hero__ctas h-in">
-      <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
-    </div>
-    <ul class="hero__icons h-in" aria-label="Our standards">
-      <li><img src="shared/media/hero/hero3-icon-1.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-1.svg" alt="Science-backed ingredients" width="104" height="25"></li>
-      <li class="sep" aria-hidden="true"></li>
-      <li><img src="shared/media/hero/hero3-icon-2.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-2.svg" alt="Clinically informed" width="68" height="25"></li>
-      <li class="sep" aria-hidden="true"></li>
-      <li><img src="shared/media/hero/hero3-icon-3.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-3.svg" alt="Clean and thoughtful" width="81" height="25"></li>
-      <li class="sep" aria-hidden="true"></li>
-      <li><img src="shared/media/hero/hero3-icon-4.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-4.svg" alt="Built for real life" width="60" height="25"></li>
-    </ul>
   </div>
+  <p class="hero__tag h-in"><img src="shared/media/partners/healthy-bones-co-logo-dark.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
 </section>
 
 <script>
@@ -648,30 +639,6 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
 
     <div role="tabpanel" id="bs-panel" aria-labelledby="bs-tab-all">
       <ul class="bs__grid">
-        <li class="bs-card" data-goals="bone prevention" data-reveal>
-          <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-collagen.webp" alt="" loading="lazy"></a>
-            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
-          </div>
-          <div class="bs-card__info">
-            <h3 class="t-title-sm"><a href="#">Collagen Peptides</a></h3>
-            <p class="t-body muted bs-card__facts">13g per scoop &middot; Flavorless &middot;<br>Quick-dissolve</p>
-            <div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$49.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$44.10</p></div>
-          </div>
-          <button class="bs-add" type="button" data-name="Collagen Peptides"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Collagen Peptides</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
-        </li>
-        <li class="bs-card" data-goals="bone longevity practitioner" data-reveal>
-          <div class="bs-card__media">
-            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-annatrol.webp" alt="" loading="lazy"></a>
-            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
-          </div>
-          <div class="bs-card__info">
-            <h3 class="t-title-sm"><a href="#">Annatrol<sup>&trade;</sup></a></h3>
-            <p class="t-body muted bs-card__facts">Annatto tocotrienols + GG &middot;<br>100% plant-based &middot; 60 liquid capsules</p>
-            <div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$54.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$48.60</p></div>
-          </div>
-          <button class="bs-add" type="button" data-name="Annatrol"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Annatrol</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
-        </li>
         <li class="bs-card" data-goals="bone practitioner" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/osteofrax.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-osteofrax.webp" alt="" loading="lazy"></a>
@@ -684,6 +651,33 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
           </div>
           <button class="bs-add" type="button" data-name="OsteoFrax"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> OsteoFrax</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
+
+        <li class="bs-card" data-goals="bone longevity practitioner" data-reveal>
+          <div class="bs-card__media">
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-annatrol.webp" alt="" loading="lazy"></a>
+            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
+          </div>
+          <div class="bs-card__info">
+            <h3 class="t-title-sm"><a href="#">Annatrol<sup>&trade;</sup></a></h3>
+            <p class="t-body muted bs-card__facts">Annatto tocotrienols + GG &middot;<br>100% plant-based &middot; 60 liquid capsules</p>
+            <div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$54.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$48.60</p></div>
+          </div>
+          <button class="bs-add" type="button" data-name="Annatrol"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Annatrol</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
+        </li>
+
+        <li class="bs-card" data-goals="bone prevention" data-reveal>
+          <div class="bs-card__media">
+            <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-collagen.webp" alt="" loading="lazy"></a>
+            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
+          </div>
+          <div class="bs-card__info">
+            <h3 class="t-title-sm"><a href="#">Collagen Peptides</a></h3>
+            <p class="t-body muted bs-card__facts">13g per scoop &middot; Flavorless &middot;<br>Quick-dissolve</p>
+            <div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$49.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$44.10</p></div>
+          </div>
+          <button class="bs-add" type="button" data-name="Collagen Peptides"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Collagen Peptides</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
+        </li>
+
         <li class="bs-card" data-goals="prevention longevity" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-creatine.webp" alt="" loading="lazy"></a>
@@ -696,18 +690,20 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
           </div>
           <button class="bs-add" type="button" data-name="Creatine + HMB"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Creatine + HMB</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
+
         <li class="bs-card is-soldout" data-goals="bone prevention" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-d3k2.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--soldout">Sold out</span></div>
           </div>
           <div class="bs-card__info">
-            <h3 class="t-title-sm"><a href="#">D3 + K2</a></h3>
+            <h3 class="t-title-sm"><a href="#">Daily D3 + K2</a></h3>
             <p class="t-body muted bs-card__facts">2,000 IU D3 &middot; K2 as MK-4<br>+ MK-7 &middot; Plus K1</p>
             <div class="bs-card__buy"><p class="bs-card__price">$29.00</p></div>
           </div>
-          <button class="bs-add" type="button" data-name="D3 + K2" disabled>Sold out<span class="sr-only"> D3 + K2</span></button>
+          <button class="bs-add" type="button" data-name="Daily D3 + K2" disabled>Sold out<span class="sr-only"> Daily D3 + K2</span></button>
         </li>
+
         <li class="bs-card" data-goals="bone longevity" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-d3k2-plus.webp" alt="" loading="lazy"></a>
@@ -720,6 +716,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
           </div>
           <button class="bs-add" type="button" data-name="D3/K2+"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> D3/K2+</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
+
         <li class="bs-card" data-goals="prevention longevity" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-magnesium.webp" alt="" loading="lazy"></a>
@@ -732,6 +729,7 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
           </div>
           <button class="bs-add" type="button" data-name="Magnesium Bisglycinate"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Magnesium Bisglycinate</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
+
         <li class="bs-card" data-goals="longevity" data-reveal>
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="shared/media/lifestyle/hover-omega3.webp" alt="" loading="lazy"></a>
@@ -961,7 +959,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <div class="reasons__products">
                 <a class="reasons__product" href="#"><img src="shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Bone Health Formula</span></a>
                 <a class="reasons__product" href="#"><img src="shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><strong>D3/K2+</strong><span class="t-small muted">Advanced Bone Support</span></a>
-                <a class="reasons__product" href="#"><img src="shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><strong>Annatrol&trade;</strong><span class="t-small muted">Bone &amp; Heart Support</span></a>
+                <a class="reasons__product" href="#"><img src="shared/media/products/collagen-basic-pouch.webp" alt="" width="900" height="900" loading="lazy"><strong>Collagen Peptides</strong><span class="t-small muted">Basic Formula</span></a>
               </div>
             </div>
           </div>
@@ -1062,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- ===== section: 50-daily-steps.html ===== -->
 <!-- Section: daily steps photo cards. Version C "Small daily steps, real structure." (rounded inner frame, number counts up, carousel)
-     with the dotted wave line from Version B. 2026-11-20 (client): no more pinned sideways scroll; a swipe row everywhere, each line draws in when its card comes into view.
+     with the dotted wave line from Version B: on desktop the section pins: scrolling moves the cards sideways and each line fills along its curve, dots appearing as it reaches them.
      Facts are from product pages; wording needs compliance review (* = FDA disclaimer in the footer). Lines are decorative, not data.
      IMAGES ARE PLACEHOLDERS: the text sits on the left of each card, so final photos need the subject on the RIGHT (right-weighted composition) to avoid clashing with the info. -->
 <style>
@@ -1212,34 +1210,52 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function drawAll(p) { lines.forEach(function (l, i) { draw(i, p); }); }
 
-  /* user 2026-11-20 (client): NO pinned sideways scroll any more. The cards are a normal swipe row (arrows, trackpad, touch) on every
-     screen, and each card's line draws itself (dots popping in as it reaches them) the first time that card comes into view:
-     on landing for the first cards, and for the others when they are swiped in. The pinned version: _backup-2026-11-20/50-daily-steps-before-no-pin.html */
-  [].forEach.call(btns, function (b) {
-    b.addEventListener('click', function () { track.scrollBy({ left: stepW() * parseInt(b.dataset.dir, 10), behavior: reduce ? 'auto' : 'smooth' }); });
-  });
-  sync();
-  if (reduce || !('IntersectionObserver' in window)) { drawAll(1); return; }
-  drawAll(0);
-  var DUR = 1400, done = [];
-  function play(i, delay) {
-    if (done[i]) return; done[i] = true;
-    var t0 = null;
-    setTimeout(function () {
-      (function frame(t) { if (t0 === null) t0 = t; var p = Math.min(1, (t - t0) / DUR); draw(i, 1 - Math.pow(1 - p, 3)); if (p < 1) requestAnimationFrame(frame); })(performance.now());
-    }, delay);
+  /* scroll story (desktop, motion on): the section pins, scrolling moves the cards sideways
+     and draws the lines one card after another. P = 0..1 over the pinned distance. */
+  /* everything finishes at P = 0.9; the last 10% is a short hold before the page carries on */
+  var W = 0.32, n = lines.length, DONE = 0.9;
+  function apply(P) {
+    track.scrollLeft = Math.min(1, Math.max(0, (P - 0.08) / (DONE - 0.08))) * maxX();
+    lines.forEach(function (l, i) { var a = i * (DONE - W) / Math.max(1, n - 1); draw(i, (P - a) / W); });
   }
-  /* a card counts as in view when 60% of it is on screen (the row clips sideways, so swiped-in cards trigger too) */
-  var queue = 0, qt;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var i = cards.indexOf(e.target); play(i, queue * 180); queue++;   /* cards that arrive together draw one after another */
-      io.unobserve(e.target);
+  [].forEach.call(btns, function (b) {
+    b.addEventListener('click', function () {
+      var dir = parseInt(b.dataset.dir, 10), target = Math.max(0, Math.min(maxX(), track.scrollLeft + stepW() * dir));
+      if (pin) {   /* pinned: move the page so the scroll story reaches that position */
+        var P = maxX() ? 0.08 + (DONE - 0.08) * target / maxX() : 0;
+        window.scrollTo({ top: pin.start + P * (pin.end - pin.start), behavior: reduce ? 'auto' : 'smooth' });
+      } else track.scrollBy({ left: stepW() * dir, behavior: reduce ? 'auto' : 'smooth' });
     });
-    clearTimeout(qt); qt = setTimeout(function () { queue = 0; }, 400);
-  }, { threshold: 0.6 });
-  cards.forEach(function (c) { io.observe(c); });
+  });
+
+  if (!g || !ST || reduce) { drawAll(1); sync(); return; }
+  /* desktop (960px+) pins the section; narrower windows get the swipe row. Watched by hand rather than gsap.matchMedia:
+     resizing a desktop window down to phone width left the pin (and a 1425px-wide page) in place (user 2026-10-30) */
+  var desktop = window.matchMedia('(min-width: 960px)'), tl = null;
+  function pinOn() {
+    if (tl) return;
+    root.classList.add('is-pinned'); track.style.scrollSnapType = 'none';
+    var state = { p: 0 };
+    tl = g.timeline({ scrollTrigger: {
+      trigger: root, pin: true, scrub: 0.6, invalidateOnRefresh: true,   /* no anticipatePin: it guessed ahead on fast wheel scrolls and locked the section up to 300px early, so it jumped (user 2026-10-30) */
+      start: function () { return root.offsetHeight > window.innerHeight ? 'center center' : 'top top'; },
+      end: function () { return '+=' + Math.round(maxX() + window.innerHeight * 0.9); },
+      onRefresh: function (self) { pin = self; if (tl) { tl.progress(self.progress); apply(self.progress); } }, onToggle: function (self) { pin = self; }
+    } });
+    tl.to(state, { p: 1, ease: 'none', onUpdate: function () { apply(state.p); } });
+    pin = tl.scrollTrigger; apply(0);
+    if (document.readyState === 'complete') ST.refresh();   /* switched on again after a resize: measure start/end now */
+  }
+  function pinOff() {
+    if (!tl) { drawAll(1); return; }
+    tl.scrollTrigger.kill(true); tl.kill(); tl = null; pin = null;   /* kill(true) puts the section back exactly where it was */
+    root.classList.remove('is-pinned'); track.style.scrollSnapType = ''; track.scrollLeft = 0;
+    drawAll(1); ST.refresh();
+  }
+  function check() { if (desktop.matches) pinOn(); else pinOff(); sync(); }
+  desktop.addEventListener('change', check);
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(check, 150); });   /* backup for browsers that skip the change event */
+  check();
 });
 </script>
 
@@ -1549,8 +1565,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ===== section: 80-reviews.html ===== -->
 <!-- Section: reviews (from Homepage v1). Two rows of review cards drifting in opposite directions; hover or keyboard focus pauses a row.
      Bonecoach Approved badge top right.
-     2026-11-20 (client): REAL reviews, word for word, from the healthybonesco.com product pages (Judge.me; all verified buyers, 5 stars),
-     picked short and without disease/medical claims; no "success stories". Source dump + shortlist: see client/FEEDBACK-2026-11-20.md item 12. -->
+     PLACEHOLDER COPY: replace every review below with real, verified customer reviews before launch. -->
 <style>
 .reviews { overflow: hidden; }
 .reviews__head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-48); margin-bottom: var(--space-64); }
@@ -1575,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .review__by span { font-weight: 400; color: var(--color-muted-on-light); }
 
 /* Drift: each row holds two copies of its cards and slides by one copy's width, then repeats seamlessly */
-.motion .reviews__row { animation: reviews-left 120s linear infinite; }   /* 120s (was 60) since 2026-11-20: 8 cards per row instead of 4, same speed */
+.motion .reviews__row { animation: reviews-left 60s linear infinite; }
 .motion .reviews__row[data-direction="right"] { animation-name: reviews-right; }
 .reviews__row:hover, .reviews__row:focus-within { animation-play-state: paused; }
 @keyframes reviews-left { to { transform: translateX(calc(-50% - var(--gutter) / 2)); } }
@@ -1608,30 +1623,22 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
     </div>
     <div class="reviews__badge" data-reveal>
       <img src="shared/media/partners/bonecoach-approved-stamp.png" alt="Bonecoach Approved stamp" width="70" height="67">
-      <p class="t-body"><strong>Bonecoach&reg; Approved.</strong><br><span class="muted">Trusted by the Bonecoach community.</span></p>
+      <p class="t-body"><strong>Bonecoach&trade; Approved.</strong><br><span class="muted">Trusted by the Bonecoach community.</span></p>
     </div>
   </div>
 
   <div class="reviews__rows">
     <ul class="reviews__row" data-direction="left">
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I have been using this product for over a year. I put it into tea, coffee, smoothies, and mix it in yogurt. It dissolves quickly without clumping and adds no taste.&rdquo;</p><p class="review__by">Ellen O. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Does not cause stomach distress and it is calming taken in the middle of the day or helps sleep if taken at evening meal.&rdquo;</p><p class="review__by">Nancy M. <span>Magnesium Bisglycinate</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I&rsquo;m a 70 year old female with energy to go to Zumba classes 2&#8209;3x/week, resistance training 4x/week. Annatrol, in part, gives me the energy to do so.&rdquo;</p><p class="review__by">Patty I. <span>Annatrol&trade;</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Great product, easy to use and love it has ingredients that focus on bone health specifically.&rdquo;</p><p class="review__by">Kathy M. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Super clean, no fluff just results. I&rsquo;ve noticed better strength, more energy, and zero bloating. This one&rsquo;s staying in my routine&rdquo;</p><p class="review__by">Tam <span>Creatine + HMB</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I trust Kevin to offer quality ingredients in all of his products. I&rsquo;ve been using the Omega-3 for over a year - very clean - well tolerated.&rdquo;</p><p class="review__by">Leslie O. <span>Omega-3</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Love that this supplement has both K1 and K2 in it! Great products with quality I trust&rdquo;</p><p class="review__by">Cinda S. <span>D3 + K2</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Need all the bone support I can get and this is the best!&rdquo;</p><p class="review__by">Sandi O. <span>Annatrol&trade;</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The collagen dissolves completely in my morning coffee. No taste, no clumps. I haven&rsquo;t missed a day in months.&rdquo;</p><p class="review__by">Linda M. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Every ingredient is listed with its amount, which made it easy to go through with my doctor.&rdquo;</p><p class="review__by">Carol R. <span>Daily D3 + K2/K1</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Finally a creatine I actually enjoy taking. One scoop and I&rsquo;m done.&rdquo;</p><p class="review__by">Susan K. <span>Creatine + HMB</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The bundle took all the guesswork out of my routine.&rdquo;</p><p class="review__by">Patricia H. <span>Bone Renewal Ritual</span></p></li>
     </ul>
     <ul class="reviews__row" data-direction="right">
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I&rsquo;ve tried a lot of fish oils and this one is my go-to! No fish burps and I know I&rsquo;m getting a quality supplement.&rdquo;</p><p class="review__by">MC <span>Omega-3</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I love this Collagen - it has all the ingredients I need and is clean.&rdquo;</p><p class="review__by">Lisa M. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I take Annatrol every day! I know this has been studied and is safe and very good for my body, not just for my bones! I will not go without!&rdquo;</p><p class="review__by">Rose O. <span>Annatrol&trade;</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I love that this is a high quality, bioavailable, clean product. Also that it has the quantities of each component, that the body needs.&rdquo;</p><p class="review__by">Harriett L. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;This is quite tasty and no sugar plus low sodium. Can&rsquo;t wait to try the other flavors next time.&rdquo;</p><p class="review__by">Kim C. <span>Creatine + HMB</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Great product that has no taste &amp; dissolves easily in a hot or cold beverage!&rdquo;</p><p class="review__by">Georgette R. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I couldn&rsquo;t be happier with my Magnesium from Healthy Bones. It has helped with sleep issues as well as what it&rsquo;s doing for my bones. 10/10&rdquo;</p><p class="review__by">Heather L. <span>Magnesium Bisglycinate</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I like that K2/K1 was included in the D3 supplement.&rdquo;</p><p class="review__by">Shelley M. <span>D3 + K2</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The capsules are small and easy to swallow. It fits right next to my morning tea.&rdquo;</p><p class="review__by">Deborah L. <span>Annatrol&trade;</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Fast shipping, and the subscription is simple to pause or change.&rdquo;</p><p class="review__by">Margaret T. <span>Subscription</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;No fishy aftertaste at all. I&rsquo;ve tried many and this is the one I kept.&rdquo;</p><p class="review__by">Janet W. <span>Omega-3 Fish Oil</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Gentle on my stomach, and part of my evening routine now.&rdquo;</p><p class="review__by">Barbara S. <span>Magnesium</span></p></li>
     </ul>
   </div>
 </section>
@@ -1906,36 +1913,21 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
 .ft__logos .ft__bc, .ft__logos .ft__oiq { width: 9.375rem; height: auto; }
 .ft__logos .ft__bc { transform: translateY(0.5rem); }   /* 2026-11-18 user: optical centring, Bonecoach 8px lower */
 .ft__press { width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.ft__press { margin-bottom: 0.375rem; }   /* user 2026-11-20: 32px from the press logos to "By supporting..." (was 26px as measured on the logos) */
 .ft__press-row { display: flex; align-items: center; gap: 4.6875rem; width: max-content; }
 .ft__press-row img { height: 2.1875rem; width: auto; opacity: 0.3; }
 .motion .ft__press-row { animation: ft-press 60s linear infinite; }
 @keyframes ft-press { to { transform: translateX(calc(-50% - 2.34375rem)); } }
 html:not(.motion) .ft__press-row { flex-wrap: wrap; justify-content: center; width: auto; row-gap: var(--space-24); padding-inline: var(--space-24); }
 html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
-.ft__causes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--space-48); width: min(61.25rem, 100% - 3rem); align-items: start; }
-.ft__causes li { display: grid; grid-template-rows: 3.5rem auto; justify-items: center; align-items: start; row-gap: var(--space-12); }
-.ft__causes li > img, .ft__causes li > a { align-self: center; }   /* user 2026-11-20: every logo centred in the same 56px row, captions start on one line */
+.ft__causes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--space-48); width: min(61.25rem, 100% - 3rem); align-items: end; }
+.ft__causes li { display: grid; justify-items: center; row-gap: var(--space-12); }
 .ft__causes img { height: 3.5rem; width: auto; }
-.ft__causes .ft__sims { height: 2.5rem; }   /* user 2026-11-20 (client): too big at 56px; 40px tall like healthybonesco.com (its own 140 x 40 size) */
 .ft__causes span { font: 400 var(--fs-14)/1.25rem var(--font-sans); }
 
 .ft__fda { max-width: 48rem; margin: var(--space-32) auto 0; text-align: center; font: 400 var(--fs-12)/1rem var(--font-sans); color: color-mix(in srgb, var(--color-white) 75%, transparent); }   /* 2026-11-18: FDA line back (required) */
 .ft__bottom { margin-top: var(--space-24); padding: var(--space-12) 0; background: var(--color-charcoal); text-align: center; }
 .ft__bottom p { font: 400 var(--fs-12)/1rem var(--font-sans); }
 
-/* user 2026-11-20: spacing of the Charcoal card matched to bonecoach.com's footer box (measured at 1440: companies 60px apart, 40px from them to
-   the press logos, ~48px from the press logos to "By supporting...", causes ~270px apart). Tablets and up; phones keep their own spacing. */
-@media (min-width: 768px) {
-  .ft__logos { gap: 3.75rem; margin-bottom: var(--space-16); }   /* 24px row gap + 16 = 40px to the press logos */
-  .ft__press { margin-bottom: var(--space-24); }   /* 24 + 24 = 48px to "By supporting..." */
-  .ft__causes { width: min(67.5rem, 100% - 3rem); }   /* columns ~270px apart (were 257) */
-}
-/* user 2026-11-20: equal columns left the outer two (shorter captions) looking far out; now each column is as wide as its caption and the
-   SPACE BETWEEN them is equal (80px), so the group reads as one balanced row */
-@media (min-width: 1024px) {
-  .ft__causes { grid-template-columns: repeat(4, auto); justify-content: center; column-gap: 5rem; width: auto; }
-}
 @media (max-width: 1279px) { .ft__brand { grid-column: 1 / span 3; } .ft__nav { grid-column: 4 / -1; } }
 @media (max-width: 1023px) {
   .ft__brand, .ft__nav { grid-column: 1 / -1; }
@@ -1964,7 +1956,7 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
   .ft__press { margin-inline: calc(-1 * var(--space-16)); width: calc(100% + 2 * var(--space-16)); }
   .ft__causes { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-32); width: 100%; }
   .ft__causes span { max-width: 14rem; }
-  .ft__causes img { height: 2.75rem; } .ft__causes .ft__sims { height: 2rem; } .ft__causes li { grid-template-rows: 2.75rem auto; }
+  .ft__causes img { height: 2.75rem; }
 }
 </style>
 
@@ -2003,10 +1995,10 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
       </div>
       <h3>By supporting these companies you also support</h3>
       <ul class="ft__causes">
-        <li><img src="shared/media/partners/developing-kids.svg" alt="" width="56" height="56"><span>Meals For Hungry &amp;<br>Developing Kids</span></li>
-        <li><a href="https://mentoramillion.com/"><img src="shared/media/partners/logo-mentor-a-milion.svg" alt="Mentor a Million" width="179" height="56"></a><span>Mentorship For Children Who<br>Need Strong Role Models</span></li>
-        <li><a href="https://strengthismystory.com/"><img class="ft__sims" src="shared/media/partners/logo-sims-footer.svg" alt="Strength Is My Story" width="140" height="40"></a><span>A Mantra-Driven Movement For<br>Perseverance And Growth</span></li>
-        <li><img src="shared/media/partners/rescue-dogs.svg" alt="" width="56" height="56"><span>Forever Homes For<br>Rescue Dogs</span></li>
+        <li><img src="shared/media/partners/developing-kids.svg" alt="" width="56" height="56"><span>Meals For Hungry &amp; Developing Kids</span></li>
+        <li><a href="https://mentoramillion.com/"><img src="shared/media/partners/logo-mentor-a-milion.svg" alt="Mentor a Million" width="179" height="56"></a><span>Mentorship For Children Who Need Strong Role Models</span></li>
+        <li><a href="https://strengthismystory.com/"><img src="shared/media/partners/logo-sims-footer.svg" alt="Strength Is My Story" width="140" height="40"></a><span>A Mantra-Driven Movement For Perseverance And Growth</span></li>
+        <li><img src="shared/media/partners/rescue-dogs.svg" alt="" width="56" height="56"><span>Forever Homes For Rescue Dogs</span></li>
       </ul>
     </div>
 
