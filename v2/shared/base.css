@@ -18,7 +18,7 @@
   --font-serif: "Nimbus Roman", "Times New Roman", Times, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-20: 1.25rem; --fs-24: 1.5rem;
+  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-18: 1.125rem; --fs-20: 1.25rem; --fs-24: 1.5rem;
   --fs-32: 2rem; --fs-40: 2.5rem; --fs-48: 3rem; --fs-64: 4rem; --fs-80: 5rem; --fs-96: 6rem;
 
   --type-display: var(--fs-48);       --lh-display: 3rem;
