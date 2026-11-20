@@ -1055,7 +1055,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- ===== section: 50-daily-steps.html ===== -->
 <!-- Section: daily steps photo cards. Version C "Small daily steps, real structure." (rounded inner frame, number counts up, carousel)
-     with the dotted wave line from Version B: on desktop the section pins: scrolling moves the cards sideways and each line fills along its curve, dots appearing as it reaches them.
+     with the dotted wave line from Version B. 2026-11-20 (client): no more pinned sideways scroll; a swipe row everywhere, each line draws in when its card comes into view.
      Facts are from product pages; wording needs compliance review (* = FDA disclaimer in the footer). Lines are decorative, not data.
      IMAGES ARE PLACEHOLDERS: the text sits on the left of each card, so final photos need the subject on the RIGHT (right-weighted composition) to avoid clashing with the info. -->
 <style>
@@ -1205,52 +1205,34 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function drawAll(p) { lines.forEach(function (l, i) { draw(i, p); }); }
 
-  /* scroll story (desktop, motion on): the section pins, scrolling moves the cards sideways
-     and draws the lines one card after another. P = 0..1 over the pinned distance. */
-  /* everything finishes at P = 0.9; the last 10% is a short hold before the page carries on */
-  var W = 0.32, n = lines.length, DONE = 0.9;
-  function apply(P) {
-    track.scrollLeft = Math.min(1, Math.max(0, (P - 0.08) / (DONE - 0.08))) * maxX();
-    lines.forEach(function (l, i) { var a = i * (DONE - W) / Math.max(1, n - 1); draw(i, (P - a) / W); });
-  }
+  /* user 2026-11-20 (client): NO pinned sideways scroll any more. The cards are a normal swipe row (arrows, trackpad, touch) on every
+     screen, and each card's line draws itself (dots popping in as it reaches them) the first time that card comes into view:
+     on landing for the first cards, and for the others when they are swiped in. The pinned version: _backup-2026-11-20/50-daily-steps-before-no-pin.html */
   [].forEach.call(btns, function (b) {
-    b.addEventListener('click', function () {
-      var dir = parseInt(b.dataset.dir, 10), target = Math.max(0, Math.min(maxX(), track.scrollLeft + stepW() * dir));
-      if (pin) {   /* pinned: move the page so the scroll story reaches that position */
-        var P = maxX() ? 0.08 + (DONE - 0.08) * target / maxX() : 0;
-        window.scrollTo({ top: pin.start + P * (pin.end - pin.start), behavior: reduce ? 'auto' : 'smooth' });
-      } else track.scrollBy({ left: stepW() * dir, behavior: reduce ? 'auto' : 'smooth' });
-    });
+    b.addEventListener('click', function () { track.scrollBy({ left: stepW() * parseInt(b.dataset.dir, 10), behavior: reduce ? 'auto' : 'smooth' }); });
   });
-
-  if (!g || !ST || reduce) { drawAll(1); sync(); return; }
-  /* desktop (960px+) pins the section; narrower windows get the swipe row. Watched by hand rather than gsap.matchMedia:
-     resizing a desktop window down to phone width left the pin (and a 1425px-wide page) in place (user 2026-10-30) */
-  var desktop = window.matchMedia('(min-width: 960px)'), tl = null;
-  function pinOn() {
-    if (tl) return;
-    root.classList.add('is-pinned'); track.style.scrollSnapType = 'none';
-    var state = { p: 0 };
-    tl = g.timeline({ scrollTrigger: {
-      trigger: root, pin: true, scrub: 0.6, invalidateOnRefresh: true,   /* no anticipatePin: it guessed ahead on fast wheel scrolls and locked the section up to 300px early, so it jumped (user 2026-10-30) */
-      start: function () { return root.offsetHeight > window.innerHeight ? 'center center' : 'top top'; },
-      end: function () { return '+=' + Math.round(maxX() + window.innerHeight * 0.9); },
-      onRefresh: function (self) { pin = self; if (tl) { tl.progress(self.progress); apply(self.progress); } }, onToggle: function (self) { pin = self; }
-    } });
-    tl.to(state, { p: 1, ease: 'none', onUpdate: function () { apply(state.p); } });
-    pin = tl.scrollTrigger; apply(0);
-    if (document.readyState === 'complete') ST.refresh();   /* switched on again after a resize: measure start/end now */
+  sync();
+  if (reduce || !('IntersectionObserver' in window)) { drawAll(1); return; }
+  drawAll(0);
+  var DUR = 1400, done = [];
+  function play(i, delay) {
+    if (done[i]) return; done[i] = true;
+    var t0 = null;
+    setTimeout(function () {
+      (function frame(t) { if (t0 === null) t0 = t; var p = Math.min(1, (t - t0) / DUR); draw(i, 1 - Math.pow(1 - p, 3)); if (p < 1) requestAnimationFrame(frame); })(performance.now());
+    }, delay);
   }
-  function pinOff() {
-    if (!tl) { drawAll(1); return; }
-    tl.scrollTrigger.kill(true); tl.kill(); tl = null; pin = null;   /* kill(true) puts the section back exactly where it was */
-    root.classList.remove('is-pinned'); track.style.scrollSnapType = ''; track.scrollLeft = 0;
-    drawAll(1); ST.refresh();
-  }
-  function check() { if (desktop.matches) pinOn(); else pinOff(); sync(); }
-  desktop.addEventListener('change', check);
-  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(check, 150); });   /* backup for browsers that skip the change event */
-  check();
+  /* a card counts as in view when 60% of it is on screen (the row clips sideways, so swiped-in cards trigger too) */
+  var queue = 0, qt;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var i = cards.indexOf(e.target); play(i, queue * 180); queue++;   /* cards that arrive together draw one after another */
+      io.unobserve(e.target);
+    });
+    clearTimeout(qt); qt = setTimeout(function () { queue = 0; }, 400);
+  }, { threshold: 0.6 });
+  cards.forEach(function (c) { io.observe(c); });
 });
 </script>
 
@@ -1560,7 +1542,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ===== section: 80-reviews.html ===== -->
 <!-- Section: reviews (from Homepage v1). Two rows of review cards drifting in opposite directions; hover or keyboard focus pauses a row.
      Bonecoach Approved badge top right.
-     PLACEHOLDER COPY: replace every review below with real, verified customer reviews before launch. -->
+     2026-11-20 (client): REAL reviews, word for word, from the healthybonesco.com product pages (Judge.me; all verified buyers, 5 stars),
+     picked short and without disease/medical claims; no "success stories". Source dump + shortlist: see client/FEEDBACK-2026-11-20.md item 12. -->
 <style>
 .reviews { overflow: hidden; }
 .reviews__head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-48); margin-bottom: var(--space-64); }
@@ -1585,7 +1568,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .review__by span { font-weight: 400; color: var(--color-muted-on-light); }
 
 /* Drift: each row holds two copies of its cards and slides by one copy's width, then repeats seamlessly */
-.motion .reviews__row { animation: reviews-left 60s linear infinite; }
+.motion .reviews__row { animation: reviews-left 120s linear infinite; }   /* 120s (was 60) since 2026-11-20: 8 cards per row instead of 4, same speed */
 .motion .reviews__row[data-direction="right"] { animation-name: reviews-right; }
 .reviews__row:hover, .reviews__row:focus-within { animation-play-state: paused; }
 @keyframes reviews-left { to { transform: translateX(calc(-50% - var(--gutter) / 2)); } }
@@ -1624,16 +1607,24 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
 
   <div class="reviews__rows">
     <ul class="reviews__row" data-direction="left">
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The collagen dissolves completely in my morning coffee. No taste, no clumps. I haven&rsquo;t missed a day in months.&rdquo;</p><p class="review__by">Linda M. <span>Collagen Peptides</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Every ingredient is listed with its amount, which made it easy to go through with my doctor.&rdquo;</p><p class="review__by">Carol R. <span>Daily D3 + K2/K1</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Finally a creatine I actually enjoy taking. One scoop and I&rsquo;m done.&rdquo;</p><p class="review__by">Susan K. <span>Creatine + HMB</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The bundle took all the guesswork out of my routine.&rdquo;</p><p class="review__by">Patricia H. <span>Bone Renewal Ritual</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I have been using this product for over a year. I put it into tea, coffee, smoothies, and mix it in yogurt. It dissolves quickly without clumping and adds no taste.&rdquo;</p><p class="review__by">Ellen O. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Does not cause stomach distress and it is calming taken in the middle of the day or helps sleep if taken at evening meal.&rdquo;</p><p class="review__by">Nancy M. <span>Magnesium Bisglycinate</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I&rsquo;m a 70 year old female with energy to go to Zumba classes 2&#8209;3x/week, resistance training 4x/week. Annatrol, in part, gives me the energy to do so.&rdquo;</p><p class="review__by">Patty I. <span>Annatrol&trade;</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Great product, easy to use and love it has ingredients that focus on bone health specifically.&rdquo;</p><p class="review__by">Kathy M. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Super clean, no fluff just results. I&rsquo;ve noticed better strength, more energy, and zero bloating. This one&rsquo;s staying in my routine&rdquo;</p><p class="review__by">Tam <span>Creatine + HMB</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I trust Kevin to offer quality ingredients in all of his products. I&rsquo;ve been using the Omega-3 for over a year - very clean - well tolerated.&rdquo;</p><p class="review__by">Leslie O. <span>Omega-3</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Love that this supplement has both K1 and K2 in it! Great products with quality I trust&rdquo;</p><p class="review__by">Cinda S. <span>D3 + K2</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Need all the bone support I can get and this is the best!&rdquo;</p><p class="review__by">Sandi O. <span>Annatrol&trade;</span></p></li>
     </ul>
     <ul class="reviews__row" data-direction="right">
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;The capsules are small and easy to swallow. It fits right next to my morning tea.&rdquo;</p><p class="review__by">Deborah L. <span>Annatrol&trade;</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Fast shipping, and the subscription is simple to pause or change.&rdquo;</p><p class="review__by">Margaret T. <span>Subscription</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;No fishy aftertaste at all. I&rsquo;ve tried many and this is the one I kept.&rdquo;</p><p class="review__by">Janet W. <span>Omega-3 Fish Oil</span></p></li>
-      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Gentle on my stomach, and part of my evening routine now.&rdquo;</p><p class="review__by">Barbara S. <span>Magnesium</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I&rsquo;ve tried a lot of fish oils and this one is my go-to! No fish burps and I know I&rsquo;m getting a quality supplement.&rdquo;</p><p class="review__by">MC <span>Omega-3</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I love this Collagen - it has all the ingredients I need and is clean.&rdquo;</p><p class="review__by">Lisa M. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I take Annatrol every day! I know this has been studied and is safe and very good for my body, not just for my bones! I will not go without!&rdquo;</p><p class="review__by">Rose O. <span>Annatrol&trade;</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I love that this is a high quality, bioavailable, clean product. Also that it has the quantities of each component, that the body needs.&rdquo;</p><p class="review__by">Harriett L. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;This is quite tasty and no sugar plus low sodium. Can&rsquo;t wait to try the other flavors next time.&rdquo;</p><p class="review__by">Kim C. <span>Creatine + HMB</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;Great product that has no taste &amp; dissolves easily in a hot or cold beverage!&rdquo;</p><p class="review__by">Georgette R. <span>Collagen Peptides</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I couldn&rsquo;t be happier with my Magnesium from Healthy Bones. It has helped with sleep issues as well as what it&rsquo;s doing for my bones. 10/10&rdquo;</p><p class="review__by">Heather L. <span>Magnesium Bisglycinate</span></p></li>
+      <li class="review"><div class="review__stars" role="img" aria-label="5 out of 5 stars"></div><p class="review__text">&ldquo;I like that K2/K1 was included in the D3 supplement.&rdquo;</p><p class="review__by">Shelley M. <span>D3 + K2</span></p></li>
     </ul>
   </div>
 </section>
