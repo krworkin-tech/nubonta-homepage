@@ -151,6 +151,10 @@ body.theme-c, body.theme-d, body.theme-final { background: var(--color-white); c
 @media (min-width: 1440px) { body.theme-final { --page-margin: 3.75rem; } }
 /* final homepage: no italics anywhere (user decision 2026-10-29) */
 body.theme-final em, body.theme-final i { font-style: normal; }
+/* THE TAGLINE RULE (client 2026-11-23, every page, now and future): "Strengthen the structure" on line 1, "that carries your life." on line 2,
+   "life" always italic. Mark it up as <… class="tagline"><span>Strengthen the structure</span> <span>that carries your <em>life.</em></span></…> */
+body.theme-final .tagline > span { display: block; white-space: nowrap; }
+body.theme-final .tagline em { font-style: italic; }
 .btn--sm { min-height: 2.75rem; padding: 0 var(--space-16); font-size: var(--fs-14); }
 /* big CTAs at 18px on desktop/tablet, v1 and v2 (user 2026-10-30); phones keep 16px in their 56px full-width pills */
 @media (min-width: 768px) { .btn:not(.btn--sm) { min-height: 3.5rem; padding-inline: var(--space-32); font-size: calc(var(--fs-16) + 0.125rem); } }   /* 56px tall, 32px sides (user 2026-10-30) */

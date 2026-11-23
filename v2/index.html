@@ -321,8 +321,10 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero__icons { order: 3; align-self: center; margin: var(--space-32) 0 var(--space-48); }
 }
 @media (max-width: 767px) {
-  .hero__title { font-size: 2.5rem; line-height: 2.75rem; }
-  .hero__sub { font-size: var(--fs-16); line-height: 1.5rem; }
+  /* user 2026-11-23: the tagline on exactly 2 lines ("Strengthen the structure" / "that carries your life."), sized to the screen width */
+  .hero__title { margin-top: var(--space-12); font-size: min(2.5rem, 9.6vw); line-height: 1.15; }   /* 12px under the rating (was 24); 36px at 375, the longer line fills ~330 of the 343px */
+  .hero__title .ln { white-space: nowrap; }
+  .hero__sub { font-size: var(--fs-18); line-height: 1.625rem; }   /* 18px (user 2026-11-23, was 16) */
   .hero__rating { gap: var(--space-8); font-size: var(--fs-14); white-space: nowrap; } .hero__rating img { width: 5.5rem; }   /* one line at 375 */
   .hero__ctas { flex-direction: column; align-self: stretch; gap: var(--space-16); }
   .hero__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); }
@@ -394,7 +396,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero2__copy { max-width: 41.5rem; }
 .hero2__rating { display: flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.4 var(--font-sans); }   /* Figma: 18px */
 .hero2__rating img { display: block; width: 8.25rem; height: 1.5rem; }
-.hero2__title { margin-top: var(--space-8); font: 400 var(--fs-96)/6rem var(--font-serif); letter-spacing: -0.01em; }
+.hero2__title { margin-top: var(--space-8); font: 400 var(--fs-64)/1 var(--font-serif); letter-spacing: -0.015em; }   /* tagline rule (client 2026-11-23): always 2 lines, so 64px like Hero 1 (96px on 3 lines before) */
+.hero2__title .ln { white-space: nowrap; }
+.hero2 .hero2__title em { font-style: italic; }
 .hero2__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
 .hero2__title .ln > span { display: inline-block; }
 .hero2__sub { margin-top: var(--space-16); font: 500 var(--fs-24)/2rem var(--font-sans); text-transform: uppercase; color: var(--color-stone); text-wrap: balance; }
@@ -404,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero2__tag { position: absolute; right: 0; bottom: 8.9375rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
   background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }   /* Figma: 143px from the bottom */
 .hero2__tag img { flex: none; width: 6.3125rem; height: auto; }
-@media (max-width: 1279px) { .hero2__title { font-size: var(--fs-80); line-height: 5.25rem; } }
+@media (max-width: 1279px) { .hero2__title { font-size: 3.5rem; } }
 
 /* phones and tablets: copy on top, the photo cropped to the woman, buttons over its bottom fade (Figma "Mobile") */
 @media (max-width: 1023px) {
@@ -413,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero2__copy { order: 0; max-width: none; padding: var(--space-48) var(--page-margin) 0; text-align: center; }
   .hero2__rating { justify-content: center; font-size: var(--fs-14); }
   .hero2__rating img { width: 5.5rem; height: 1rem; }
-  .hero2__title { margin-top: var(--space-16); font-size: var(--fs-64); line-height: 4rem; }
+  .hero2__title { margin-top: var(--space-16); font-size: var(--fs-48); line-height: 1.1; }
   .hero2__sub { margin-top: calc(var(--space-16) + 0.25rem); font-size: var(--fs-16); line-height: 1.5rem; }   /* user 2026-11-19: even 16px between rating, title and line (Figma had 16 / 4) */
   .hero2__media { position: relative; inset: auto; order: 1; z-index: 0; aspect-ratio: 375 / 395; }
   .hero2__media::before, .hero2__media::after { content: ""; position: absolute; inset-inline: 0; z-index: 1; pointer-events: none; }
@@ -430,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero2__ctas { flex-direction: row; justify-content: center; }
   .hero2__ctas .btn { width: auto; }
 }
-@media (max-width: 767px) { .hero2__title { font-size: var(--fs-48); line-height: 3rem; } }
+@media (max-width: 767px) { .hero2__title { font-size: min(2.5rem, 9.6vw); line-height: 1.15; } }   /* 2 lines on every phone, as Hero 1 */
 
 /* the "Hero 1 / Hero 2" pill (design preview, remove once the client picks): same white pill as the PDP version switch,
    top-right of the hero on desktop, on the photo's top-right corner on phones and tablets */
@@ -458,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="container hero2__inner">
     <div class="hero2__copy">
       <p class="hero2__rating h2-in"><img src="shared/media/hero/stars-copper.svg" alt="" width="132" height="24"><span>4.9 Rating based on 576 reviews</span></p>
-      <h1 class="hero2__title" id="hero2-title"><span class="ln"><span>Strengthen the</span></span> <span class="ln"><span>structure that</span></span> <span class="ln"><span>carries your life.</span></span></h1>
+      <h1 class="hero2__title" id="hero2-title"><span class="ln"><span>Strengthen the structure</span></span> <span class="ln"><span>that carries your <em>life.</em></span></span></h1>
       <p class="hero2__sub h2-in">Daily formulas for healthy aging.</p>
     </div>
     <div class="hero2__ctas h2-in">
@@ -1877,6 +1881,9 @@ body:has(#newsletter) { --ft-overlap: 8rem; }
 .ft__brand { grid-column: 1 / span 4; display: grid; row-gap: var(--space-32); }
 .ft__logo { width: 23rem; max-width: 100%; height: auto; }   /* 369px, as in Figma */
 .ft__tagline { font: 400 var(--fs-32)/2.5rem var(--font-serif); color: var(--color-stone); }
+/* the tagline rule (client 2026-11-23): always 2 lines, "Strengthen the structure" / "that carries your life.", life in italic */
+.ft__tagline span { display: block; white-space: nowrap; }
+body .ft__tagline em { font-style: italic; }
 .ft__nav { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.25fr); column-gap: var(--gutter); }
 .ft__nav h3 { font: 400 1.125rem/1.5rem var(--font-sans); color: var(--color-stone); margin-bottom: var(--space-12); }
 .ft__nav ul { display: grid; row-gap: var(--space-12); }
@@ -1936,7 +1943,8 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
 @media (min-width: 1024px) {
   .ft__causes { grid-template-columns: repeat(4, auto); justify-content: center; column-gap: 5rem; width: auto; }
 }
-@media (max-width: 1279px) { .ft__brand { grid-column: 1 / span 3; } .ft__nav { grid-column: 4 / -1; } }
+/* 1024-1279 (user 2026-11-23, tagline rule): the 2-line tagline is ~345px wide and the 3-column brand cell was 218px, so the brand sits on its own row above the 4 link columns */
+@media (max-width: 1279px) { .ft__brand, .ft__nav { grid-column: 1 / -1; } .ft__nav { margin-top: var(--space-48); } }
 @media (max-width: 1023px) {
   .ft__brand, .ft__nav { grid-column: 1 / -1; }
   .ft__nav { margin-top: var(--space-48); grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-40); }
@@ -1973,7 +1981,7 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
     <div class="ft__top">
       <div class="ft__brand">
         <img class="ft__logo" src="assets/logo/nubonta-wordmark-white.svg" alt="Nubonta" width="369" height="75">
-        <p class="ft__tagline">Strengthen the structure that carries your life.</p>
+        <p class="ft__tagline tagline"><span>Strengthen the structure</span> <span>that carries your <em>life.</em></span></p>
       </div>
 
       <nav class="ft__nav" aria-label="Footer">
