@@ -283,6 +283,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero { --hero-dark: #050605; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: stretch; min-height: clamp(37.5rem, 39.0625vw, 46.875rem);   /* 750px at 1920, as in Figma */
   background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
 .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+/* user Figma 7074:1488 (2026-11-23): kitchen photo + Charcoal gradient from the left (10.64% -> transparent at 55%) */
+.hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-charcoal) 10.64%, color-mix(in srgb, var(--color-charcoal) 0%, transparent) 54.995%); pointer-events: none; }
 .hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0%; }   /* top-aligned as in Figma (the photo runs past the bottom); right edge kept, so on narrower screens the dark left side is what gets cropped */
 .hero__inner { width: 100%; display: flex; flex-direction: column; align-items: flex-start; padding-block: 2.5rem var(--space-96); }
 .hero__formerly { display: flex; align-items: center; gap: var(--space-8); font: 400 var(--fs-14)/1.2 var(--font-sans); letter-spacing: 1px; text-transform: uppercase; }
@@ -311,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero { flex-direction: column; min-height: 0; }
   .hero__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
   .hero__media img { object-position: 50% 0%; }
+  .hero__media::after { display: none; }   /* stacked: the photo sits under the copy, no side gradient */
   .hero__inner { display: contents; }
   .hero__formerly { order: 0; align-self: center; margin-top: var(--space-32); }
   .hero__copy { order: 0; margin: var(--space-40) auto var(--space-32); padding-inline: var(--page-margin, var(--space-16)); text-align: center; }
@@ -338,9 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero__media">
     <picture>
-      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-capsule-2026-11-20-mobile.webp" width="800" height="800">
-      <img src="shared/media/hero/hero-capsule-2026-11-20-1920.webp" srcset="shared/media/hero/hero-capsule-2026-11-20-1200.webp 1200w, shared/media/hero/hero-capsule-2026-11-20-1920.webp 1920w, shared/media/hero/hero-capsule-2026-11-20.webp 3577w" sizes="100vw"
-         alt="A woman with silver-streaked hair smiles as she takes a capsule by a sunny window, holding a jar of Nubonta D3/K2+" width="1920" height="834">
+      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-kitchen-2026-11-23-mobile.webp" width="800" height="800">
+      <img src="shared/media/hero/hero-kitchen-2026-11-23-1920.webp" srcset="shared/media/hero/hero-kitchen-2026-11-23-1200.webp 1200w, shared/media/hero/hero-kitchen-2026-11-23-1920.webp 1920w, shared/media/hero/hero-kitchen-2026-11-23.webp 3578w" sizes="100vw"
+         alt="A smiling woman in a dark kitchen drinks a glass of water and holds a Nubonta Collagen Peptides pouch, with D3/K2+ and Creatine on the counter" width="1920" height="749">
     </picture>
   </div>
   <div class="container hero__inner">
@@ -378,63 +381,64 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <!-- ===== section: 20-hero2.html ===== -->
-<!-- Section: hero, option 2 (2026-11-19, user's Figma "deskto" node 6992:79 + "Mobile" node 6995:1090, page "Test"). Shown INSTEAD of
-     hero 1 (20-hero.html) when the white "Hero 1 / Hero 2" pill is switched (design preview so the client can compare; `?hero=2` in the
-     link opens it). Desktop: full-bleed photo of a woman with the D3/K2+ bottle (dark room on the left is in the photo, no gradient
-     layer), copper stars + "4.9 Rating based on 576 reviews" (Figma's wording and count; the PDP says 575), 96px serif headline, 24px
-     Stone uppercase line, 64px-tall buttons with 20px text (Figma), white "Formerly Healthy Bones Co." tag. 800px tall at 1920.
-     Phones/tablets: copy centred on near-black #060705 (user's value from Figma, kept as given), then the photo cropped to the woman with
-     a fade at its top and bottom, the two full-width buttons sitting on the bottom fade. No tag on phones. Photo
-     shared/media/hero/hero-woman-2026-11-19*.webp (3577px source). The pill and the swap script are at the end of this file. -->
+<!-- Section: hero 2 (user 2026-11-23: Hero 2 = the previous Hero 1, Figma 7031:3826, woman taking a capsule with D3/K2+; Hero 1 now has the kitchen photo, Figma 7074:1488).
+     Same markup and styles as that hero with hero2 class names; hidden until the white "Hero 1 / Hero 2" pill or ?hero=2 shows it.
+     The earlier Hero 2 (woman with D3/K2+, Figma 6992:79) is kept in _backup-2026-11-23-stars/20-hero2-before-capsule.html. -->
 <style>
-.hero2 { position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; min-height: clamp(37.5rem, 41.667vw, 50rem);   /* Figma: 800px at 1920 */
-  background: #060705; color: var(--color-white); --focus: var(--color-white); }
-.hero2[hidden], .hero[hidden] { display: none !important; }
+.hero2 { --hero-dark: #050605; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: stretch; min-height: clamp(37.5rem, 39.0625vw, 46.875rem);   /* 750px at 1920, as in Figma */
+  background: var(--hero-dark); color: var(--color-white); --focus: var(--color-white); }
 .hero2__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero2__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0%; }   /* Figma: anchored at the top; the woman stays on the right on narrower screens */
-.hero2__inner { width: 100%; padding-block: var(--space-96); }
-.hero2__copy { max-width: 41.5rem; }
-.hero2__rating { display: flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.4 var(--font-sans); }   /* Figma: 18px */
-.hero2__rating img { display: block; width: 8.25rem; height: 1.5rem; }
-.hero2__title { margin-top: var(--space-8); font: 400 var(--fs-64)/1 var(--font-serif); letter-spacing: -0.015em; }   /* tagline rule (client 2026-11-23): always 2 lines, so 64px like Hero 1 (96px on 3 lines before) */
-.hero2__title .ln { white-space: nowrap; }
-.hero2 .hero2__title em { font-style: italic; }
-.hero2__title .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.hero2__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0%; }   /* top-aligned as in Figma (the photo runs past the bottom); right edge kept, so on narrower screens the dark left side is what gets cropped */
+.hero2__inner { width: 100%; display: flex; flex-direction: column; align-items: flex-start; padding-block: 2.5rem var(--space-96); }
+.hero2__formerly { display: flex; align-items: center; gap: var(--space-8); font: 400 var(--fs-14)/1.2 var(--font-sans); letter-spacing: 1px; text-transform: uppercase; }
+.hero2__formerly i { width: 1px; height: 1.5rem; background: #383838; }   /* Figma divider colour, kept as given */
+.hero2__formerly img { width: 6.3125rem; height: auto; }
+.hero2__copy { margin-top: 5.5rem; max-width: 38.5625rem; }   /* 88px under the tag: the copy starts 178px from the top, as in Figma */
+.hero2__rating { display: flex; align-items: center; gap: var(--space-12); font: 400 1.125rem/1.4 var(--font-sans); }
+.hero2__rating img { width: 7.6875rem; height: auto; }
+.hero2__title { margin-top: var(--space-24); font: 400 var(--fs-64)/1 var(--font-serif); letter-spacing: -0.015em; }
+.hero2__title .ln { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }   /* each line is a mask the words slide up through */
 .hero2__title .ln > span { display: inline-block; }
-.hero2__sub { margin-top: var(--space-16); font: 500 var(--fs-24)/2rem var(--font-sans); text-transform: uppercase; color: var(--color-stone); text-wrap: balance; }
-.hero2__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-64); }
-.hero2__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.75rem; }   /* Figma: 64px tall, 20px */
+.hero2 .hero2__title em { font-style: italic; color: var(--color-copper); }   /* .hero2 prefix: beats the site-wide "no italics" rule (body.theme-final em) */   /* the tagline rule (client 2026-11-20): "life" always italic; Copper as in the Figma design */
+.hero2__sub { margin-top: var(--space-8); font: 400 var(--fs-24)/2rem var(--font-sans); color: var(--color-stone); }
+.hero2__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-48); }
+.hero2__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }
 .hero2__ctas .icon { margin-left: var(--space-8); }
-.hero2__tag { position: absolute; right: 0; bottom: 8.9375rem; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-12); width: 20rem; padding: var(--space-16); border-radius: 0.75rem 0 0 0.75rem; --focus: var(--color-charcoal);
-  background: var(--color-white); color: var(--color-charcoal); font: 400 1.125rem/1.2 var(--font-sans); }   /* Figma: 143px from the bottom */
-.hero2__tag img { flex: none; width: 6.3125rem; height: auto; }
-@media (max-width: 1279px) { .hero2__title { font-size: 3.5rem; } }
+.hero2__icons { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.5rem; margin-left: 1.3125rem; }   /* 40px under the buttons, 21px in (Figma) */
+.hero2__icons li { display: grid; justify-items: center; row-gap: var(--space-16); }
+.hero2__icons li > img:first-child { width: 3.5rem; height: 3.5rem; }
+.hero2__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
+.hero2__icons .sep { width: 1px; height: 2.9375rem; background: #383838; }
 
-/* phones and tablets: copy on top, the photo cropped to the woman, buttons over its bottom fade (Figma "Mobile") */
+@media (max-width: 1279px) { .hero2__title { font-size: 3.5rem; } }
+/* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
 @media (max-width: 1023px) {
-  .hero2 { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding-bottom: var(--space-48); }
+  .hero2 { flex-direction: column; min-height: 0; }
+  .hero2__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
+  .hero2__media img { object-position: 50% 0%; }
   .hero2__inner { display: contents; }
-  .hero2__copy { order: 0; max-width: none; padding: var(--space-48) var(--page-margin) 0; text-align: center; }
-  .hero2__rating { justify-content: center; font-size: var(--fs-14); }
-  .hero2__rating img { width: 5.5rem; height: 1rem; }
-  .hero2__title { margin-top: var(--space-16); font-size: var(--fs-48); line-height: 1.1; }
-  .hero2__sub { margin-top: calc(var(--space-16) + 0.25rem); font-size: var(--fs-16); line-height: 1.5rem; }   /* user 2026-11-19: even 16px between rating, title and line (Figma had 16 / 4) */
-  .hero2__media { position: relative; inset: auto; order: 1; z-index: 0; aspect-ratio: 375 / 395; }
-  .hero2__media::before, .hero2__media::after { content: ""; position: absolute; inset-inline: 0; z-index: 1; pointer-events: none; }
-  .hero2__media::before { top: 0; height: 12.2%; background: linear-gradient(180deg, #060705, rgb(6 7 5 / 0)); }      /* Figma: 48px fade at the top */
-  .hero2__media::after { bottom: 0; height: 31.4%; background: linear-gradient(0deg, #060705, rgb(6 7 5 / 0)); }       /* Figma: 124px fade at the bottom */
-  .hero2__media img { inset: auto; top: -4%; left: -155%; width: auto; height: 120.87%; max-width: none; object-fit: fill; }   /* Figma crop (top -14.14%) pushed down to -4% so her head clears the top fade (user 2026-11-19) */
-  .hero2__ctas { order: 2; position: relative; z-index: 2; flex-direction: column; gap: var(--space-16); margin: -4rem var(--page-margin) 0; }   /* Figma: buttons start 64px above the photo's bottom */
-  .hero2__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); line-height: 1.5rem; }
-  .hero2__tag { display: none; }
+  .hero2__formerly { order: 0; align-self: center; margin-top: var(--space-32); }
+  .hero2__copy { order: 0; margin: var(--space-40) auto var(--space-32); padding-inline: var(--page-margin, var(--space-16)); text-align: center; }
+  .hero2__rating { justify-content: center; font-size: var(--fs-16); }
+  .hero2__title { font-size: var(--fs-48); line-height: 3rem; }
+  .hero2__sub { font-size: var(--fs-20); line-height: 1.75rem; }
+  .hero2__ctas { order: 2; justify-content: center; margin: var(--space-32) var(--page-margin, var(--space-16)) 0; }
+  .hero2__icons { order: 3; align-self: center; margin: var(--space-32) 0 var(--space-48); }
 }
-@media (min-width: 768px) and (max-width: 1023px) {   /* tablets: a wider crop instead of a very tall one */
-  .hero2__media { aspect-ratio: 16 / 10; }
-  .hero2__media img { inset: 0; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 20%; }
-  .hero2__ctas { flex-direction: row; justify-content: center; }
-  .hero2__ctas .btn { width: auto; }
+@media (max-width: 767px) {
+  /* user 2026-11-23: the tagline on exactly 2 lines ("Strengthen the structure" / "that carries your life."), sized to the screen width */
+  .hero2__title { margin-top: var(--space-12); font-size: min(2.5rem, 9.6vw); line-height: 1.15; }   /* 12px under the rating (was 24); 36px at 375, the longer line fills ~330 of the 343px */
+  .hero2__title .ln { white-space: nowrap; }
+  .hero2__sub { font-size: var(--fs-18); line-height: 1.625rem; }   /* 18px (user 2026-11-23, was 16) */
+  .hero2__rating { gap: var(--space-8); font-size: var(--fs-14); white-space: nowrap; } .hero2__rating img { width: 5.5rem; }   /* one line at 375 */
+  .hero2__ctas { flex-direction: column; align-self: stretch; gap: var(--space-16); }
+  .hero2__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); }
+  .hero2__icons { gap: var(--space-8); }
+  .hero2__icons li > img:first-child { width: 2.75rem; height: 2.75rem; }
+  .hero2__icons .lbl { height: 1.25rem; }
+  .hero2__icons .sep { height: 2.25rem; }
 }
-@media (max-width: 767px) { .hero2__title { font-size: min(2.5rem, 9.6vw); line-height: 1.15; } }   /* 2 lines on every phone, as Hero 1 */
+.hero2[hidden], .hero[hidden] { display: none !important; }
 
 /* the "Hero 1 / Hero 2" pill (design preview, remove once the client picks): same white pill as the PDP version switch,
    top-right of the hero on desktop, on the photo's top-right corner on phones and tablets */
@@ -456,12 +460,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <section class="hero2" id="hero2" aria-labelledby="hero2-title" hidden>
   <div class="hero2__media">
-    <img src="shared/media/hero/hero-woman-2026-11-19-1920.webp" srcset="shared/media/hero/hero-woman-2026-11-19-1200.webp 1200w, shared/media/hero/hero-woman-2026-11-19-1920.webp 1920w, shared/media/hero/hero-woman-2026-11-19.webp 2560w" sizes="(max-width: 767px) 300vw, 100vw"
-         alt="A smiling woman in a warm cardigan takes a capsule, holding a bottle of Nubonta D3/K2+ by a sunny window" width="1920" height="834" loading="lazy">
+    <picture>
+      <source media="(max-width: 1023px)" srcset="shared/media/hero/hero-capsule-2026-11-20-mobile.webp" width="800" height="800">
+      <img src="shared/media/hero/hero-capsule-2026-11-20-1920.webp" srcset="shared/media/hero/hero-capsule-2026-11-20-1200.webp 1200w, shared/media/hero/hero-capsule-2026-11-20-1920.webp 1920w, shared/media/hero/hero-capsule-2026-11-20.webp 3577w" sizes="100vw"
+         alt="A woman with silver-streaked hair smiles as she takes a capsule by a sunny window, holding a jar of Nubonta D3/K2+" width="1920" height="834">
+    </picture>
   </div>
   <div class="container hero2__inner">
+    <p class="hero2__formerly h2-in">Formerly <i aria-hidden="true"></i><img src="shared/media/hero/hero3-hbc-logo-white.svg" alt="Healthy Bones Co." width="101" height="50"></p>
     <div class="hero2__copy">
-      <p class="hero2__rating h2-in"><img src="shared/media/hero/stars-copper.svg" alt="" width="132" height="24"><span>4.9 Rating based on 576 reviews</span></p>
+      <p class="hero2__rating h2-in"><img src="shared/media/hero/hero3-stars.svg" alt="Rated 5 out of 5 stars" width="123" height="24"><span>124,829+ Trusted Customers</span></p>
       <h1 class="hero2__title" id="hero2-title"><span class="ln"><span>Strengthen the structure</span></span> <span class="ln"><span>that carries your <em>life.</em></span></span></h1>
       <p class="hero2__sub h2-in">Daily formulas for healthy aging.</p>
     </div>
@@ -469,8 +477,16 @@ document.addEventListener('DOMContentLoaded', function () {
       <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
     </div>
+    <ul class="hero2__icons h2-in" aria-label="Our standards">
+      <li><img src="shared/media/hero/hero3-icon-1.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-1.svg" alt="Science-backed ingredients" width="104" height="25"></li>
+      <li class="sep" aria-hidden="true"></li>
+      <li><img src="shared/media/hero/hero3-icon-2.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-2.svg" alt="Clinically informed" width="68" height="25"></li>
+      <li class="sep" aria-hidden="true"></li>
+      <li><img src="shared/media/hero/hero3-icon-3.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-3.svg" alt="Clean and thoughtful" width="81" height="25"></li>
+      <li class="sep" aria-hidden="true"></li>
+      <li><img src="shared/media/hero/hero3-icon-4.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-4.svg" alt="Built for real life" width="60" height="25"></li>
+    </ul>
   </div>
-  <p class="hero2__tag"><img src="shared/media/partners/healthy-bones-co-logo-dark.svg" alt="" width="101" height="50"><span>Formerly<br>Healthy Bones Co.</span></p>
 </section>
 
 <script>
