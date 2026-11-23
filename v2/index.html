@@ -1564,6 +1564,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .reviews__badge .muted { color: var(--color-muted-on-light); }
 .reviews__badge img { flex: none; width: 4.375rem; height: auto; }   /* 70 x 66.5, as in Figma */
 .reviews__badge strong { font-weight: 500; }
+.reviews__badge p { font-size: var(--fs-18); line-height: 1.75rem; }   /* user 2026-11-23: same as the PDP founder badge (18/28, "Bone Coach® Approved." in Medium) */
 
 .reviews__rows { display: grid; gap: var(--gutter); }
 .reviews__row { display: flex; gap: var(--gutter); width: max-content; }
@@ -1612,7 +1613,7 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
     </div>
     <div class="reviews__badge" data-reveal>
       <img src="shared/media/partners/bonecoach-approved-stamp.png" alt="Bonecoach Approved stamp" width="70" height="67">
-      <p class="t-body"><strong>Bonecoach&reg; Approved.</strong><br><span class="muted">Trusted by the Bonecoach community.</span></p>
+      <p class="t-body"><strong>Bone Coach&reg; Approved.</strong><br><span class="muted">Trusted by the Bonecoach community.</span></p>
     </div>
   </div>
 
