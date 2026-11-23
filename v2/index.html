@@ -1611,12 +1611,12 @@ document.addEventListener('DOMContentLoaded', function () {
 .reviews__rows { display: grid; gap: var(--gutter); }
 .reviews__row { display: flex; gap: var(--gutter); width: max-content; }
 .review { flex: none; width: 26rem; display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-32); border-radius: var(--radius-card); box-shadow: inset 0 0 0 1px var(--line); transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
-/* hover: the card turns Charcoal, text and stars go white */
+/* hover: the card turns Charcoal, text goes white; stars stay Copper (user 2026-11-23: every rating star is Copper) */
 .review:hover { background: var(--color-charcoal); color: var(--color-white); box-shadow: inset 0 0 0 1px var(--color-charcoal); }
 .review:hover .review__by span { color: var(--color-taupe); }
-.review:hover .review__stars { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%23A99F8C' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E"); }
+.review:hover .review__stars { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%23AB825E' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E"); }
 .review__stars { height: var(--space-16); width: calc(var(--space-16) * 5 + var(--space-4) * 4);
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%2310100F' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--space-16) repeat-x; }
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%23AB825E' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--space-16) repeat-x; }
 .review__text { font: 400 var(--fs-24)/2rem var(--font-serif); flex: 1; }
 .review__by { font: 500 var(--fs-16)/1.5rem var(--font-sans); display: flex; justify-content: space-between; gap: var(--space-16); }
 .review__by span { font-weight: 400; color: var(--color-muted-on-light); }

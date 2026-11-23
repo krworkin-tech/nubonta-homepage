@@ -527,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .pb__about { display: grid; row-gap: var(--space-8); }
 .pb__rating { display: inline-flex; align-items: center; gap: var(--space-12); margin-top: var(--space-16); text-decoration: none; }
 .pb__rating span:last-child { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--pb-line); }
-.pb-stars { height: var(--space-16); width: calc(var(--space-16) * 5 + var(--space-4) * 4); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%2310100F' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--space-16) repeat-x; }
+.pb-stars { height: var(--space-16); width: calc(var(--space-16) * 5 + var(--space-4) * 4); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%23AB825E' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--space-16) repeat-x; }
 .pb__intro { color: var(--color-muted-on-light); font-size: calc(var(--fs-16) + 0.125rem); line-height: 1.75rem; letter-spacing: 0; }   /* 18px, same size and spacing as the benefits (user 2026-11-03) */
 .pb__benefits { display: grid; gap: var(--space-8); font-size: calc(var(--fs-16) + 0.125rem); line-height: 1.75rem; }   /* 18px (user 2026-11-03): off the type scale, like the 18px buttons */
 .pb__benefits li { display: flex; gap: var(--space-12); }
@@ -2173,7 +2173,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .pr__avg { display: flex; align-items: end; gap: var(--space-16); }
 .pr__avg strong { font: 400 var(--fs-96)/0.8 var(--font-serif); letter-spacing: -0.03em; }
 .pr__avg p { color: var(--color-muted-on-light); }
-.pr-stars { --s: var(--space-16); display: inline-block; height: var(--s); width: calc(var(--s) * var(--n, 5) + var(--space-4) * (var(--n, 5) - 1)); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%2310100F' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--s) repeat-x; }
+.pr-stars { --s: var(--space-16); display: inline-block; height: var(--s); width: calc(var(--s) * var(--n, 5) + var(--space-4) * (var(--n, 5) - 1)); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Cpath fill='%23AB825E' d='M8 0l2.35 4.76 5.25.77-3.8 3.7.9 5.23L8 11.99l-4.7 2.47.9-5.23L.4 5.53l5.25-.77z'/%3E%3C/svg%3E") left / 1.25rem var(--s) repeat-x; }
+.pr-glyph { font-style: normal; color: var(--color-copper); }   /* user 2026-11-23: every rating star is Copper */
 .pr__avg .pr-stars { margin-bottom: var(--space-8); }
 
 /* star bars = filter buttons (click again to clear) */
@@ -2255,11 +2256,11 @@ document.addEventListener('DOMContentLoaded', function () {
       <div><p class="t-eyebrow">Reviews</p><h2 class="t-heading-serif" id="pr-title">In their own&nbsp;words.</h2></div>
       <div class="pr__avg"><strong>4.9</strong><div><span class="pr-stars" role="img" aria-label="4.9 out of 5 stars"></span><p class="t-body">Based on 575 reviews</p></div></div>
       <div class="pr__bars" role="group" aria-label="Filter reviews by rating">
-        <button type="button" data-star="5" aria-pressed="false" aria-label="5 stars, 537 reviews"><span>5&#9733;</span><span class="pr__bar"><i style="--w: 93%"></i></span><span>537</span></button>
-        <button type="button" data-star="4" aria-pressed="false" aria-label="4 stars, 36 reviews"><span>4&#9733;</span><span class="pr__bar"><i style="--w: 6%"></i></span><span>36</span></button>
-        <button type="button" data-star="3" aria-pressed="false" aria-label="3 stars, 2 reviews"><span>3&#9733;</span><span class="pr__bar"><i style="--w: 0.4%"></i></span><span>2</span></button>
-        <button type="button" data-star="2" aria-pressed="false" aria-label="2 stars, 0 reviews" disabled><span>2&#9733;</span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></button>
-        <button type="button" data-star="1" aria-pressed="false" aria-label="1 star, 0 reviews" disabled><span>1&#9733;</span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></button>
+        <button type="button" data-star="5" aria-pressed="false" aria-label="5 stars, 537 reviews"><span>5<i class="pr-glyph" aria-hidden="true">&#9733;</i></span><span class="pr__bar"><i style="--w: 93%"></i></span><span>537</span></button>
+        <button type="button" data-star="4" aria-pressed="false" aria-label="4 stars, 36 reviews"><span>4<i class="pr-glyph" aria-hidden="true">&#9733;</i></span><span class="pr__bar"><i style="--w: 6%"></i></span><span>36</span></button>
+        <button type="button" data-star="3" aria-pressed="false" aria-label="3 stars, 2 reviews"><span>3<i class="pr-glyph" aria-hidden="true">&#9733;</i></span><span class="pr__bar"><i style="--w: 0.4%"></i></span><span>2</span></button>
+        <button type="button" data-star="2" aria-pressed="false" aria-label="2 stars, 0 reviews" disabled><span>2<i class="pr-glyph" aria-hidden="true">&#9733;</i></span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></button>
+        <button type="button" data-star="1" aria-pressed="false" aria-label="1 star, 0 reviews" disabled><span>1<i class="pr-glyph" aria-hidden="true">&#9733;</i></span><span class="pr__bar"><i style="--w: 0%"></i></span><span>0</span></button>
       </div>
       <div>
         <p class="pr__photos-h">Customer photos</p>
