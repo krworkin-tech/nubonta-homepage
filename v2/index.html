@@ -1090,6 +1090,10 @@ document.addEventListener('DOMContentLoaded', function () {
 .steps__track { padding-block: var(--space-24) 14rem; margin-block: calc(var(--space-24) * -1) -14rem; }
 .steps__track::before, .steps__track::after { content: ""; flex: 0 0 max(0px, calc(var(--bleed) - var(--gutter))); }
 .steps__track:focus-visible { outline-offset: 8px; }
+/* mouse drag (user 2026-11-23): grab hand on devices with a mouse, closed hand while dragging, no text selection */
+@media (hover: hover) and (pointer: fine) { .steps__track { cursor: grab; } }
+.steps__track.is-dragging { cursor: grabbing; user-select: none; }
+.steps__track.is-dragging .step { pointer-events: none; }
 
 .step { position: relative; flex: 0 0 calc((100% - var(--bleed) * 2 - var(--gutter) * 3) / 3.1); aspect-ratio: 3 / 4; border-radius: var(--radius-lg); scroll-snap-align: start;   /* no overflow clip here: .step__media does the one rounded clip */ isolation: isolate; color: var(--color-white);
   /* depth: one light source sits where the silk background is brightest (top right); the script sets each card's
@@ -1222,6 +1226,42 @@ document.addEventListener('DOMContentLoaded', function () {
   [].forEach.call(btns, function (b) {
     b.addEventListener('click', function () { track.scrollBy({ left: stepW() * parseInt(b.dataset.dir, 10), behavior: reduce ? 'auto' : 'smooth' }); });
   });
+  /* user 2026-11-23: mouse drag. Touch and trackpads already swipe natively; with a mouse you grab the row and throw it.
+     Snap is switched off while dragging and the row glides to the nearest card on release (with a little momentum). */
+  var drag = null, snapT;
+  function snapTo(projected) {
+    var pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0, tl = track.getBoundingClientRect().left, best = 0, bd = Infinity;
+    cards.forEach(function (c) {
+      var t = Math.min(maxX(), Math.max(0, track.scrollLeft + c.getBoundingClientRect().left - tl - pad)), d = Math.abs(t - projected);
+      if (d < bd) { bd = d; best = t; }
+    });
+    track.scrollTo({ left: best, behavior: reduce ? 'auto' : 'smooth' });
+    clearTimeout(snapT); snapT = setTimeout(function () { track.style.scrollSnapType = ''; }, 700);
+  }
+  track.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    clearTimeout(snapT);
+    drag = { x: e.clientX, left: track.scrollLeft, moved: false, lastX: e.clientX, lastT: e.timeStamp, v: 0 };
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) < 4) return;
+    if (!drag.moved) { drag.moved = true; track.style.scrollSnapType = 'none'; track.classList.add('is-dragging'); }
+    track.scrollLeft = drag.left - dx;
+    var dt = e.timeStamp - drag.lastT;
+    if (dt > 0) { drag.v = drag.v * 0.6 + ((drag.lastX - e.clientX) / dt) * 0.4; drag.lastX = e.clientX; drag.lastT = e.timeStamp; }
+  });
+  window.addEventListener('pointerup', function () {
+    if (!drag) return;
+    var d = drag; drag = null;
+    if (!d.moved) return;
+    track.classList.remove('is-dragging');
+    snapTo(track.scrollLeft + d.v * 260);   /* throw: px per ms of the last moves, carried ~a quarter second */
+  });
+  /* no browser ghost-image drag on the photos */
+  track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
   sync();
   if (reduce || !('IntersectionObserver' in window)) { drawAll(1); return; }
   drawAll(0);
@@ -1564,7 +1604,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .reviews__badge .muted { color: var(--color-muted-on-light); }
 .reviews__badge img { flex: none; width: 4.375rem; height: auto; }   /* 70 x 66.5, as in Figma */
 .reviews__badge strong { font-weight: 500; }
-.reviews__badge p { font-size: var(--fs-18); line-height: 1.75rem; }   /* user 2026-11-23: same as the PDP founder badge (18/28, "Bone Coach® Approved." in Medium) */
+.reviews__badge p { font-size: var(--fs-18); line-height: 1.75rem; }
+.reviews__badge { max-width: none; } .reviews__badge .muted { white-space: nowrap; }
+@media (max-width: 479px) { .reviews__badge p { font-size: var(--fs-14); line-height: 1.25rem; } }   /* the one line fits next to the stamp at 375 */   /* user 2026-11-23: always 2 lines (title + "Trusted by the Bone Coach community.") */   /* user 2026-11-23: same as the PDP founder badge (18/28, "Bone Coach® Approved." in Medium) */
 
 .reviews__rows { display: grid; gap: var(--gutter); }
 .reviews__row { display: flex; gap: var(--gutter); width: max-content; }

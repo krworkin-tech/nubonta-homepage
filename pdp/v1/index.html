@@ -2123,6 +2123,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .pt2__bc { display: flex; align-items: center; gap: var(--space-12); }   /* user Figma 2026-11-17: Bonecoach Approved stamp (was the copper n) */
 .pt2__bc img { flex: none; width: 4.375rem; height: auto; }
 .pt2__bc span { display: block; color: var(--pt-muted); }
+.pt2__bc span { white-space: nowrap; }   /* user 2026-11-23: always 2 lines (title + "Trusted by the Bone Coach community.") */
+@media (max-width: 479px) { .pt2 .pt2__bc, .pt2 .pt2__bc span { font-size: var(--fs-14); line-height: 1.25rem; } }
 .pt2__bc strong { color: var(--color-white); font-weight: 500; }
 @media (max-width: 959px) { .pt2__grid { grid-template-columns: minmax(0, 1fr); } .pt2__video, .pt2__copy { grid-column: 1; grid-row: auto; } .pt2__video { margin-bottom: var(--space-48); } }
 /* phones (375px, homepage rules, 2026-11-09): the video box goes square so the play button and the name don't overlap;
