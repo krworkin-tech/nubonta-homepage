@@ -307,6 +307,13 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
 .hero__icons .sep { width: 1px; height: 2.9375rem; background: #383838; }
 
+/* user 2026-11-24: below 1440 the photo used to keep its size and lose its left side, so the woman + products slid into the copy.
+   Now (1024-1439) the photo shrinks with the window: its width keeps the subject (55-84% of the photo) to the right of the copy column
+   (page margin + 617px copy + 24px gap), never larger than the normal cover size (600px tall x 2.563); the bottom fades into the dark hero. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .hero__media img { inset: 0 0 auto auto; height: auto; aspect-ratio: 3578 / 1396; object-fit: cover; width: min(calc(37.5rem * 2.563), calc((100vw - var(--page-margin) - 38.5625rem - 1.5rem) / 0.45));
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+}
 @media (max-width: 1279px) { .hero__title { font-size: 3.5rem; } }
 /* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
 @media (max-width: 1023px) {
