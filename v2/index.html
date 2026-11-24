@@ -272,6 +272,50 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- ===== section: 19-phone-rules.html ===== -->
+<!-- Homepage phone rules (2026-11-24, user: "center every title and tag, one title size, subtitles bigger than body"). Style only, homepage only
+     (product pages don't load files starting with 19-). Applies under 768px:
+     - every section head (eyebrow, title, the line next to it) is centred; buttons/filters under it stay full width
+     - every section title is 36/40 (user 2026-11-24; tub stats was 40/44)
+     Body text is 16px everywhere and card / item titles are 20-24px, so subtitles stay bigger than body. -->
+<style>
+.ph-br { display: none; }   /* line breaks used on phones only */
+@media (max-width: 767px) {
+  .ph-br { display: inline; }
+  /* lines under section titles (body-large) are 18/28 on phones, above the 16px body (user 2026-11-24: "subtitles way too small") */
+  main .t-body-lg { font-size: var(--fs-18) !important; line-height: 1.75rem !important; }
+  /* tag -> title: 12px everywhere (tub stats was 24, about 16) */
+  .tc__title .t-eyebrow { margin-bottom: var(--space-12) !important; }
+  .about__copy { row-gap: 0 !important; }
+  .about__copy .t-eyebrow { margin-bottom: var(--space-12) !important; }
+  .about__copy h2 + p { margin-top: var(--space-16); }
+  .about__copy .btn { margin-top: var(--space-24) !important; }
+  /* product + bundle cards: price and button sit on the same line across a row, however long the facts are */
+  .bs-card__info, .bd-card__info { grid-template-rows: auto 1fr auto; }
+  /* tub stats: the line sits next to the number, cards much shorter */
+  .tc__card { row-gap: var(--space-12) !important; padding: var(--space-20, 1.25rem) var(--space-24) !important; }
+  .tc__card > div { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: var(--space-16); }   /* the line snaps to the number (user 2026-11-24) */
+  .tc__card .tc__num { font-size: var(--fs-48) !important; }
+  .tc__card .t-body { margin-top: 0 !important; font-size: var(--fs-16) !important; line-height: 1.5rem !important; }
+  .bs__head, .reasons__head, .steps__head, .bd__head, .reviews__head { flex-direction: column; align-items: center; text-align: center; }
+  .bs__head > div:first-child, .reasons__head > div:first-child, .steps__head > div:first-child, .bd__head > div:first-child, .reviews__head > div:first-child { width: 100%; }
+  .bs__head .bs__tabs { align-self: stretch; }
+  .reasons__head > p, .bd__head > p { text-align: center; }
+  .reviews__badge { justify-content: center; text-align: left; }
+  .tc__title, .tc__side { text-align: center; }
+  .tc__side { justify-items: center; }
+  /* every section title 36/40 on phones (user 2026-11-24, was 32/36; --fs-36 is off the original scale, user's choice) */
+  main h2.t-heading-serif, #tub-stats h2, body .nl h2 { font-size: var(--fs-36, 2.25rem) !important; line-height: 2.5rem !important; }
+  .std__head { text-align: center; }
+  .about__copy { justify-items: center; text-align: center; margin-inline: auto; }
+  .about__copy > * { justify-self: center; }
+  body .nl__copy { justify-items: center; text-align: center; }
+  body .nl__body { margin-inline: auto; }
+  body .std__copy { padding-right: 0; }
+  .std__item p { text-wrap: wrap; }   /* fill the first line: "High-quality ingredients backed / by science." (user 2026-11-24) */   /* the 48px desktop gap left empty space on the right of the standards list */
+}
+</style>
+
 <main id="main">
 <!-- ===== section: 20-hero.html ===== -->
 <!-- Section: hero 1 (user Figma "deskto" 7031:3826, 2026-11-20). Replaces the family hero (kept in _backup-2026-11-20/20-hero-family-before-capsule-hero.html).
@@ -317,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
   .hero__media img { object-position: 50% 0%; }
   .hero__media::after { display: none; }   /* stacked: the photo sits under the copy, no side gradient */
+  .hero__media { margin-inline: var(--page-margin, var(--space-16)); border-radius: var(--radius-lg); }   /* photo as a rounded box inside the page margins (user 2026-11-24) */
   .hero__inner { display: contents; }
   .hero__formerly { order: 0; align-self: center; margin-top: var(--space-32); }
   .hero__copy { order: 0; margin: var(--space-40) auto var(--space-32); padding-inline: var(--page-margin, var(--space-16)); text-align: center; }
@@ -331,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero__title { margin-top: var(--space-12); font-size: min(2.5rem, 9.6vw); line-height: 1.15; }   /* 12px under the rating (was 24); 36px at 375, the longer line fills ~330 of the 343px */
   .hero__title .ln { white-space: nowrap; }
   .hero__sub { font-size: var(--fs-18); line-height: 1.625rem; }   /* 18px (user 2026-11-23, was 16) */
-  .hero__rating { gap: var(--space-8); font-size: var(--fs-14); white-space: nowrap; } .hero__rating img { width: 5.5rem; }   /* one line at 375 */
+  .hero__rating { gap: var(--space-8); font-size: var(--fs-16); white-space: nowrap; } .hero__rating img { width: 5rem; }   /* 16px on phones too (user 2026-11-24: no 14px text) */   /* one line at 375 */
   .hero__ctas { flex-direction: column; align-self: stretch; gap: var(--space-16); }
   .hero__ctas .btn { width: 100%; min-height: 3.5rem; font-size: var(--fs-16); }
   .hero__icons { gap: var(--space-8); }
@@ -435,6 +480,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .hero2 { flex-direction: column; min-height: 0; }
   .hero2__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
   .hero2__media img { object-position: 50% 0%; }
+  .hero2__media { margin-inline: var(--page-margin, var(--space-16)); border-radius: var(--radius-lg); }   /* photo as a rounded box inside the page margins, like Hero 1 (user 2026-11-24) */
   .hero2__inner { display: contents; }
   .hero2__formerly { order: 0; align-self: center; margin-top: var(--space-32); }
   .hero2__copy { order: 0; margin: var(--space-40) auto var(--space-32); padding-inline: var(--page-margin, var(--space-16)); text-align: center; }
@@ -650,18 +696,19 @@ html:not(.motion) .press__row [aria-hidden] { display: none !important; }   /* t
   /* filter tabs scroll sideways instead of pushing the page wider */
   .bs__tabs { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
   .bs__tabs::-webkit-scrollbar { display: none; }
-  .bs__tab { flex: none; height: 2.75rem; padding: 0 var(--space-16); font-size: var(--fs-14); }
+  .bs__tab { flex: none; height: 2.75rem; padding: 0 var(--space-16); font-size: var(--fs-16); }
   .bs__ind { height: 2.75rem; }
   .bs__grid { column-gap: var(--space-12); row-gap: var(--space-32); }
   .bs-card__badges { top: var(--space-8); left: var(--space-8); }
-  .bs-card__badge { height: 1.5rem; padding: 0 var(--space-8); font-size: var(--fs-12); line-height: 1rem; }   /* 12px on phones: an exception to the 14px minimum, for these short tags only (user 2026-10-30) */
-  .bs-card__info { margin-top: var(--space-12); }
-  .bs-card__info h3 { font-size: var(--fs-20); line-height: 1.75rem; }
-  .bs-card__facts { min-height: 0; font-size: var(--fs-14); line-height: 1.25rem; }
+  /* tags: same size as desktop on phones (user 2026-11-24; were 12px) */   /* 12px on phones: an exception to the 14px minimum, for these short tags only (user 2026-10-30) */
+  .bs-card__info { margin-top: var(--space-8); text-align: center; }   /* name + prices centred on phones (user 2026-11-24) */
+  .bs-card__info h3 { font-size: var(--fs-22, 1.375rem); line-height: 1.75rem; }   /* 22/28 (user 2026-11-24: 2px bigger, was 20; --fs-22 is off the original scale) */
+  .bs-card__facts { display: none; }   /* trial (user 2026-11-24): card copy cut on phones, name + price + button only (was 16/24) */
   .bs-card__facts br { display: none; }
-  .bs-card__buy { margin-top: var(--space-8); column-gap: var(--space-8); }
-  .bs-card__price, .bs-card__was { font-size: var(--fs-16); line-height: 1.5rem; }
-  .bs-add { height: 2.75rem; margin-top: var(--space-12); font-size: var(--fs-14); }
+  .bs-card__buy { margin-top: var(--space-4); column-gap: var(--space-8); justify-content: center; align-self: end; }   /* prices sit on one line across a row, whether the name takes 1 or 2 lines (user 2026-11-24) */
+  .bs-card__price, .bs-card__was { font-size: var(--fs-18); line-height: 1.5rem; }   /* 18/24 (user 2026-11-24: 2px under the 20px try) */
+  /* spacing (user 2026-11-24, "better hierarchy"): photo 8 -> name, name + price close together (4), 12 -> button */
+  .bs-add { height: 2.75rem; margin-top: calc(var(--space-12) - 2px); font-size: var(--fs-16); }   /* the card grid adds 2px: 12px seen between price and button */
 }
 /* sold-out state (client 2026-11-17: launch with D3K2 shown as sold out): Charcoal "Sold out" tag replaces the offer tag,
    the button greys out and is disabled. Add class is-soldout to the card, the tag, and disabled + the label to the button. */
@@ -939,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .reasons__tab { grid-template-columns: 1fr; row-gap: var(--space-4); padding: var(--space-12); align-content: start; }   /* top-aligned: a button centres its content by default, so shorter tabs sat lower */
   .reasons__num { font-size: var(--fs-14); line-height: 1.25rem; }
   .reasons__title { font-size: var(--fs-20); line-height: 1.75rem; }
-  .reasons__sub { font-size: var(--fs-14); line-height: 1.25rem; }
+  .reasons__sub { font-size: var(--fs-16); line-height: 1.5rem; }
   .reasons__card { margin: calc(var(--space-48) * -1) var(--space-12) var(--space-12); padding: var(--space-16); row-gap: var(--space-16); }
   .reasons__copy { row-gap: var(--space-16); }
   .reasons__copy h3 { font-size: var(--fs-24); line-height: 2rem; }
@@ -947,7 +994,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .reasons__product { padding: var(--space-24) var(--space-8) var(--space-12); }   /* more room above the bottles (they are drawn 1.3x their box) */
   .reasons__product { row-gap: var(--space-24); }   /* more room between bottle and name (was 12, then 4) */
   .reasons__product img { width: 100%; height: 4.5rem; }   /* bottles a little smaller (was 5.5rem) */
-  .reasons__product strong { font-size: var(--fs-14); line-height: 1.25rem; }
+  .reasons__product strong { font-size: var(--fs-16); line-height: 1.5rem; }
   .reasons__product .t-small { display: none; }   /* names only on phones (user 2026-10-30) */
   /* the desktop nudges that line up the wider tubs' bases, scaled to the smaller phone bottles (72px box vs 161) */
   .reasons__product img[src*="creatine-plus"] { transform: translateY(0.3125rem) scale(1.15); }
@@ -957,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .reasons__copy > div { order: 1; }
   .reasons__products { order: 2; }
   .reasons__copy > .btn { order: 3; width: 100%; }
-  .reasons__note { font-size: var(--fs-14); line-height: 1.25rem; }
+  .reasons__note { font-size: var(--fs-16); line-height: 1.5rem; }
 }
 </style>
 
@@ -965,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="container">
     <div class="reasons__inner">
       <div class="reasons__head" data-reveal>
-        <div><p class="t-eyebrow muted reasons__eyebrow">Find your path</p><h2 class="t-heading-serif" id="reasons-title">One brand, four reasons to&nbsp;begin.</h2></div>
+        <div><p class="t-eyebrow muted reasons__eyebrow">Find your path</p><h2 class="t-heading-serif" id="reasons-title">One brand,<br class="ph-br"> four reasons to&nbsp;begin.</h2></div>
         <p class="t-body-lg muted reasons__intro">Choose where you are today. We&rsquo;ll show you a place to start.</p>
       </div>
 
@@ -1158,7 +1205,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 767px) {
   .steps__head { margin-bottom: var(--space-32); }
   .steps__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
-  .steps__nav button { width: 2.75rem; height: 2.75rem; }
+  .steps__nav { display: none; }   /* no arrows on phones: swipe (user 2026-11-24) */
   .step { flex-basis: 85%; }
   .step__frame { inset: var(--space-12); padding: var(--space-24); }
   .step__num { font-size: var(--fs-48); line-height: 3rem; }
@@ -1172,7 +1219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <section class="band band--graphite steps" id="learn" aria-labelledby="steps-title">
   <div class="container">
     <div class="steps__head">
-      <div><p class="t-eyebrow muted" data-reveal>Built for real life</p><h2 class="t-heading-serif" id="steps-title" data-reveal>Small daily steps, real structure.</h2></div>
+      <div><p class="t-eyebrow muted" data-reveal>Built for real life</p><h2 class="t-heading-serif" id="steps-title" data-reveal>Small daily steps,<br class="ph-br"> real structure.</h2></div>
       <div class="steps__nav" role="group" aria-label="Scroll cards" data-reveal>
         <button type="button" data-dir="-1" aria-label="Previous cards"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
         <button type="button" data-dir="1" aria-label="Next cards"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -1499,19 +1546,19 @@ document.addEventListener('DOMContentLoaded', function () {
   .bd__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .bd__grid { row-gap: var(--space-32); }
   .bd-card__badges { top: var(--space-8); left: var(--space-8); }
-  .bd-card__badge { height: 1.5rem; padding: 0 var(--space-8); font-size: var(--fs-12); line-height: 1rem; }   /* 12px tags on phones, like the bestsellers */
+  /* tags: same size as desktop on phones (user 2026-11-24; were 12px) */   /* 12px tags on phones, like the bestsellers */
   .bd-card__info { margin-top: var(--space-12); }
-  .bd-card__info h3 { font-size: var(--fs-20); line-height: 1.75rem; }
-  .bd-card__facts { min-height: 0; font-size: var(--fs-14); line-height: 1.25rem; }
+  .bd-card__info h3 { font-size: var(--fs-24); line-height: 2rem; }   /* 24/32 like desktop (user 2026-11-24, was 20) */
+  .bd-card__facts { min-height: 0; font-size: var(--fs-16); line-height: 1.5rem; }
   .bd-card__buy { margin-top: var(--space-8); column-gap: var(--space-8); }
   .bd-card__price, .bd-card__was { font-size: var(--fs-16); line-height: 1.5rem; }
-  .bd-add { height: 2.75rem; margin-top: var(--space-12); font-size: var(--fs-14); }
+  .bd-add { height: 2.75rem; margin-top: var(--space-12); font-size: var(--fs-16); }
 }
 </style>
 <section class="band band--white bd" id="bundles" aria-labelledby="bd-title">
   <div class="container">
     <div class="bd__head" data-reveal>
-      <div><p class="t-eyebrow muted">Bundles</p><h2 class="t-heading-serif" id="bd-title">Formulas that work&nbsp;together.</h2></div>
+      <div><p class="t-eyebrow muted">Bundles</p><h2 class="t-heading-serif" id="bd-title">Formulas<br class="ph-br"> that work&nbsp;together.</h2></div>
       <p class="t-body-lg muted">Free shipping on every bundle, and 10% off when you&nbsp;subscribe.</p>
     </div>
     <ul class="bd__grid">
@@ -1593,7 +1640,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 767px) {
   .std__head { margin-bottom: var(--space-32); }
   .std__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
-  .std__head h2 br { display: none; }
+  /* .std__head h2 br shows on phones too: "Four promises in / every formula." (user 2026-11-24) */
   .std__list { row-gap: var(--space-24); }
   .std__item { grid-template-columns: 1.5rem 1fr; column-gap: var(--space-12); }
   .std__item .icon { font-size: var(--fs-24); }
@@ -1641,7 +1688,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .reviews__badge strong { font-weight: 500; }
 .reviews__badge p { font-size: var(--fs-18); line-height: 1.75rem; }
 .reviews__badge { max-width: none; } .reviews__badge .muted { white-space: nowrap; }
-@media (max-width: 479px) { .reviews__badge p { font-size: var(--fs-14); line-height: 1.25rem; } }   /* the one line fits next to the stamp at 375 */   /* user 2026-11-23: always 2 lines (title + "Trusted by the Bone Coach community.") */   /* user 2026-11-23: same as the PDP founder badge (18/28, "Bone Coach® Approved." in Medium) */
+@media (max-width: 479px) { .reviews__badge p { font-size: var(--fs-16); line-height: 1.5rem; } .reviews__badge img { width: 2.75rem !important; } }   /* 16px (user 2026-11-24); smaller stamp so the 2 lines still fit at 375 */   /* the one line fits next to the stamp at 375 */   /* user 2026-11-23: always 2 lines (title + "Trusted by the Bone Coach community.") */   /* user 2026-11-23: same as the PDP founder badge (18/28, "Bone Coach® Approved." in Medium) */
 
 .reviews__rows { display: grid; gap: var(--gutter); }
 .reviews__row { display: flex; gap: var(--gutter); width: max-content; }
@@ -1678,7 +1725,7 @@ html:not(.motion) .reviews__rows { overflow-x: auto; padding-inline: var(--page-
   .reviews__row { gap: var(--space-16); }
   .review { width: 17.5rem; gap: var(--space-16); padding: var(--space-24); }
   .review__text { font-size: var(--fs-20); line-height: 1.75rem; }
-  .review__by { font-size: var(--fs-14); line-height: 1.25rem; }
+  .review__by { font-size: var(--fs-16); line-height: 1.5rem; }
 }
 </style>
 
@@ -1804,7 +1851,9 @@ document.addEventListener('DOMContentLoaded', function () {
 @keyframes fqb-in { from { opacity: 0; transform: translateY(-0.5rem); } }
 .fqb__contact { display: flex; justify-content: center; align-items: center; gap: var(--space-24); margin-top: var(--space-48); }
 .fqb__contact p { color: var(--color-muted-on-light); }
-.fqb__br { display: none; }   /* phones: "Our team is happy to help." on its own line */
+.fqb__br { display: none; }
+.fqb__short { display: none; }   /* desktop keeps "Our team is happy to help."; phones show the shorter one-line copy (user 2026-11-24) */
+@media (max-width: 767px) { .fqb__long { display: none; } .fqb__short { display: inline; } }   /* phones: "Our team is happy to help." on its own line */
 .fqb__contact .btn .icon { margin-left: var(--space-8); }
 @media (max-width: 767px) { .fqb__a { padding-right: 0; } .fqb__contact { flex-direction: column; } }
 /* phones (designed at 375px, user 2026-10-30): 48px section spacing, nothing under 14px */
@@ -1814,7 +1863,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .fqb__item summary { padding: var(--space-16) 0; font-size: var(--fs-20); line-height: 1.75rem; }
   .fqb__a { padding-bottom: var(--space-16); }
   .fqb__contact { margin-top: var(--space-32); gap: var(--space-16); text-align: center; }
-  .fqb__br { display: inline; }
+  .fqb__contact p { white-space: nowrap; font-size: var(--fs-16) !important; line-height: 1.5rem !important; }   /* one line on phones (user 2026-11-24); 16px so it stays inside the 16px margins at 375 */
 }
 </style>
 <section class="band band--white fqb" id="faq" aria-labelledby="fqb-title">
@@ -1829,7 +1878,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <details class="fqb__item"><summary>Do you ship for free?<span class="fqb__sign" aria-hidden="true"></span></summary><p class="t-body fqb__a">US shipping is free on orders over $129 and on every bundle.</p></details>
         <details class="fqb__item"><summary>Are the formulas tested?<span class="fqb__sign" aria-hidden="true"></span></summary><p class="t-body fqb__a">Every formula is made in the USA in a GMP facility and third-party tested.</p></details>
       </div>
-      <div class="fqb__contact" data-reveal><p class="t-body-lg">Can&rsquo;t find your answer?<br class="fqb__br"> Our team is happy to&nbsp;help.</p><a class="btn btn--dark" href="#">Contact us<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div class="fqb__contact" data-reveal><p class="t-body-lg">Can&rsquo;t find your answer?<br class="fqb__br"> <span class="fqb__long">Our team is happy to&nbsp;help.</span><span class="fqb__short">We&rsquo;re here to help.</span></p><a class="btn btn--dark" href="#">Contact us<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </div>
 </section>
@@ -2036,6 +2085,10 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
   .ft__tagline { font-size: var(--fs-24); line-height: 2rem; }
   .ft__nav { margin-top: var(--space-32); row-gap: var(--space-32); }
   .ft__connect { grid-column: 1 / -1; }
+  /* phones (user 2026-11-24): logo + tagline centred; the link block keeps its structure (Shop | Learn, Policies, Connect) and left-aligned text,
+     but sits as one centred block with equal space left and right */
+  .ft__brand { justify-items: center; text-align: center; }
+  .ft__nav { grid-template-columns: max-content max-content; column-gap: var(--space-64); width: max-content; max-width: 100%; margin-inline: auto; }
   .ft__card { margin-top: var(--space-32); }
   /* 2026-11-18 user: phone card laid out like healthybonesco.com's footer box: one centred column (stamp, heading, the 3 company logos
      stacked, press marquee, heading, the 4 causes stacked) */
