@@ -307,13 +307,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
 .hero__icons .sep { width: 1px; height: 2.9375rem; background: #383838; }
 
-/* user 2026-11-24: below 1440 the photo used to keep its size and lose its left side, so the woman + products slid into the copy.
-   Now (1024-1439) the photo shrinks with the window: its width keeps the subject (55-84% of the photo) to the right of the copy column
-   (page margin + 617px copy + 24px gap), never larger than the normal cover size (600px tall x 2.563); the bottom fades into the dark hero. */
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .hero__media img { inset: 0 0 auto auto; height: auto; aspect-ratio: 3578 / 1396; object-fit: cover; width: min(calc(37.5rem * 2.563), calc((100vw - var(--page-margin) - 38.5625rem - 1.5rem) / 0.45));
-    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
-}
+/* user 2026-11-24: between 1024 and 1439 the photo keeps its full size and is cropped from the RIGHT as the window narrows, instead of sliding into
+   the copy. A small script (end of this section) sets object-position from the hero's real height: the woman (from 55% of the photo) is held 48px past
+   the copy column; when there's room it is the normal right-anchored layout. */
 @media (max-width: 1279px) { .hero__title { font-size: 3.5rem; } }
 /* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
 @media (max-width: 1023px) {
@@ -385,6 +381,22 @@ document.addEventListener('DOMContentLoaded', function () {
     .from(root.querySelectorAll('h1 .ln > span'), { yPercent: 130, stagger: 0.1, duration: 1.3 }, 0.1)
     .from(root.querySelectorAll('.h-in'), { opacity: 0, y: 20, stagger: 0.08, duration: 1 }, 0.35);
 });
+</script>
+<script>
+(function () {   /* user 2026-11-24: 1024-1439px, crop the hero photo from the right so the woman never slides into the copy */
+  var hero = document.querySelector('.hero'), img = hero && hero.querySelector('.hero__media img'), copy = hero && hero.querySelector('.hero__copy');
+  if (!img || !copy) return;
+  var mq = matchMedia('(min-width: 1024px) and (max-width: 1439px)');
+  function fit() {
+    if (!mq.matches) { img.style.objectPosition = ''; return; }
+    var hw = hero.clientWidth, h = hero.clientHeight, w = Math.max(hw, h * 3578 / 1396);   /* rendered photo width (object-fit: cover) */
+    var copyEnd = copy.getBoundingClientRect().right - hero.getBoundingClientRect().left + 48;
+    var x = Math.min(0, Math.max(hw - w, copyEnd - 0.55 * w));   /* right-anchored if it fits, else the woman's left edge sits at copyEnd */
+    img.style.objectPosition = x + 'px 0%';
+  }
+  addEventListener('resize', fit); fit();
+  if (document.fonts) document.fonts.ready.then(fit);
+})();
 </script>
 
 <!-- ===== section: 20-hero2.html ===== -->
