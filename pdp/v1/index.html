@@ -34,8 +34,8 @@
   --font-serif: "Nimbus Roman", "Times New Roman", Times, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-18: 1.125rem; --fs-20: 1.25rem; --fs-24: 1.5rem;
-  --fs-32: 2rem; --fs-40: 2.5rem; --fs-48: 3rem; --fs-64: 4rem; --fs-80: 5rem; --fs-96: 6rem;
+  --fs-12: 0.75rem; --fs-14: 0.875rem; --fs-16: 1rem; --fs-18: 1.125rem; --fs-20: 1.25rem; --fs-22: 1.375rem; --fs-24: 1.5rem;
+  --fs-32: 2rem; --fs-36: 2.25rem; --fs-40: 2.5rem; --fs-48: 3rem; --fs-64: 4rem; --fs-80: 5rem; --fs-96: 6rem;
 
   --type-display: var(--fs-48);       --lh-display: 3rem;
   --type-heading-serif: var(--fs-32); --lh-heading-serif: 2.25rem;
@@ -2432,19 +2432,18 @@ document.addEventListener('DOMContentLoaded', function () {
   .bs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 /* phones (designed at 375px, user 2026-10-30): 48px section spacing, nothing under 14px */
-@media (max-width: 767px) {
-  .bs__head { margin-bottom: var(--space-32); gap: var(--space-24); }
+@media (max-width: 767px) {   /* phones: same as the homepage bestseller cards (user 2026-11-24, rule: reused elements match the homepage) */
+  .bs__head { margin-bottom: var(--space-32); gap: var(--space-16); flex-direction: column; align-items: center; text-align: center; }
+  .bs__head > div:first-child { width: 100%; }
   .bs__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .bs__grid { column-gap: var(--space-12); row-gap: var(--space-32); }
   .bs-card__badges { top: var(--space-8); left: var(--space-8); }
-  .bs-card__badge { height: 1.5rem; padding: 0 var(--space-8); font-size: var(--fs-12); line-height: 1rem; }   /* 12px on phones: an exception to the 14px minimum, for these short tags only (user 2026-10-30) */
-  .bs-card__info { margin-top: var(--space-12); }
-  .bs-card__info h3 { font-size: var(--fs-20); line-height: 1.75rem; }
-  .bs-card__facts { min-height: 0; font-size: var(--fs-14); line-height: 1.25rem; }
-  .bs-card__facts br { display: none; }
-  .bs-card__buy { margin-top: var(--space-8); column-gap: var(--space-8); }
-  .bs-card__price, .bs-card__was { font-size: var(--fs-16); line-height: 1.5rem; }
-  .bs-add { height: 2.75rem; margin-top: var(--space-12); font-size: var(--fs-14); }
+  .bs-card__info { margin-top: var(--space-8); text-align: center; grid-template-rows: auto 1fr auto; }
+  .bs-card__info h3 { font-size: var(--fs-22, 1.375rem); line-height: 1.75rem; }
+  .bs-card__facts { display: none; }
+  .bs-card__buy { margin-top: var(--space-4); column-gap: var(--space-8); justify-content: center; align-self: end; }
+  .bs-card__price, .bs-card__was { font-size: var(--fs-18); line-height: 1.5rem; }
+  .bs-add { height: 2.75rem; margin-top: calc(var(--space-12) - 2px); font-size: var(--fs-16); }
 }
 /* sold-out state (client 2026-11-17: launch with D3K2 shown as sold out): Charcoal "Sold out" tag replaces the offer tag,
    the button greys out and is disabled. Add class is-soldout to the card, the tag, and disabled + the label to the button. */
@@ -2530,6 +2529,42 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
+<!-- ===== section: 99-pdp-phone-rules.html ===== -->
+<!-- PDP phone rules (2026-11-24, user: "apply the same rules as the homepage"). Style only, under 768px; desktop untouched.
+     Same rules as the homepage (v2/sections/19-phone-rules.html):
+     - every section head is centred (eyebrow, title, the lines right under it), title 36/40, eyebrow -> title 12px
+     - lines under section titles 18/28, nothing readable under 16px (14px only for tags and eyebrows)
+     The pairing cards follow the homepage bestseller cards (in 88-pdp-pairs). -->
+<style>
+@media (max-width: 767px) {
+  /* section titles 36/40 (the buy box keeps its own 32px product title) */
+  main section:not(.pb) h2 { font-size: var(--fs-36, 2.25rem) !important; line-height: 2.5rem !important; }
+  /* heads that were left-aligned: compare, founder, reviews, pairs */
+  .pv__intro, .pt2__copy { text-align: center; }
+  .pt2__copy > * { margin-inline: auto; }
+  .pt2__bc { justify-content: center; text-align: left; }
+  .pr__sum > div:first-child { text-align: center; }
+  /* lines under titles 18/28 */
+  .ps2__head > p, .ph2__sub, .pv__intro > p:not(.pv__note) { font-size: var(--fs-18) !important; line-height: 1.75rem !important; }
+  /* 14px readable text -> 16 */
+  .pv__note, .pv__row, .pv__val, .pv__row span, .pr-card__help { font-size: var(--fs-16) !important; line-height: 1.5rem !important; }
+  /* Bone Coach badge: 16px like the homepage reviews badge, smaller stamp so the 2 lines fit at 375 */
+  .pt2 .pt2__bc, .pt2 .pt2__bc span { font-size: var(--fs-16) !important; line-height: 1.5rem !important; }
+  .pt2__bc { gap: var(--space-8) !important; }
+  .pt2__bc img { width: 2.5rem !important; }
+  .pt2__bc span { letter-spacing: -0.01em; }   /* the 16px line + stamp fit inside 343px (was 5px over) */
+  .btn--sm { font-size: var(--fs-16) !important; }
+  /* tags: 14px like desktop (were 12 on phones); the quantity-card tags stay 12: at 14 "Most popular" is wider than its card */
+  .pb__tag, .pb__save, .pv__them { font-size: var(--fs-14) !important; }
+  /* founder (user 2026-11-24): eyebrow + title, text, then the video, then the Bone Coach badge */
+  .pt2__grid { row-gap: var(--space-24); }
+  .pt2__copy { display: contents; }
+  .pt2__copy > div { order: 1; } .pt2__copy > p:not(.pt2__bc) { order: 2; }
+  .pt2__video { order: 3; grid-row: auto; margin: var(--space-8) 0 0 !important; }
+  .pt2__bc { order: 4; }
+}
+</style>
 
 </main>
 <!-- ===== section: 900-footer.html ===== -->
@@ -2625,6 +2660,10 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
   .ft__tagline { font-size: var(--fs-24); line-height: 2rem; }
   .ft__nav { margin-top: var(--space-32); row-gap: var(--space-32); }
   .ft__connect { grid-column: 1 / -1; }
+  /* phones (user 2026-11-24): logo + tagline centred; the link block keeps its structure (Shop | Learn, Policies, Connect) and left-aligned text,
+     but sits as one centred block with equal space left and right */
+  .ft__brand { justify-items: center; text-align: center; }
+  .ft__nav { grid-template-columns: max-content max-content; column-gap: var(--space-64); width: max-content; max-width: 100%; margin-inline: auto; }
   .ft__card { margin-top: var(--space-32); }
   /* 2026-11-18 user: phone card laid out like healthybonesco.com's footer box: one centred column (stamp, heading, the 3 company logos
      stacked, press marquee, heading, the 4 causes stacked) */
