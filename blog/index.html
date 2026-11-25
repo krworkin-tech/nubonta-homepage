@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* top banner (user Figma 7100:3214, 2026-11-25): dark band with the Figma texture, breadcrumb on top, page line at the bottom; same banner on the blog index and the article */
 .bl-banner { position: relative; isolation: isolate; overflow: hidden; height: 18.75rem;   /* 300px (user 2026-11-25; Figma had 350) */ background: #151615; color: var(--color-white); }
 /* same dark band as the homepage (hero, Small daily steps, tub stats, footer): #161615 + silk-shadow texture (multiply) + fine grain (user 2026-11-25) */
-.bl-banner::before { content: ""; position: absolute; top: 0; bottom: 0; left: 4.8%; right: -4.8%; z-index: -2; pointer-events: none; background: url("/v2/shared/media/blog/blog-banner-photo-2026-11-25b.webp") center / cover no-repeat; }   /* photo banner (user Figma 7121:2999, 3rd update): wide photo shifted 4.8% right, faded into Charcoal on the left */
+.bl-banner::before { content: ""; position: absolute; top: 0; bottom: 0; left: 4.8%; right: -4.8%; z-index: -2; pointer-events: none; background: url("/v2/shared/media/blog/blog-banner-photo-2026-11-25b.webp?v=2") center / cover no-repeat; }   /* photo banner (user Figma 7121:2999, 3rd update): wide photo shifted 4.8% right, faded into Charcoal on the left */
 .bl-banner::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, var(--color-charcoal) 37.12%, rgba(16, 16, 15, 0) 67.41%); }
 .bl-banner .container { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: var(--space-32); padding-bottom: var(--space-32); }   /* copy centred top to bottom (Figma: 92px above and below) */
 .bl-banner .bl-crumbs { color: rgba(255, 255, 255, 0.7); }
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .bl-banner__title { font: 400 var(--fs-64)/4.5rem var(--font-serif); color: var(--color-white); text-wrap: balance; }
 .bl-banner__lead { max-width: 48rem; margin-top: var(--space-16); font-size: var(--fs-16); line-height: 1.75rem; color: var(--color-white); text-wrap: pretty; }   /* white: Taupe paragraphs are hard to read (user 2026-11-25) */
 @media (max-width: 767px) {
-  .bl-banner::before { width: 100%; background-image: url("/v2/shared/media/blog/blog-banner-photo-2026-11-25b-1200.webp"); background-position: 78% center; left: 0; right: 0; }
+  .bl-banner::before { width: 100%; background-image: url("/v2/shared/media/blog/blog-banner-photo-2026-11-25b-1200.webp?v=2"); background-position: 78% center; left: 0; right: 0; }
   .bl-banner::after { background: linear-gradient(0deg, rgba(16, 16, 15, 0.85) 0%, rgba(16, 16, 15, 0.6) 50%, rgba(16, 16, 15, 0.1) 100%); }   /* phones: lighter fade from the bottom, the photo shows (user 2026-11-25: was pitch black) */
   .bl-banner { height: 15rem; }
   .bl-banner .container { padding-top: var(--space-24); padding-bottom: var(--space-32); }
