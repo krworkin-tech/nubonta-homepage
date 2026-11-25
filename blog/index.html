@@ -325,6 +325,8 @@ document.addEventListener('DOMContentLoaded', function () {
   .bl-banner__lead .bl-br { display: none; }   /* the line break is for wide screens only */
   .bl-banner:has(.bl-banner__lead) { height: auto; min-height: 15rem; }
   .bl-banner:has(.bl-banner__lead) .container { padding-top: var(--space-64); }
+  .bl-banner { display: flex; flex-direction: column; }   /* text sits on the bottom edge (user 2026-11-25): the container fills the banner's min-height */
+  .bl-banner .container { flex: 1; width: 100%; }
 }
 </style>
 <section class="bl bl-banner" aria-labelledby="blh-title">
