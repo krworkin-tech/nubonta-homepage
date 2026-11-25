@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <aside class="blp-prod" aria-label="Product"><div class="blp-prod__media"><img src="/v2/shared/media/products/collagen-total-pouch.webp" alt="" width="900" height="900" loading="lazy"></div><div>
 <p class="blp-prod__tag">Mentioned in this article</p>
 <p class="blp-prod__name">Collagen Peptides</p>
-<p class="t-body blp-prod__line">Total Body Formula &middot; FORTIGEL<sup class="bl-reg">&reg;</sup>, VERISOL<sup class="bl-reg">&reg;</sup>, FORTIBONE<sup class="bl-reg">&reg;</sup></p></div><a class="btn btn--dark btn--sm" href="/pdp/v1/">Shop now</a></aside>
+<p class="t-body blp-prod__line">Total Body Formula<span class="blp-prod__more"> &middot; FORTIGEL<sup class="bl-reg">&reg;</sup>, VERISOL<sup class="bl-reg">&reg;</sup>, FORTIBONE<sup class="bl-reg">&reg;</sup></span></p></div><a class="btn btn--dark btn--sm" href="/pdp/v1/" aria-label="Shop Collagen Peptides">Shop now</a></aside>
 <p>But we didn&rsquo;t stop there. We added two additional specialized peptides to provide comprehensive support for all the ways collagen affects your body as you age:</p>
 <ul><li><strong>FORTIGEL<sup class="bl-reg">&reg;</sup> (5g)</strong> - May support joint cartilage health and comfort</li><li><strong>VERISOL<sup class="bl-reg">&reg;</sup> (2.5g)</strong> - May provide beauty-from-within benefits for skin, hair, and nails</li><li><strong>FORTIBONE<sup class="bl-reg">&reg;</sup> (5g)</strong> - May support bone mineral density and strength</li><li><strong>TENDON SUPPORT MATRIX (0.5g)</strong> - May target tendons and ligaments for connective tissue support</li></ul>
 <p>Plus, <strong><a href="/pdp/v1/">Nubonta Collagen Peptides Total Body Formula</a></strong> meets all the quality standards you should look for in a collagen supplement.</p>
@@ -661,6 +661,9 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
 @media (max-width: 767px) { .bl-br { display: none; } }   /* line breaks for wide screens only (e.g. "...Best Collagen Peptides / for Women Over 40", user 2026-11-25) */
 .blp-glance { box-shadow: none !important; border: 1px solid var(--line); }   /* real border: the beige header row painted over the inset-shadow outline at the top corners (user 2026-11-25) */   /* end block (share, disclaimer, references) on the same 920 column */   /* no dark layer: the title is no longer on the photo */
 
+.bpe__all--bottom { display: none; }
+.bpe__wrap > .blp-legal:first-child { margin-top: 0 !important; }   /* the shop section's bottom padding is the gap; the disclaimer's own 32px stacked on it (a hole, user 2026-11-25) */
+
 /* text and headings */
 .bpb__body { font-size: var(--fs-20) !important; line-height: 2rem !important; }
 .bpb__body > p { margin-bottom: var(--space-24) !important; }
@@ -687,6 +690,23 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
   .bpb__body h3.blp-sign, .bpb__body h3 { font-size: var(--fs-24) !important; line-height: 2rem !important; margin: var(--space-32) 0 var(--space-12) !important; }
   .bpb__body h4 { font-size: var(--fs-20) !important; line-height: 1.75rem !important; }
   .blp-fig { margin: var(--space-24) 0 !important; }
+  /* phones: "All articles" under the related cards, like "Shop all formulas"; both bottom links 20px (user 2026-11-25) */
+  .bpe__all--top { display: none !important; }
+  .bpe__rel-head { justify-content: center; } .bpe__rel-head > div { width: 100%; } .bpe__rel-head h2 { text-align: center; }   /* section heads centred on phones, like the shop section above */
+  .bpe__all--bottom { display: flex; justify-content: center; margin-top: var(--space-32); }
+  .bpe__all--bottom .link-arrow, .bs__all--bottom .link-arrow { font-size: var(--fs-20); line-height: 1.75rem; }
+  /* phone spacing, one rhythm (user 2026-11-25): text 16, photos / table / product card 24, headings 32 above */
+  .blp-prod { margin: var(--space-24) 0 !important; }
+  .bpb__body > ul, .bpb__body > ol { margin-bottom: var(--space-16) !important; }
+  .bpb__body .blp-glance { margin-bottom: var(--space-24) !important; }
+  .bpb__body .blp-glance + h2, .bpb__body .blp-glance + h3 { margin-top: var(--space-32) !important; }
+  /* product card on phones: one tidy row, photo | name + formula | Shop pill; the label and peptide list are left out (user 2026-11-25) */
+  .blp-prod { grid-template-columns: 4rem minmax(0, 1fr) auto !important; gap: var(--space-12) !important; padding: var(--space-12) !important; align-items: center; }
+  .blp-prod .blp-prod__tag, .blp-prod .blp-prod__more { display: none; }
+  .blp-prod__name { font-size: var(--fs-20) !important; line-height: 1.75rem !important; }
+  .blp-prod__line { font-size: var(--fs-16); line-height: 1.5rem; }
+  .blp-prod .btn { grid-column: auto !important; width: 2.75rem; height: 2.75rem; min-height: 0; padding: 0; border-radius: 50%; font-size: 0; display: flex; align-items: center; justify-content: center; gap: 0; }   /* round arrow button: the text gets the room ("Shop now" stays for screen readers via aria-label) */
+  .blp-prod .btn::after { content: "→"; font: 400 var(--fs-20)/1 var(--font-sans); color: var(--color-white); }
   /* phones: readable text 18px (user 2026-11-25); legal + table head stay small */
   .bph__meta, .bpe__how, .bpe__src summary, .bpe .bl-card__ex { font-size: var(--fs-18) !important; line-height: 1.75rem !important; }
   .bpe__rel h2 { font-size: var(--fs-36, 2.25rem) !important; line-height: 2.5rem !important; }
@@ -708,6 +728,7 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
 <style>
 .bs { padding-top: 0; }   /* white after the FAQ */
 .bs { --bs-paper: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); --bs-radius: 1rem; }   /* soft beige (a neutral grey was tested 2026-10-29 and rolled back) */
+.bs__all--bottom { display: none; }
 .bs__head { display: flex; justify-content: space-between; align-items: end; gap: var(--gutter); margin-bottom: var(--space-48); }
 .bs__head .t-eyebrow { margin-bottom: var(--space-12); font-size: var(--fs-16); line-height: 1.5rem; }
 
@@ -762,6 +783,8 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
 @media (max-width: 767px) {   /* phones: same as the homepage bestseller cards (user 2026-11-24, rule: reused elements match the homepage) */
   .bs__head { margin-bottom: var(--space-32); gap: var(--space-16); flex-direction: column; align-items: center; text-align: center; }
   .bs__head > div:first-child { width: 100%; }
+  .bs__all--top { display: none !important; }
+  .bs__all--bottom { display: flex; justify-content: center; margin-top: var(--space-32); }
   .bs__head .t-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .bs__grid { column-gap: var(--space-12); row-gap: var(--space-32); }
   .bs-card__badges { top: var(--space-8); left: var(--space-8); }
@@ -785,7 +808,7 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
         <p class="t-eyebrow muted bs__eyebrow">Shop the article</p>
         <h2 class="t-heading-serif" id="bs-title">Made to be taken every&nbsp;day.</h2>
       </div>
-      <a class="link-arrow" href="/v2/#bestsellers">Shop all formulas<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="link-arrow bs__all--top" href="/v2/#bestsellers">Shop all formulas<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
     <ul class="bs__grid">
         <li class="bs-card" data-goals="bone prevention" data-reveal>
@@ -837,6 +860,7 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
           <button class="bs-add" type="button" data-name="Creatine + HMB"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Creatine + HMB</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
     </ul>
+    <div class="bs__all--bottom"><a class="link-arrow" href="/v2/#bestsellers">Shop all formulas<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>   <!-- phones: the link sits under the cards (user 2026-11-25) -->
     <p class="sr-only" aria-live="polite" data-live></p>
   </div>
 </section>
@@ -905,12 +929,13 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
   <div class="container">   <!-- related cards on the blog page grid (full container width, user 2026-11-25) -->
     <div class="bpe__rel">
-      <div class="bpe__rel-head"><div><h2 class="t-heading-serif">You may also like</h2></div><a class="link-arrow" href="/blog/">All articles</a></div>
+      <div class="bpe__rel-head"><div><h2 class="t-heading-serif">You may also like</h2></div><a class="link-arrow bpe__all--top" href="/blog/">All articles</a></div>
       <ul class="bl-cards">
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/the-power-of-collagen-peptides-to-help-you-sleep-better.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2024-05-17">May 17, 2024</time></p><h3 class="bl-card__title">The Power Of Collagen Peptides To Help You Sleep Better</h3><p class="bl-card__ex">As you know, the amino acids in Collagen Peptides – glycine, proline, and hydroxyproline – help support better bone health.</p></a></li>
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/men-vs-women-who-s-at-greater-risk-for-bone-loss.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2025-01-21">January 21, 2025</time></p><h3 class="bl-card__title">Men vs. Women: Who’s at Greater Risk for Bone Loss?</h3><p class="bl-card__ex">Bone loss is often referred to as a "woman's disease" because it primarily impacts postmenopausal women, leading to weak bones and a greater risk of fractures.</p></a></li>
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/can-your-fingernails-reveal-your-bone-health.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2025-02-10">February 10, 2025</time></p><h3 class="bl-card__title">Can Your Fingernails Reveal Your Bone Health?</h3><p class="bl-card__ex">Most people often don't think about their bone health until something serious happens—a fracture, chronic back pain, or changes in posture.</p></a></li>
       </ul>
+      <div class="bpe__all--bottom"><a class="link-arrow" href="/blog/">All articles</a></div>   <!-- phones: under the cards (user 2026-11-25) -->
     </div>
   </div>
 </section>
