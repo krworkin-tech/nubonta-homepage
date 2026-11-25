@@ -311,7 +311,10 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 /* top banner (user Figma 7100:3214, 2026-11-25): dark band with the Figma texture, breadcrumb on top, page line at the bottom; same banner on the blog index and the article */
-.bl-banner { position: relative; height: 18.75rem;   /* 300px (user 2026-11-25; Figma had 350) */ background: #161615 url("/v2/shared/media/blog/blog-banner-2026-11-25.webp") center / cover no-repeat; color: var(--color-white); }
+.bl-banner { position: relative; isolation: isolate; overflow: hidden; height: 18.75rem;   /* 300px (user 2026-11-25; Figma had 350) */ background: color-mix(in srgb, var(--color-graphite) 25%, var(--color-charcoal)); color: var(--color-white); }
+/* same dark band as the homepage (hero, Small daily steps, tub stats, footer): #161615 + silk-shadow texture (multiply) + fine grain (user 2026-11-25) */
+.bl-banner::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url("/v2/shared/media/textures/silk-shadow.webp") center / cover no-repeat; mix-blend-mode: multiply; }
+.bl-banner::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.07; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
 .bl-banner .container { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-top: var(--space-32); padding-bottom: var(--space-48); }
 .bl-banner .bl-crumbs { color: rgba(255, 255, 255, 0.7); }
 .bl-banner .bl-crumbs a { color: inherit; }
