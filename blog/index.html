@@ -435,7 +435,18 @@ document.addEventListener('DOMContentLoaded', function () {
   document.documentElement.classList.remove('motion');
   document.querySelectorAll('[data-reveal]').forEach(function (e) { e.removeAttribute('data-reveal'); });
 });
-</script><script>
+</script>
+<script>   /* blog photos: hidden until fully downloaded, then fade in (a half-loaded photo looked cut off, user 2026-11-25) */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('img.bl-img').forEach(function (i) {
+    if (i.complete && i.naturalWidth) return;
+    i.classList.add('is-loading');
+    function done() { i.classList.remove('is-loading'); }
+    i.addEventListener('load', done); i.addEventListener('error', done);
+  });
+});
+</script>
+<style>.bl-img { transition: opacity 0.3s ease; } .bl-img.is-loading { opacity: 0; }</style><script>
 (function () {   /* excerpt lines follow the title: 3-line title -> 2, 2 -> 3, 1 -> 4; all end ending in ... (user 2026-11-24) */
   function fit() {
     document.querySelectorAll('.bl-card').forEach(function (c) {

@@ -726,6 +726,17 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-reveal]').forEach(function (e) { e.removeAttribute('data-reveal'); });
 });
 </script>
+<script>   /* blog photos: hidden until fully downloaded, then fade in (a half-loaded photo looked cut off, user 2026-11-25) */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('img.bl-img').forEach(function (i) {
+    if (i.complete && i.naturalWidth) return;
+    i.classList.add('is-loading');
+    function done() { i.classList.remove('is-loading'); }
+    i.addEventListener('load', done); i.addEventListener('error', done);
+  });
+});
+</script>
+<style>.bl-img { transition: opacity 0.3s ease; } .bl-img.is-loading { opacity: 0; }</style>
 
 <!-- ===== section: 45-post-shop.html ===== -->
 <!-- Blog article: "Shop the article" (v2 structure 2026-11-23). EXACT copy of the PDP pairing section (88-pdp-pairs: same styles + script) with the homepage bestsellers top row (Collagen, Annatrol, OsteoFrax, Creatine + HMB, copied from sections/22-bestsellers). Reuse rule: keep in step with the homepage. -->

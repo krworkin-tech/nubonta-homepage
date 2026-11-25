@@ -1278,7 +1278,6 @@ input:checked + .fc__row { --ring: inset 0 0 0 2px var(--color-charcoal); backgr
 
 <section class="band band--white pb" id="product" aria-labelledby="pb-title" data-buy>
   <div class="container">
-    <nav class="pb__crumbs t-body" aria-label="Breadcrumb"><a href="#">Home</a><span aria-hidden="true">/</span><a href="#">Shop</a><span aria-hidden="true">/</span><span aria-current="page">Collagen Peptides</span></nav>
     
     <div class="pb__grid">
 
@@ -1943,6 +1942,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .ph2-card__img img { position: absolute; inset: 0; }   /* fill the portrait frame (the centring grid kept the landscape height) */
 .ph2-card h3 { display: flex; align-items: center; gap: var(--space-12); margin-top: var(--space-16); }
 .ph2-card h3 .icon { flex: none; height: 1.75rem; overflow: visible;   /* each icon is cropped to its drawing (viewBox + inline width) so every title sits 12px from it and the drawings start at the card edge */ font-size: var(--fs-24); }   /* user 2026-11-09: no white circle behind the icons */
+.ph2-card h3 { align-items: baseline; } .ph2-card h3 .icon { font-size: inherit; margin-top: -1.75rem; transform: translateY(calc(0.875rem - 0.331em)); }   /* icons sit on the text baseline, centred on the capitals (cap height 0.662em): the serif font has two sets of line metrics and browsers pick different ones, so centring on the line box put the icons low on some PCs (client video, user 2026-11-25) */
 .ph2-card p { margin-top: var(--space-8); }
 /* user 2026-11-09: coffee photo cropped from its right side so the cup and scoop show fully */
 .ph2-card__img .is-right { object-position: 85% 50%; }   /* a class, not [src]: the artifact export inlines the images */
