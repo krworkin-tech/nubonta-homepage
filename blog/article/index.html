@@ -719,6 +719,13 @@ document.addEventListener('click', function (e) {   /* reference number -> open 
   .blp-vs thead th { font-size: var(--fs-14) !important; line-height: 1.25rem !important; letter-spacing: 0.05em; }
 }
 </style>
+<script>   /* phones: no scroll effects on the blog (user 2026-11-25): runs before base.js (deferred), so it finds no reveals and everything shows at once */
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.matchMedia('(max-width: 767px)').matches) return;
+  document.documentElement.classList.remove('motion');
+  document.querySelectorAll('[data-reveal]').forEach(function (e) { e.removeAttribute('data-reveal'); });
+});
+</script>
 
 <!-- ===== section: 45-post-shop.html ===== -->
 <!-- Blog article: "Shop the article" (v2 structure 2026-11-23). EXACT copy of the PDP pairing section (88-pdp-pairs: same styles + script) with the homepage bestsellers top row (Collagen, Annatrol, OsteoFrax, Creatine + HMB, copied from sections/22-bestsellers). Reuse rule: keep in step with the homepage. -->
