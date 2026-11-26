@@ -139,6 +139,8 @@ html.menu-open { overflow: hidden; }
   .hdr__burger { display: grid; margin-right: calc(var(--space-12) * -1); }
   .hdr__tools { margin-right: 0; gap: 0; }
 }
+
+.ctc-vsw { display: none !important; }   /* live: one version, no switch */
 </style>
 
 <div class="ann" role="region" aria-label="Announcements">
@@ -490,117 +492,7 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
   <symbol id="ctc-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
   <symbol id="ctc-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5v-3a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></symbol>
 </svg>
-<section class="ctc-v ctc-a" aria-labelledby="ctc-a-title">
-  <div class="container ctc-a__grid">
-    <div>
-      <div class="ctc-a__head">
-        <p class="t-eyebrow ctc-eyebrow">Reach out to us</p>
-        <h1 class="t-heading-serif" id="ctc-a-title">We would love to hear from you</h1>
-        <p class="t-body-lg ctc-a__lead">Please reach out if you have any questions or need help purchasing a product. We&rsquo;re happy to help you and serve you on your journey to stronger bones.</p>
-      </div>
-      <ul class="ctc-a__cards">
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-mail"/></svg><div><p class="ctc-label">Email</p><p class="ctc-val"><a href="mailto:customercare@healthybonesco.com">customercare@healthybonesco.com</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-phone"/></svg><div><p class="ctc-label">Phone</p><p class="ctc-val"><a href="tel:+18887881992">+1 (888) 788-1992</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-clock"/></svg><div><p class="ctc-label">Hours</p><p class="ctc-val">Email and phone support<br>7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-pin"/></svg><div><p class="ctc-label">Office</p><p class="ctc-val">Healthy Bones Co LLC<br>Sheridan, Wyoming 82801</p></div></li>
-</ul>
-      <p class="t-body ctc-a__note">Our Nubonta offices are closed on major holidays so that our team can spend time with family and loved ones. We will reply to your message within 48 hours of returning to the office.</p>
-      <div class="ctc-a__trust"><img src="/v2/shared/media/partners/bonecoach-approved-stamp.png" alt="" width="240" height="240" loading="lazy"><p>Trusted by the Bone Coach&reg; community.</p></div>
-    </div>
-    <form class="cf" id="ctc-a-form" novalidate data-cf>
-  <div class="cf-body">
-    <div class="cf-head"><h2 class="cf-title">Send us a message</h2><p class="cf-req">All fields are required unless marked optional.</p></div>
-    <fieldset class="cf-field cf-field--reason" aria-describedby="ctc-a-reason-err"><legend class="cf-label">What is it about?</legend><div class="cf-pills"><label class="cf-pill"><input type="radio" name="reason" value="Order status" required><span>Order status</span></label><label class="cf-pill"><input type="radio" name="reason" value="Returns / exchanges" required><span>Returns / exchanges</span></label><label class="cf-pill"><input type="radio" name="reason" value="Help choosing a product" required><span>Help choosing a product</span></label><label class="cf-pill"><input type="radio" name="reason" value="Product question" required><span>Product question</span></label><label class="cf-pill"><input type="radio" name="reason" value="Website question" required><span>Website question</span></label><label class="cf-pill"><input type="radio" name="reason" value="Product suggestion" required><span>Product suggestion</span></label><label class="cf-pill"><input type="radio" name="reason" value="General question" required><span>General question</span></label></div><p class="cf-err" id="ctc-a-reason-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Choose what your message is about.</span></p></fieldset>
-    <div class="cf-field" data-order hidden><label class="cf-label" for="ctc-a-order">Order number <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-a-order-hint">It starts with # and is in your order confirmation email.</p><input class="cf-in" id="ctc-a-order" name="order" type="text" autocomplete="off" placeholder="#1001" aria-describedby="ctc-a-order-hint"></div>
-    <div class="cf-row">
-      <div class="cf-field"><label class="cf-label" for="ctc-a-name">Full name</label><input class="cf-in" id="ctc-a-name" name="name" type="text" autocomplete="name" placeholder="Mary Smith" required aria-describedby="ctc-a-name-err"><p class="cf-err" id="ctc-a-name-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter your name.</span></p></div>
-      <div class="cf-field"><label class="cf-label" for="ctc-a-email">Email</label><input class="cf-in" id="ctc-a-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="example@gmail.com" required aria-describedby="ctc-a-email-err"><p class="cf-err" id="ctc-a-email-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter an email like name@example.com.</span></p></div>
-    </div>
-    <div class="cf-field"><label class="cf-label" for="ctc-a-phone">Phone <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-a-phone-hint">Only if you&rsquo;d like a call back.</p><input class="cf-in" id="ctc-a-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567" aria-describedby="ctc-a-phone-hint"></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-a-msg">Message</label><textarea class="cf-in cf-in--area" id="ctc-a-msg" name="message" rows="5" placeholder="How can we help?" required aria-describedby="ctc-a-msg-err"></textarea><p class="cf-err" id="ctc-a-msg-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Tell us a little about how we can help.</span></p></div>
-    <button class="btn btn--dark cf-send" type="submit">Send message</button>
-    <p class="cf-after">We reply within 48 hours, 7 days a week.</p>
-  </div>
-  <div class="cf-done" role="status" tabindex="-1" hidden><svg class="cf-done__ic" aria-hidden="true"><use href="#ctc-ok"/></svg><h2 class="cf-title">Thank you<span data-cf-first></span>. Message received.</h2><p>We&rsquo;ll reply to <strong data-cf-mail></strong> within 48 hours.</p><button class="btn btn--ghost cf-again" type="button">Send another message</button></div>
-</form>
-  </div>
-</section>
-<section class="ctc-v ctc-b" aria-labelledby="ctc-b-title" hidden>
-  <div class="container">
-    <div class="ctc-b__head">
-      <p class="t-eyebrow muted ctc-eyebrow">Reach out to us</p>
-      <h1 class="t-heading-serif" id="ctc-b-title">We would love to hear from you</h1>
-      <p class="t-body-lg ctc-b__lead">Please reach out if you have any questions or need help purchasing a product. We&rsquo;re happy to help you and serve you on your journey to stronger bones.</p>
-    </div>
-    <div class="ctc-b__grid">
-      <form class="cf" id="ctc-b-form" novalidate data-cf>
-  <div class="cf-body">
-    <div class="cf-head"><h2 class="cf-title">Send us a message</h2><p class="cf-req">All fields are required unless marked optional.</p></div>
-    <fieldset class="cf-field cf-field--reason" aria-describedby="ctc-b-reason-err"><legend class="cf-label">What can we help with?</legend><div class="cf-tiles"><label class="cf-tile"><input type="radio" name="reason" value="Order status" required><svg class="cf-tile__ic" aria-hidden="true"><use href="#ctc-box"/></svg><span class="cf-tile__t">Order status</span><span class="cf-tile__s">Track or change an order</span></label><label class="cf-tile"><input type="radio" name="reason" value="Returns / exchanges" required><svg class="cf-tile__ic" aria-hidden="true"><use href="#ctc-return"/></svg><span class="cf-tile__t">Returns &amp; exchanges</span><span class="cf-tile__s">Send something back</span></label><label class="cf-tile"><input type="radio" name="reason" value="Product question" required><svg class="cf-tile__ic" aria-hidden="true"><use href="#ctc-leaf"/></svg><span class="cf-tile__t">Product question</span><span class="cf-tile__s">Ingredients, dosing, which formula</span></label><label class="cf-tile"><input type="radio" name="reason" value="General question" required><svg class="cf-tile__ic" aria-hidden="true"><use href="#ctc-chat"/></svg><span class="cf-tile__t">General question</span><span class="cf-tile__s">Anything else</span></label></div><p class="cf-err" id="ctc-b-reason-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Choose what your message is about.</span></p></fieldset>
-    <div class="cf-field" data-order hidden><label class="cf-label" for="ctc-b-order">Order number <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-b-order-hint">It starts with # and is in your order confirmation email.</p><input class="cf-in" id="ctc-b-order" name="order" type="text" autocomplete="off" placeholder="#1001" aria-describedby="ctc-b-order-hint"></div>
-    <div class="cf-row">
-      <div class="cf-field"><label class="cf-label" for="ctc-b-name">Full name</label><input class="cf-in" id="ctc-b-name" name="name" type="text" autocomplete="name" placeholder="Mary Smith" required aria-describedby="ctc-b-name-err"><p class="cf-err" id="ctc-b-name-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter your name.</span></p></div>
-      <div class="cf-field"><label class="cf-label" for="ctc-b-email">Email</label><input class="cf-in" id="ctc-b-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="example@gmail.com" required aria-describedby="ctc-b-email-err"><p class="cf-err" id="ctc-b-email-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter an email like name@example.com.</span></p></div>
-    </div>
-    <div class="cf-field"><label class="cf-label" for="ctc-b-phone">Phone <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-b-phone-hint">Only if you&rsquo;d like a call back.</p><input class="cf-in" id="ctc-b-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567" aria-describedby="ctc-b-phone-hint"></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-b-msg">Message</label><textarea class="cf-in cf-in--area" id="ctc-b-msg" name="message" rows="5" placeholder="How can we help?" required aria-describedby="ctc-b-msg-err"></textarea><p class="cf-err" id="ctc-b-msg-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Tell us a little about how we can help.</span></p></div>
-    <button class="btn btn--dark cf-send" type="submit">Send message</button>
-    <p class="cf-after">We reply within 48 hours, 7 days a week.</p>
-  </div>
-  <div class="cf-done" role="status" tabindex="-1" hidden><svg class="cf-done__ic" aria-hidden="true"><use href="#ctc-ok"/></svg><h2 class="cf-title">Thank you<span data-cf-first></span>. Message received.</h2><p>We&rsquo;ll reply to <strong data-cf-mail></strong> within 48 hours.</p><button class="btn btn--ghost cf-again" type="button">Send another message</button></div>
-</form>
-      <aside class="ctc-b__side" aria-label="Other ways to reach us">
-        <h2>Prefer to talk?</h2>
-        <ul class="ctc-b__list">
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-mail"/></svg><div><p class="ctc-label">Email</p><p class="ctc-val"><a href="mailto:customercare@healthybonesco.com">customercare@healthybonesco.com</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-phone"/></svg><div><p class="ctc-label">Phone</p><p class="ctc-val"><a href="tel:+18887881992">+1 (888) 788-1992</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-clock"/></svg><div><p class="ctc-label">Hours</p><p class="ctc-val">Email and phone support<br>7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-pin"/></svg><div><p class="ctc-label">Office</p><p class="ctc-val">Healthy Bones Co LLC<br>Sheridan, Wyoming 82801</p></div></li>
-</ul>
-        <p class="t-body ctc-b__note">Our Nubonta offices are closed on major holidays so that our team can spend time with family and loved ones. We will reply to your message within 48 hours of returning to the office.</p>
-        <a class="link-arrow ctc-b__faq" href="#faq">See common questions<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </aside>
-    </div>
-  </div>
-</section>
-<section class="ctc-v ctc-c" aria-labelledby="ctc-c-title" hidden>
-  <div class="container">
-    <div class="ctc-c__grid">
-      <div class="ctc-c__ph"><img src="/v2/shared/media/about/kevin-pouch-kitchen-2026-11-24.webp" alt="Kevin Ellis, founder of Nubonta, holding a pouch of Collagen Peptides in his kitchen" width="960" height="1200"><div class="ctc-c__cap"><p>Real people, here to help.</p><p>Email and phone support 7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span>.</p></div></div>
-      <div class="ctc-c__copy">
-        <div>
-          <p class="t-eyebrow muted ctc-eyebrow">Reach out to us</p>
-          <h1 class="t-heading-serif" id="ctc-c-title">We would love to hear from you</h1>
-          <p class="t-body-lg ctc-c__lead">Please reach out if you have any questions or need help purchasing a product. We&rsquo;re happy to help you and serve you on your journey to stronger bones.</p>
-        </div>
-        <form class="cf" id="ctc-c-form" novalidate data-cf>
-  <div class="cf-body">
-    <div class="cf-head"><h2 class="cf-title">Send us a message</h2><p class="cf-req">All fields are required unless marked optional.</p></div>
-    <fieldset class="cf-field cf-field--reason" aria-describedby="ctc-c-reason-err"><legend class="cf-label">What is it about?</legend><div class="cf-pills"><label class="cf-pill"><input type="radio" name="reason" value="Order status" required><span>Order status</span></label><label class="cf-pill"><input type="radio" name="reason" value="Returns / exchanges" required><span>Returns / exchanges</span></label><label class="cf-pill"><input type="radio" name="reason" value="Help choosing a product" required><span>Help choosing a product</span></label><label class="cf-pill"><input type="radio" name="reason" value="Product question" required><span>Product question</span></label><label class="cf-pill"><input type="radio" name="reason" value="Website question" required><span>Website question</span></label><label class="cf-pill"><input type="radio" name="reason" value="Product suggestion" required><span>Product suggestion</span></label><label class="cf-pill"><input type="radio" name="reason" value="General question" required><span>General question</span></label></div><p class="cf-err" id="ctc-c-reason-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Choose what your message is about.</span></p></fieldset>
-    <div class="cf-field" data-order hidden><label class="cf-label" for="ctc-c-order">Order number <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-c-order-hint">It starts with # and is in your order confirmation email.</p><input class="cf-in" id="ctc-c-order" name="order" type="text" autocomplete="off" placeholder="#1001" aria-describedby="ctc-c-order-hint"></div>
-    <div class="cf-row">
-      <div class="cf-field"><label class="cf-label" for="ctc-c-name">Full name</label><input class="cf-in" id="ctc-c-name" name="name" type="text" autocomplete="name" placeholder="Mary Smith" required aria-describedby="ctc-c-name-err"><p class="cf-err" id="ctc-c-name-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter your name.</span></p></div>
-      <div class="cf-field"><label class="cf-label" for="ctc-c-email">Email</label><input class="cf-in" id="ctc-c-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="example@gmail.com" required aria-describedby="ctc-c-email-err"><p class="cf-err" id="ctc-c-email-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter an email like name@example.com.</span></p></div>
-    </div>
-    <div class="cf-field"><label class="cf-label" for="ctc-c-phone">Phone <span class="cf-opt">(optional)</span></label><p class="cf-hint" id="ctc-c-phone-hint">Only if you&rsquo;d like a call back.</p><input class="cf-in" id="ctc-c-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567" aria-describedby="ctc-c-phone-hint"></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-c-msg">Message</label><textarea class="cf-in cf-in--area" id="ctc-c-msg" name="message" rows="5" placeholder="How can we help?" required aria-describedby="ctc-c-msg-err"></textarea><p class="cf-err" id="ctc-c-msg-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Tell us a little about how we can help.</span></p></div>
-    <button class="btn btn--dark cf-send" type="submit">Send message</button>
-    <p class="cf-after">We reply within 48 hours, 7 days a week.</p>
-  </div>
-  <div class="cf-done" role="status" tabindex="-1" hidden><svg class="cf-done__ic" aria-hidden="true"><use href="#ctc-ok"/></svg><h2 class="cf-title">Thank you<span data-cf-first></span>. Message received.</h2><p>We&rsquo;ll reply to <strong data-cf-mail></strong> within 48 hours.</p><button class="btn btn--ghost cf-again" type="button">Send another message</button></div>
-</form>
-      </div>
-    </div>
-    <ul class="ctc-c__row">
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-mail"/></svg><div><p class="ctc-label">Email</p><p class="ctc-val"><a href="mailto:customercare@healthybonesco.com">customercare@healthybonesco.com</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-phone"/></svg><div><p class="ctc-label">Phone</p><p class="ctc-val"><a href="tel:+18887881992">+1 (888) 788-1992</a></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-clock"/></svg><div><p class="ctc-label">Hours</p><p class="ctc-val">Email and phone support<br>7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span></p></div></li>
-  <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-pin"/></svg><div><p class="ctc-label">Office</p><p class="ctc-val">Healthy Bones Co LLC<br>Sheridan, Wyoming 82801</p></div></li>
-</ul>
-    <p class="t-body ctc-c__note">Our Nubonta offices are closed on major holidays so that our team can spend time with family and loved ones. We will reply to your message within 48 hours of returning to the office.</p>
-  </div>
-</section>
-<section class="ctc-v ctc-d" aria-labelledby="ctc-d-title" hidden>
+<section class="ctc-v ctc-d" aria-labelledby="ctc-d-title">
   <div class="container ctc-d__grid">
     <div>
       <div class="ctc-d__head">
