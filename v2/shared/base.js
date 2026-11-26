@@ -102,3 +102,85 @@
     var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(lattices, 150); });
   });
 })();
+
+/* ---- dropdowns (2026-11-26, user: one designed dropdown everywhere). Every <select> keeps its own trigger look and stays the real form
+   field (value, validation, change events); with a mouse or keyboard it opens a Nubonta list instead of the browser's grey one.
+   On touch screens the phone's own picker opens (it's what people expect there and it's the most accessible). ---- */
+(function () {
+  var dd, sel, opts, active = -1, typed = '', typedT;
+  var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  function list(s) { return [].filter.call(s.options, function (o) { return !(o.disabled && o.value === ''); }); }
+  function place() {
+    if (!dd || !sel) return;
+    var r = sel.getBoundingClientRect(), h = dd.offsetHeight, below = innerHeight - r.bottom - 8;
+    dd.style.minWidth = r.width + 'px';
+    dd.style.left = Math.min(r.left, innerWidth - dd.offsetWidth - 8) + 'px';
+    dd.style.top = (below < h && r.top - 8 > below ? r.top - h - 8 : r.bottom + 8) + 'px';
+  }
+  function setActive(i) {
+    if (!opts.length) return;
+    active = (i + opts.length) % opts.length;
+    [].forEach.call(dd.children, function (li, k) { li.classList.toggle('is-active', k === active); });
+    var li = dd.children[active]; li.scrollIntoView({ block: 'nearest' });
+    dd.setAttribute('aria-activedescendant', li.id);
+  }
+  function open(s) {
+    close(); sel = s; opts = list(s);
+    dd = document.createElement('ul'); dd.className = 'nb-dd'; dd.setAttribute('role', 'listbox');
+    var lab = s.labels && s.labels[0]; dd.setAttribute('aria-label', (lab ? lab.textContent : s.getAttribute('aria-label') || 'Options').replace('*', '').trim());
+    opts.forEach(function (o, k) {
+      var li = document.createElement('li'); li.className = 'nb-dd__opt'; li.id = 'nb-dd-' + k; li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', o.selected && o.value !== '' ? 'true' : 'false');
+      li.innerHTML = '<span></span>' + CHECK; li.firstChild.textContent = o.textContent;
+      li.addEventListener('mousedown', function (e) { e.preventDefault(); });
+      li.addEventListener('click', function () { choose(k); });
+      li.addEventListener('mousemove', function () { if (active !== k) setActive(k); });
+      dd.appendChild(li);
+    });
+    document.body.appendChild(dd); place();
+    s.setAttribute('aria-expanded', 'true');
+    var cur = opts.indexOf(s.options[s.selectedIndex]); setActive(cur < 0 ? 0 : cur);
+    requestAnimationFrame(function () { dd && dd.classList.add('is-open'); });
+  }
+  function close() {
+    if (!dd) return;
+    sel.setAttribute('aria-expanded', 'false'); dd.remove(); dd = null; sel = null; active = -1;
+  }
+  function choose(k) {
+    var s = sel, o = opts[k]; if (!o || o.disabled) return;
+    if (s.value !== o.value) { s.value = o.value; s.dispatchEvent(new Event('input', { bubbles: true })); s.dispatchEvent(new Event('change', { bubbles: true })); }
+    close(); s.focus();
+  }
+  var touchAt = 0;
+  document.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') touchAt = Date.now(); }, true);
+  document.addEventListener('mousedown', function (e) {
+    if (Date.now() - touchAt < 800) return;   /* touch: leave the phone's own picker */
+    var s = e.target.closest && e.target.closest('select');
+    if (s && !s.multiple && !(s.size > 1) && !s.disabled) {
+      e.preventDefault(); s.focus();
+      if (sel === s) close(); else open(s);
+      return;
+    }
+    if (dd && !dd.contains(e.target)) close();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    var s = e.target.closest && e.target.closest('select');
+    if (!dd) {
+      if (s && !s.multiple && !s.disabled && (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); open(s); }
+      return;
+    }
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); setActive(0); }
+    else if (e.key === 'End') { e.preventDefault(); setActive(opts.length - 1); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+    else if (e.key === 'Escape') { e.preventDefault(); var t = sel; close(); t.focus(); }
+    else if (e.key === 'Tab') { close(); }
+    else if (e.key.length === 1) {   /* type to jump */
+      typed += e.key.toLowerCase(); clearTimeout(typedT); typedT = setTimeout(function () { typed = ''; }, 600);
+      var hit = opts.findIndex(function (o) { return o.textContent.trim().toLowerCase().indexOf(typed) === 0; }); if (hit > -1) setActive(hit);
+    }
+  }, true);
+  addEventListener('resize', close);
+  addEventListener('scroll', function (e) { if (dd && !dd.contains(e.target)) close(); }, true);
+})();

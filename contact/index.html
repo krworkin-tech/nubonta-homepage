@@ -13,11 +13,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/v2/shared/base.css">
+<link rel="stylesheet" href="/v2/shared/base.css?v=20261126">
 <script>document.documentElement.classList.add('js'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer src="/v2/shared/base.js"></script>
+<script defer src="/v2/shared/base.js?v=20261126"></script>
 <script>document.documentElement.classList.add('nb-preview');</script>
 </head>
 <body class="theme-final theme-v2" id="top">
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
 /* ===== shared ===== */
 .ctc-nw { white-space: nowrap; }
-.ctc-ic { flex: none; width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ctc-ic { flex: none; width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
 .ctc-label { font: 500 var(--fs-14)/1.25rem var(--font-sans); letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-muted-on-light); margin-bottom: var(--space-4); }
 .ctc-val { font-size: var(--fs-18); line-height: 1.75rem; overflow-wrap: anywhere; }
 .ctc-val a { text-decoration: none; } .ctc-val a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -315,13 +315,13 @@ document.addEventListener('DOMContentLoaded', function () {
 .cf-in:focus, .cf-in:focus-visible { outline: none; border-color: var(--color-charcoal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-charcoal) 10%, transparent); }   /* selected: soft halo (user 2026-11-26: the 2px ring was too aggressive) */
 .cf-in[aria-invalid="true"]:focus { border-color: var(--color-copper); box-shadow: inset 0 0 0 1px var(--color-copper), 0 0 0 4px color-mix(in srgb, var(--color-copper) 20%, transparent); }
 .cf-in[aria-invalid="true"], .cf-in[aria-invalid="true"]:hover { border-color: var(--color-copper); box-shadow: inset 0 0 0 1px var(--color-copper); }
-input.cf-in[aria-invalid="true"] { padding-right: 2.75rem; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23AB825E' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; }
-textarea.cf-in[aria-invalid="true"] { padding-right: 2.75rem; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23AB825E' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") no-repeat right 1rem top 0.75rem / 1.25rem; }
+input.cf-in[aria-invalid="true"] { padding-right: 2.75rem; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23AB825E' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; }
+textarea.cf-in[aria-invalid="true"] { padding-right: 2.75rem; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23AB825E' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") no-repeat right 1rem top 0.75rem / 1.25rem; }
 select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; }   /* the dropdown keeps its arrow */
 /* errors: icon + text under the field (not colour alone: the palette has no red) */
-.cf-err { display: flex; align-items: flex-start; gap: var(--space-8); font: 500 var(--fs-16)/1.5rem var(--font-sans); }
+.cf-err { display: flex; align-items: center; gap: var(--space-8); font: 500 var(--fs-16)/1.5rem var(--font-sans); }
 .cf-err[hidden] { display: none; }
-.cf-err__ic { flex: none; width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; fill: none; stroke: var(--color-copper); stroke-width: 1.75; stroke-linecap: round; }
+.cf-err__ic { flex: none; width: 1.5rem; height: 1.5rem; margin-top: 0; fill: none; stroke: var(--color-copper); stroke-width: 1.5; stroke-linecap: round; }
 /* select (Version 4): the same pill input, chevron on the right; example text in the fields is muted */
 .cf-in--select { appearance: none; padding-right: var(--space-40); cursor: pointer; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; }
 .cf-in--select:invalid { color: var(--color-muted-on-light); }
@@ -384,19 +384,30 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
 
 /* ===== Version 2: white, "What can we help with?" tiles first, contact details in a beige side card ===== */
 .ctc-b { padding-block: var(--space-64) var(--space-96); }
-.ctc-b__head { max-width: 46rem; margin: 0 auto var(--space-48); text-align: center; }
+/* above the fold (user 2026-11-26): copy + "Prefer to talk?" left, the form right from the top of the section; form without title / hints;
+   the 4 reasons as one row of small tiles (icon over the name) */
+.ctc-b__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-64); align-items: start; }
 .ctc-b__head h1 { text-wrap: balance; }
 .ctc-b__lead { margin-top: var(--space-24); color: var(--color-muted-on-light); }
-.ctc-b__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: var(--space-48); align-items: start; }
-.ctc-b .cf { padding: var(--space-48); border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 12%, transparent); }
-.ctc-b__side { position: sticky; top: 7rem; display: grid; gap: var(--space-24); padding: var(--space-32); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
+.ctc-b .cf { padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 12%, transparent); }
+.ctc-b .cf-body { gap: var(--space-16); }
+.ctc-b .cf-in--area { min-height: 7.5rem; }
+.ctc-b .cf-send { margin-top: var(--space-8); }
+.ctc-b .cf-tiles, .ctc-e .cf-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-8); }
+.ctc-b .cf-tile, .ctc-e .cf-tile { grid-template-columns: 1fr; justify-items: center; row-gap: var(--space-8); padding: var(--space-16) var(--space-8); text-align: center; }
+.ctc-b .cf-tile__ic, .ctc-e .cf-tile__ic { grid-row: auto; }
+.ctc-b .cf-tile__s, .ctc-e .cf-tile__s { display: none; }
+.cf--dark .cf-tile { color: var(--color-charcoal); }
+.cf--dark .cf-tile:hover { box-shadow: inset 0 0 0 1px var(--color-charcoal); }
+.ctc-b__side { display: grid; gap: var(--space-24); margin-top: var(--space-40); padding: var(--space-32); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
 .ctc-b__side h2 { font: 400 var(--fs-24)/2rem var(--font-serif); }
 .ctc-b__list { display: grid; gap: var(--space-24); }
-.ctc-b__list li { display: grid; grid-template-columns: 1.375rem minmax(0, 1fr); column-gap: var(--space-12); align-items: start; }
-.ctc-b__list .ctc-ic { margin-top: 0.25rem; }
+.ctc-b__list li { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr); column-gap: var(--space-12); align-items: center;   /* icon centred on the copy (user 2026-11-26) */ }
+
 .ctc-b__list .ctc-val { font-size: var(--fs-16); line-height: 1.5rem; }
 .ctc-b__note { padding-top: var(--space-24); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 12%, transparent); color: var(--color-muted-on-light); }
 .ctc-b__faq { font: 500 var(--fs-16)/1.5rem var(--font-sans); }
+@media (min-width: 1024px) { .ctc-b .cf { position: sticky; top: 7rem; } }   /* the form stays in view next to the longer left column */
 
 /* ===== Version 3: photo-led; the person with the product on the left, the form on the right, details in one row under both ===== */
 .ctc-c { padding-block: var(--space-64) var(--space-96); }
@@ -412,8 +423,8 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
 .ctc-c .cf { margin-top: var(--space-48); padding-top: var(--space-48); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 12%, transparent); }
 .ctc-c .cf-title { font-size: var(--fs-24); line-height: 2rem; }
 .ctc-c__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-24); margin-top: var(--space-64); padding: var(--space-32); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
-.ctc-c__row li { display: grid; grid-template-columns: 1.375rem minmax(0, 1fr); column-gap: var(--space-12); align-items: start; }
-.ctc-c__row .ctc-ic { margin-top: 0.25rem; }
+.ctc-c__row li { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr); column-gap: var(--space-12); align-items: center;   /* icon centred on the copy (user 2026-11-26) */ }
+
 .ctc-c__row .ctc-val { font-size: var(--fs-16); line-height: 1.5rem; }
 .ctc-c__note { margin-top: var(--space-16); color: var(--color-muted-on-light); text-align: center; }
 
@@ -437,6 +448,36 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
 .ctc-d .cf-in--area { min-height: 7.5rem; }
 .ctc-d .cf-send { margin-top: var(--space-8); }
 
+/* ===== Version 5 = MIX on WHITE (user 2026-11-26): the live page's left side (Version 4 content) + Version 2's form (reason as a dropdown, user 2026-11-26)
+   in Version 2's white card with a hairline; same sizes and spacing as Version 4 so the form fits above the fold ===== */
+.ctc-e { padding-block: var(--space-64) var(--space-96); }
+.ctc-e__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-64); align-items: center; }
+.ctc-e h1 { text-wrap: balance; }
+.ctc-e__lead { margin-top: var(--space-24); max-width: 38rem; color: var(--color-muted-on-light); }
+.ctc-e__list { display: grid; gap: 0; margin-top: var(--space-24); padding-top: var(--space-24); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 12%, transparent); }   /* hairline between the intro and the details (user 2026-11-26) */
+.ctc-e__list li { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr); column-gap: var(--space-12); align-items: center;   /* icon centred on the copy (user 2026-11-26) */ }   /* line icons like the "Prefer to talk?" card (user 2026-11-26) */
+
+.ctc-e__list li { align-items: start; }
+.ctc-e__list .ctc-ic { margin-top: -2px; }   /* icon centred on the label line (OFFICE LOCATION etc., 20px line) (user 2026-11-26) */
+.ctc-e__list li + li { margin-top: var(--space-16); padding-top: var(--space-16); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 12%, transparent); }   /* hairline between the details, 16px above + below (user 2026-11-26) */
+.ctc-e__list .ctc-label { font-weight: 500; }   /* the site's label role: Inter 500, 14/20, +15%, uppercase, Charcoal 70% (user 2026-11-26: check weight + size) */
+.ctc-e__list .ctc-val { font-size: var(--fs-16); line-height: 1.5rem; }   /* Body 16/24, like the detail values in Versions 1-3 */
+.ctc-e__list .ctc-val a[href^="mailto"] { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ctc-e__list strong { font-weight: 600; }
+.ctc-e__note { margin-top: var(--space-32); max-width: 38rem; color: var(--color-muted-on-light); }
+.ctc-e .cf { padding: var(--space-32); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }   /* soft beige like the "Prefer to talk?" card, one field per row (user 2026-11-26) */
+.ctc-e .cf-body { gap: var(--space-16); }
+.ctc-e .cf-in--area { min-height: 7.5rem; }
+.ctc-e .cf-send { margin-top: var(--space-8); }
+.cf-star { margin-left: 2px; }
+
+/* icons inside the name / email / phone fields (Version 5, user 2026-11-26): 20px line icon 16px from the left, text from 44px */
+.cf-in--ic { padding-left: 3rem; background: var(--ic) no-repeat left 1rem center / 1.5rem, var(--color-white); }
+input.cf-in.cf-in--ic[aria-invalid="true"] { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 20 20' fill='none' stroke='%23AB825E' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.5rem, var(--ic) no-repeat left 1rem center / 1.5rem, var(--color-white); }
+#ctc-e-name { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-opacity='0.7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.5'/%3E%3Cpath d='M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5'/%3E%3C/svg%3E"); }
+#ctc-e-email { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-opacity='0.7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='2'/%3E%3Cpath d='m3.5 7 8.5 6 8.5-6'/%3E%3C/svg%3E"); }
+#ctc-e-phone { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-opacity='0.7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z'/%3E%3C/svg%3E"); }
+
 /* version switch pill (design preview, remove once the client picks) = the blog's */
 .ctc-vsw { position: absolute; top: var(--space-24); right: var(--space-24); z-index: 5; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-pill); background: var(--color-white); color: var(--color-charcoal); box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 15%, transparent), 0 0.5rem 1.5rem rgb(0 0 0 / 0.08); }
 .ctc-vsw button { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; color: var(--color-charcoal); transition: background-color 0.2s; }
@@ -447,9 +488,13 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
 .ctc-vsw output { min-width: 5rem; text-align: center; font: 500 var(--fs-14)/1.25rem var(--font-sans); }
 
 @media (max-width: 1023px) {
-  .ctc-a__grid, .ctc-b__grid, .ctc-c__grid, .ctc-d__grid { grid-template-columns: 1fr; row-gap: var(--space-48); }
+  .ctc-a__grid, .ctc-b__grid, .ctc-c__grid, .ctc-d__grid, .ctc-e__grid { grid-template-columns: 1fr; row-gap: var(--space-48); }
   .ctc-a__cards { grid-template-columns: 1fr 1fr; }
-  .ctc-b__side, .ctc-c__ph { position: static; }
+  .ctc-c__ph { position: static; }
+  .ctc-b__left { display: contents; }
+  .ctc-b__head { order: 1; }
+  .ctc-b .cf { order: 2; }
+  .ctc-b__side { order: 3; margin-top: 0; }
   .ctc-c__ph { aspect-ratio: 4 / 3; order: 2; }   /* photo under the copy + form */
   .ctc-c__row { grid-template-columns: 1fr 1fr; }
   .ctc-vsw { top: var(--space-8); right: var(--space-8); gap: 0; padding: 0.125rem; box-shadow: none; background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); opacity: 0.9; }
@@ -459,13 +504,16 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
 }
 @media (max-width: 767px) {
   .ctc-a, .ctc-d { padding-block: var(--space-56, 3.5rem) var(--space-48); }
+  .ctc-e__head { text-align: center; }
+  .ctc-e__lead { font-size: var(--fs-18); line-height: 1.75rem; }
+  .ctc-e .cf { padding: var(--space-24) var(--space-16); border-radius: var(--radius-card); }
   .ctc-d__head { text-align: center; }
   .ctc-d__lead { font-size: var(--fs-18); line-height: 1.75rem; }
   .ctc-d .cf { padding: var(--space-24) var(--space-16); border-radius: var(--radius-card); }
-  .ctc-b, .ctc-c { padding-block: var(--space-56, 3.5rem) var(--space-48); }
+  .ctc-b, .ctc-c, .ctc-e { padding-block: var(--space-56, 3.5rem) var(--space-48); }
   .ctc-eyebrow { font-size: var(--fs-14); line-height: 1.25rem; }
   .ctc-v h1.t-heading-serif { font-size: var(--fs-36, 2.25rem); line-height: 2.5rem; }
-  .ctc-a__head, .ctc-c__copy > div:first-child { text-align: center; }
+  .ctc-a__head, .ctc-b__head, .ctc-c__copy > div:first-child { text-align: center; }
   .ctc-a__lead, .ctc-c__lead, .ctc-b__lead { font-size: var(--fs-18); line-height: 1.75rem; }
   .ctc-a__cards { grid-template-columns: 1fr; margin-top: var(--space-32); }
   .ctc-a .cf, .ctc-b .cf { padding: var(--space-24) var(--space-16); border-radius: var(--radius-card); }
@@ -475,51 +523,51 @@ select.cf-in[aria-invalid="true"] { background: var(--color-white) url("data:ima
   .ctc-c__cap p:first-child { font-size: var(--fs-24); line-height: 2rem; }
   .cf-title { font-size: var(--fs-24); line-height: 2rem; }
   .cf-row { grid-template-columns: 1fr; }
-  .cf-tiles { grid-template-columns: 1fr; }
+  .cf-tiles, .ctc-b .cf-tiles, .ctc-e .cf-tiles { grid-template-columns: 1fr 1fr; }
   .cf-pill span { padding: 0 var(--space-16); }
 }
 </style>
 <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-  <symbol id="ctc-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
-  <symbol id="ctc-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
-  <symbol id="ctc-phone" viewBox="0 0 24 24"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z"/></symbol>
-  <symbol id="ctc-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
-  <symbol id="ctc-box" viewBox="0 0 24 24"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></symbol>
-  <symbol id="ctc-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
-  <symbol id="ctc-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19 13 11"/></symbol>
-  <symbol id="ctc-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v10H9l-5 4z"/></symbol>
-  <symbol id="ctc-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
-  <symbol id="ctc-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
-  <symbol id="ctc-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5v-3a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></symbol>
+  <symbol id="ctc-pin" viewBox="2 2 20 20"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="ctc-mail" viewBox="2 2 20 20"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="ctc-phone" viewBox="2 2 20 20"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z"/></symbol>
+  <symbol id="ctc-clock" viewBox="2 2 20 20"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="ctc-box" viewBox="2 2 20 20"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></symbol>
+  <symbol id="ctc-return" viewBox="2 2 20 20"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+  <symbol id="ctc-leaf" viewBox="2 2 20 20"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19 13 11"/></symbol>
+  <symbol id="ctc-chat" viewBox="2 2 20 20"><path d="M4 5.5h16v10H9l-5 4z"/></symbol>
+  <symbol id="ctc-alert" viewBox="2 2 20 20"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+  <symbol id="ctc-ok" viewBox="2 2 20 20"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
+  <symbol id="ctc-copy" viewBox="2 2 20 20"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5v-3a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></symbol>
 </svg>
-<section class="ctc-v ctc-d" aria-labelledby="ctc-d-title">
-  <div class="container ctc-d__grid">
+<section class="ctc-v ctc-e" aria-labelledby="ctc-e-title">
+  <div class="container ctc-e__grid">
     <div>
-      <div class="ctc-d__head">
-        <p class="t-eyebrow ctc-eyebrow">Reach out to us</p>
-        <h1 class="t-heading-serif" id="ctc-d-title">We would love to hear from you</h1>
-        <p class="t-body-lg ctc-d__lead">Please reach out if you have any questions or need help purchasing a product. We&rsquo;re happy to help you and serve you on your journey to stronger bones.</p>
+      <div class="ctc-e__head">
+        <p class="t-eyebrow muted ctc-eyebrow">Reach out to us</p>
+        <h1 class="t-heading-serif" id="ctc-e-title">We would love to hear from you</h1>
+        <p class="t-body-lg ctc-e__lead">Please reach out if you have any questions or need help purchasing a product. We&rsquo;re happy to help you and serve you on your journey to stronger bones.</p>
       </div>
-      <ul class="ctc-d__list">
-        <li><p class="ctc-label">Office location</p><p class="ctc-val">Healthy Bones Co LLC<br>Sheridan, Wyoming 82801</p></li>
-        <li><p class="ctc-label">Direct email</p><p class="ctc-val"><a href="mailto:customercare@healthybonesco.com">customercare@healthybonesco.com</a></p></li>
-        <li><p class="ctc-label">Contact number</p><p class="ctc-val"><a href="tel:+18887881992">+1 (888) 788-1992</a></p></li>
-        <li><p class="ctc-label">Hours</p><p class="ctc-val"><strong>Email support:</strong> 7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span><br><strong>Phone support:</strong> 7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span></p></li>
+      <ul class="ctc-e__list">
+        <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-pin"/></svg><div><p class="ctc-label">Office location</p><p class="ctc-val">Healthy Bones Co LLC<br>Sheridan, Wyoming 82801</p></div></li>
+        <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-mail"/></svg><div><p class="ctc-label">Direct email</p><p class="ctc-val"><a href="mailto:customercare@healthybonesco.com">customercare@healthybonesco.com</a></p></div></li>
+        <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-phone"/></svg><div><p class="ctc-label">Contact number</p><p class="ctc-val"><a href="tel:+18887881992">+1 (888) 788-1992</a></p></div></li>
+        <li><svg class="ctc-ic" aria-hidden="true"><use href="#ctc-clock"/></svg><div><p class="ctc-label">Hours</p><p class="ctc-val"><strong>Email support:</strong> 7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span><br><strong>Phone support:</strong> 7 days a week, <span class="ctc-nw">9am&ndash;5pm EST</span></p></div></li>
       </ul>
-      <p class="t-body ctc-d__note">Our Nubonta offices are closed on major holidays so that our team can spend time with family and loved ones. We will reply to your message within 48 hours of returning to the office.</p>
+      <p class="t-body ctc-e__note">Our Nubonta offices are closed on major holidays so that our team can spend time with family and loved ones. We will reply to your message within 48 hours of returning to the office.</p>
     </div>
-    <form class="cf cf--dark" id="ctc-d-form" novalidate data-cf>
+    <form class="cf" id="ctc-e-form" novalidate data-cf>
   <div class="cf-body">
     
-    <div class="cf-field"><label class="cf-label" for="ctc-d-name">Full name</label><input class="cf-in" id="ctc-d-name" name="name" type="text" autocomplete="name" placeholder="Mary Smith" required aria-describedby="ctc-d-name-err"><p class="cf-err" id="ctc-d-name-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter your name.</span></p></div>
-      <div class="cf-field"><label class="cf-label" for="ctc-d-email">Email</label><input class="cf-in" id="ctc-d-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="example@gmail.com" required aria-describedby="ctc-d-email-err"><p class="cf-err" id="ctc-d-email-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter an email like name@example.com.</span></p></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-d-phone">Phone <span class="cf-opt">(optional)</span></label><input class="cf-in" id="ctc-d-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567"></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-d-reason">Contact reason</label><select class="cf-in cf-in--select" id="ctc-d-reason" name="reason" required aria-describedby="ctc-d-reason-err"><option value="" disabled selected>Choose a reason</option><option>Order status</option><option>Returns / exchanges</option><option>Help choosing a product</option><option>Product question</option><option>Website question</option><option>Product suggestion</option><option>General question</option></select><p class="cf-err" id="ctc-d-reason-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Choose what your message is about.</span></p></div>
-    <div class="cf-field" data-order hidden><label class="cf-label" for="ctc-d-order">Order number <span class="cf-opt">(optional)</span></label><input class="cf-in" id="ctc-d-order" name="order" type="text" autocomplete="off" placeholder="#1001"></div>
-    <div class="cf-field"><label class="cf-label" for="ctc-d-msg">Message</label><textarea class="cf-in cf-in--area" id="ctc-d-msg" name="message" rows="5" placeholder="How can we help?" required aria-describedby="ctc-d-msg-err"></textarea><p class="cf-err" id="ctc-d-msg-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Tell us a little about how we can help.</span></p></div>
-    <button class="btn btn--light cf-send" type="submit">Send message</button>
+    <div class="cf-field"><label class="cf-label" for="ctc-e-name">Full name<span class="cf-star" aria-hidden="true">*</span></label><input class="cf-in cf-in--ic" id="ctc-e-name" name="name" type="text" autocomplete="name" placeholder="Mary Smith" required aria-describedby="ctc-e-name-err"><p class="cf-err" id="ctc-e-name-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter your name.</span></p></div>
+      <div class="cf-field"><label class="cf-label" for="ctc-e-email">Email<span class="cf-star" aria-hidden="true">*</span></label><input class="cf-in cf-in--ic" id="ctc-e-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="example@gmail.com" required aria-describedby="ctc-e-email-err"><p class="cf-err" id="ctc-e-email-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Enter an email like name@example.com.</span></p></div>
+    <div class="cf-field"><label class="cf-label" for="ctc-e-phone">Phone <span class="cf-opt">(optional)</span></label><input class="cf-in cf-in--ic" id="ctc-e-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567"></div>
+    <div class="cf-field"><label class="cf-label" for="ctc-e-reason">Contact reason<span class="cf-star" aria-hidden="true">*</span></label><select class="cf-in cf-in--select" id="ctc-e-reason" name="reason" required aria-describedby="ctc-e-reason-err"><option value="" disabled selected>Choose a reason</option><option>Order status</option><option>Returns / exchanges</option><option>Help choosing a product</option><option>Product question</option><option>Website question</option><option>Product suggestion</option><option>General question</option></select><p class="cf-err" id="ctc-e-reason-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Choose what your message is about.</span></p></div>
+    <div class="cf-field" data-order hidden><label class="cf-label" for="ctc-e-order">Order number <span class="cf-opt">(optional)</span></label><input class="cf-in" id="ctc-e-order" name="order" type="text" autocomplete="off" placeholder="#1001"></div>
+    <div class="cf-field"><label class="cf-label" for="ctc-e-msg">Message<span class="cf-star" aria-hidden="true">*</span></label><textarea class="cf-in cf-in--area" id="ctc-e-msg" name="message" rows="5" placeholder="How can we help?" required aria-describedby="ctc-e-msg-err"></textarea><p class="cf-err" id="ctc-e-msg-err" hidden><svg class="cf-err__ic" aria-hidden="true"><use href="#ctc-alert"/></svg><span>Tell us a little about how we can help.</span></p></div>
+    <button class="btn btn--dark cf-send" type="submit">Send message</button>
   </div>
-  <div class="cf-done" role="status" tabindex="-1" hidden><svg class="cf-done__ic" aria-hidden="true"><use href="#ctc-ok"/></svg><h2 class="cf-title">Thank you<span data-cf-first></span>. Message received.</h2><p>We&rsquo;ll reply to <strong data-cf-mail></strong> within 48 hours.</p><button class="btn btn--light cf-again" type="button">Send another message</button></div>
+  <div class="cf-done" role="status" tabindex="-1" hidden><svg class="cf-done__ic" aria-hidden="true"><use href="#ctc-ok"/></svg><h2 class="cf-title">Thank you<span data-cf-first></span>. Message received.</h2><p>We&rsquo;ll reply to <strong data-cf-mail></strong> within 48 hours.</p><button class="btn btn--ghost cf-again" type="button">Send another message</button></div>
 </form>
   </div>
 </section>
@@ -582,7 +630,7 @@ document.addEventListener('DOMContentLoaded', function () {
     try { history.replaceState(null, '', location.pathname + (at ? '?version=' + (at + 1) : '') + location.hash); } catch (e) {}
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   }
-  var m = /[?&]version=([1-4])(&|$)/.exec(location.search);
+  var m = /[?&]version=([1-5])(&|$)/.exec(location.search);
   show(m ? +m[1] - 1 : 0);
 });
 </script>

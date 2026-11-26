@@ -186,3 +186,14 @@ body.theme-final .tagline em { font-style: italic; }
 .video-toggle:hover { background: var(--color-graphite); }
 .video-toggle { --focus: var(--color-white); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+
+/* ---- designed dropdown list (2026-11-26, user: one dropdown design everywhere; script in base.js). White card, 16px corners,
+   soft shadow + hairline, 44px rows with 8px corners; the row under the pointer / keyboard is soft beige; the chosen one is Medium with a check. ---- */
+.nb-dd { position: fixed; z-index: 1000; max-height: min(24rem, calc(100vh - 2rem)); overflow-y: auto; margin: 0; padding: var(--space-8); list-style: none; border-radius: var(--radius-md); background: var(--color-white); box-shadow: 0 0 0 1px rgb(16 16 15 / 0.08), 0 0.75rem 2rem rgb(16 16 15 / 0.14); opacity: 0; transform: translateY(-4px); transition: opacity 0.15s ease, transform 0.15s ease; }
+.nb-dd.is-open { opacity: 1; transform: none; }
+.nb-dd__opt { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: 2.75rem; padding: 0 var(--space-12); border-radius: var(--radius-sm); color: var(--color-charcoal); font: 400 var(--fs-16)/1.5rem var(--font-sans); cursor: pointer; white-space: nowrap; }
+.nb-dd__opt.is-active { background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
+.nb-dd__opt[aria-selected="true"] { font-weight: 500; }
+.nb-dd__opt svg { flex: none; width: 1.125rem; height: 1.125rem; fill: none; stroke: var(--color-charcoal); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; visibility: hidden; }
+.nb-dd__opt[aria-selected="true"] svg { visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .nb-dd { transition: none; transform: none; } }
