@@ -344,10 +344,18 @@ document.addEventListener('DOMContentLoaded', function () {
 .bph__top { margin-top: 0 !important; }
 @media (max-width: 767px) { .bph { padding-top: var(--space-32) !important; } }
 </style>
+<style>
+/* back link above the title (user 2026-11-27: no breadcrumbs, so a way back to the list): the .link-arrow text link, arrow pointing left */
+.bph__back { width: fit-content; justify-self: start; margin-bottom: var(--space-24); }   /* underline only under the words */
+.bph__back .icon { transform: scaleX(-1); }
+.bph__back:hover .icon { transform: scaleX(-1) translateX(0.25rem); }
+.bph { padding-top: var(--space-32) !important; }   /* the link sits 32px under the header, the title 24px under it */
+</style>
 <div class="bph__progress" aria-hidden="true"><span></span></div>
 <section class="band band--white bl bph" aria-labelledby="bph-title">
   <div class="container bl-narrow">
     <div class="bph__top">
+      <a class="link-arrow bph__back" href="/blog/"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>All articles</a>
       <h1 id="bph-title">FORTIGEL<sup class="bl-reg">&reg;</sup> vs VERISOL<sup class="bl-reg">&reg;</sup>: The Complete<br class='bl-br'> Guide to Specialized Collagen Peptides for Joint Health and Beauty</h1>
       <p class="bph__meta">Written by: <span class="bph__by">Nubonta</span><span class="bph__bar" aria-hidden="true"></span><time datetime="2025-07-17">July 17, 2025</time></p>
     </div>
@@ -947,13 +955,13 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
   <div class="container">   <!-- related cards on the blog page grid (full container width, user 2026-11-25) -->
     <div class="bpe__rel">
-      <div class="bpe__rel-head"><div><h2 class="t-heading-serif">You may also like</h2></div><a class="link-arrow bpe__all--top" href="/blog/">All articles</a></div>
+      <div class="bpe__rel-head"><div><h2 class="t-heading-serif">You may also like</h2></div><a class="link-arrow bpe__all--top" href="/blog/">All articles<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
       <ul class="bl-cards">
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/the-power-of-collagen-peptides-to-help-you-sleep-better.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2024-05-17">May 17, 2024</time></p><h3 class="bl-card__title">The Power Of Collagen Peptides To Help You Sleep Better</h3><p class="bl-card__ex">As you know, the amino acids in Collagen Peptides – glycine, proline, and hydroxyproline – help support better bone health.</p></a></li>
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/men-vs-women-who-s-at-greater-risk-for-bone-loss.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2025-01-21">January 21, 2025</time></p><h3 class="bl-card__title">Men vs. Women: Who’s at Greater Risk for Bone Loss?</h3><p class="bl-card__ex">Bone loss is often referred to as a "woman's disease" because it primarily impacts postmenopausal women, leading to weak bones and a greater risk of fractures.</p></a></li>
         <li class="bl-card" data-cat="Collagen"><a class="bl-card__link" href="/blog/article/"><div class="bl-ph bl-card__ph"><img class="bl-img" src="/v2/shared/media/blog/can-your-fingernails-reveal-your-bone-health.webp" alt="" loading="lazy" width="1200" height="900"></div><p class="bl-card__date"><time datetime="2025-02-10">February 10, 2025</time></p><h3 class="bl-card__title">Can Your Fingernails Reveal Your Bone Health?</h3><p class="bl-card__ex">Most people often don't think about their bone health until something serious happens—a fracture, chronic back pain, or changes in posture.</p></a></li>
       </ul>
-      <div class="bpe__all--bottom"><a class="link-arrow" href="/blog/">All articles</a></div>   <!-- phones: under the cards (user 2026-11-25) -->
+      <div class="bpe__all--bottom"><a class="link-arrow" href="/blog/">All articles<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>   <!-- phones: under the cards (user 2026-11-25) -->
     </div>
   </div>
 </section>

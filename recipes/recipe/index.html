@@ -349,10 +349,18 @@ document.addEventListener('DOMContentLoaded', function () {
 .rcp-cover { background: var(--bl-grey); }
 .rcp-cover::after { display: none; }
 </style>
+<style>
+/* back link above the title (user 2026-11-27: no breadcrumbs, so a way back to the list): the .link-arrow text link, arrow pointing left */
+.bph__back { width: fit-content; justify-self: start; margin-bottom: var(--space-24); }   /* underline only under the words */
+.bph__back .icon { transform: scaleX(-1); }
+.bph__back:hover .icon { transform: scaleX(-1) translateX(0.25rem); }
+.bph { padding-top: var(--space-32) !important; }   /* the link sits 32px under the header, the title 24px under it */
+</style>
 <div class="bph__progress" aria-hidden="true"><span></span></div>
 <section class="band band--white bl bph" aria-labelledby="bph-title">
   <div class="container bl-narrow">
     <div class="bph__top">
+      <a class="link-arrow bph__back" href="/recipes/"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>All recipes</a>
       <h1 id="bph-title">Collagen Cr&egrave;me Br&ucirc;l&eacute;e</h1>
       <div class="rcp-row"><p class="bph__meta">Written by: <span class="bph__by">Nubonta</span><span class="bph__bar" aria-hidden="true"></span><time datetime="2025-06-15">June 15, 2025</time></p><ul class="rcp-tags" aria-label="Diet"><li>Gluten-free</li><li>Dairy-free</li><li>60 minutes</li></ul></div>
     </div>
