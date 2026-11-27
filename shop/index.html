@@ -863,6 +863,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .bs-card__info .sco, .bd-card__info .sco { align-self: end; }
 /* bundles balanced (user 2026-11-27): title + text stay at the top; fields stacked like the single products, bottom-aligned so every month field sits right above the price (extra space goes under the text) */
 .bd-card__info { grid-template-rows: auto auto 1fr auto; align-content: start; }
+@media (min-width: 768px) { .bs-card__info { grid-template-rows: auto auto 1fr auto; align-content: start; } }   /* same for products: Bone Health has 2 fields, the month fields still line up */
 .sco__f:has([data-o="flavor"]) .sco__l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .sco__f:has(select:disabled) { cursor: not-allowed; }
 .sco__f:has(select:disabled) .sco__box { border-color: color-mix(in srgb, var(--color-charcoal) 8%, transparent); background: color-mix(in srgb, var(--color-charcoal) 4%, var(--color-white)); }
@@ -887,7 +888,10 @@ html[data-blog-v="2"] .sh { padding-top: var(--space-48); }
 .sh__sort select { height: 3rem; padding: 0 var(--space-40) 0 var(--space-16); border: 1px solid color-mix(in srgb, var(--color-charcoal) 18%, transparent); border-radius: var(--radius-pill); background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; appearance: none; color: var(--color-charcoal); font: 400 var(--fs-16)/1.5rem var(--font-sans); cursor: pointer; }   /* the contact field look: 48px pill, hairline, chevron */
 .sh__sort select:hover { border-color: color-mix(in srgb, var(--color-charcoal) 40%, transparent); }
 .sh__sort select:focus-visible { outline: none; border-color: var(--color-charcoal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-charcoal) 10%, transparent); }
-.sh__group[hidden], .bs-card[hidden], .bd-card[hidden] { display: none !important; }   /* the cards set their own display, which beat [hidden]: filtered-out bundles stayed visible 
+html[data-blog-v="1"] #shop { padding-top: var(--space-64); }   /* = the blog: content 64px under the photo banner (was 96) */
+html[data-blog-v="2"] #shop { padding-top: var(--space-32); }   /* = the blog Version 2: filter 32px under the hairline */
+@media (max-width: 767px) { html[data-blog-v] #shop { padding-top: var(--space-32); } }
+.sh__group[hidden], .bs-card[hidden], .bd-card[hidden] { display: none !important; }   /* the cards set their own display, which beat [hidden]: filtered-out bundles stayed visible */
 .sh__group + .sh__group { margin-top: var(--space-64); }   /* 64 between the two groups (the FAQ topic spacing, user 2026-11-27: no huge gaps) */
 .sh__gh { display: flex; justify-content: space-between; align-items: end; gap: var(--space-24); margin-bottom: var(--space-32); }
 .sh__gh h2 { font: 400 var(--fs-32)/2.5rem var(--font-serif); }   /* = the FAQ topic titles (32/40, 24/32 phones) */
@@ -932,7 +936,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
         <button class="bs__tab" type="button" role="tab" id="sh-tab-longevity" aria-controls="sh-panel" aria-selected="false" data-f="longevity" tabindex="-1">Longevity</button>
       </div>
       <div class="sh__right">
-        <p class="t-body sh__count"><span data-sh-count>14</span> products</p>
+        <p class="t-body sh__count"><span data-sh-count>13</span> products</p>
         <div class="sh__sort"><label for="sh-sort">Sort by</label><select id="sh-sort" aria-label="Sort products"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
       </div>
     </div>
@@ -947,24 +951,12 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <div class="bs-card__info">
             <h3 class="t-title-sm"><a href="/pdp/v1/?formula=bone">Bone Health Collagen</a></h3>
-            <p class="t-body muted bs-card__facts">10g per scoop &middot; Unflavored &middot;<br>Quick-dissolve</p>
-            <div class="sco"><label class="sco__f"><span class="sco__l">Quantity</span><span class="sco__box" data-dd-anchor><select data-o="qty"><option value="1">1 month</option><option value="3">3 months</option><option value="6">6 months</option></select></span></label></div><div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$49.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$44.10</p></div>
+            <p class="t-body muted bs-card__facts">10g per scoop &middot; Two flavors &middot;<br>Quick-dissolve</p>
+            <div class="sco"><label class="sco__f sco__f--wide"><span class="sco__l">Flavor</span><span class="sco__box" data-dd-anchor><select data-o="flavor"><option value="plain">Unflavored</option><option value="choc">Chocolate</option></select></span></label><label class="sco__f"><span class="sco__l">Quantity</span><span class="sco__box" data-dd-anchor><select data-o="qty"><option value="1">1 month</option><option value="3">3 months</option><option value="6">6 months</option></select></span></label></div><div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$49.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$44.10</p></div>
           </div>
           <button class="bs-add" type="button" data-name="Bone Health Collagen"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Bone Health Collagen</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="1" data-price="44.10" class="bs-card" data-collagen="chocolate" data-goals="bone prevention">
-          <div class="bs-card__media">
-            <a href="/pdp/v1/?formula=chocolate" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/collagen-chocolate-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-collagen-chocolate-2026-11-27.webp" alt="" loading="lazy"></a>
-            <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
-          </div>
-          <div class="bs-card__info">
-            <h3 class="t-title-sm"><a href="/pdp/v1/?formula=chocolate">Bone Health Chocolate</a></h3>
-            <p class="t-body muted bs-card__facts">10g per scoop &middot; Chocolate Dream &middot;<br>Quick-dissolve</p>
-            <div class="sco"><label class="sco__f"><span class="sco__l">Quantity</span><span class="sco__box" data-dd-anchor><select data-o="qty"><option value="1">1 month</option><option value="3">3 months</option><option value="6">6 months</option></select></span></label></div><div class="bs-card__buy"><p class="bs-card__was"><span class="sr-only">Was </span>$49.00</p><p class="bs-card__price"><span class="sr-only">Now </span>$44.10</p></div>
-          </div>
-          <button class="bs-add" type="button" data-name="Bone Health Chocolate"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Bone Health Chocolate</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
-        </li>
-        <li data-sub="1" data-kind="formula" data-order="2" data-price="35.10" class="bs-card" data-collagen="basic" data-goals="longevity">
+        <li data-sub="1" data-kind="formula" data-order="1" data-price="35.10" class="bs-card" data-collagen="basic" data-goals="longevity">
           <div class="bs-card__media">
             <a href="/pdp/v1/?formula=basic" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/collagen-basic-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-collagen-basic-2026-11-27.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -976,7 +968,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Basic Collagen"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Basic Collagen</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="3" data-price="53.10" class="bs-card" data-collagen="total" data-goals="bone prevention longevity">
+        <li data-sub="1" data-kind="formula" data-order="2" data-price="53.10" class="bs-card" data-collagen="total" data-goals="bone prevention longevity">
           <div class="bs-card__media">
             <a href="/pdp/v1/?formula=total" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/collagen-total-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-collagen.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -988,7 +980,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Total Body Collagen"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Total Body Collagen</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="4" data-price="48.60" class="bs-card" data-goals="bone longevity practitioner">
+        <li data-sub="1" data-kind="formula" data-order="3" data-price="48.60" class="bs-card" data-goals="bone longevity practitioner">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-annatrol.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -1000,7 +992,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Annatrol"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Annatrol</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="5" data-price="64.00" class="bs-card" data-goals="bone practitioner">
+        <li data-kind="formula" data-order="4" data-price="64.00" class="bs-card" data-goals="bone practitioner">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/osteofrax.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-osteofrax.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">New</span></div>
@@ -1012,7 +1004,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="OsteoFrax"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> OsteoFrax</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="6" data-price="46.80" class="bs-card" data-goals="prevention longevity">
+        <li data-sub="1" data-kind="formula" data-order="5" data-price="46.80" class="bs-card" data-goals="prevention longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-creatine.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -1024,7 +1016,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Creatine + HMB"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Creatine + HMB</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="7" data-price="29.00" class="bs-card is-soldout" data-goals="bone prevention">
+        <li data-kind="formula" data-order="6" data-price="29.00" class="bs-card is-soldout" data-goals="bone prevention">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/d3k2.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-d3k2.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--soldout">Sold out</span></div>
@@ -1036,7 +1028,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="D3 + K2" disabled>Sold out<span class="sr-only"> D3 + K2</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="8" data-price="30.60" class="bs-card" data-goals="bone longevity">
+        <li data-sub="1" data-kind="formula" data-order="7" data-price="30.60" class="bs-card" data-goals="bone longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-d3k2-plus.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -1048,7 +1040,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="D3/K2+"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> D3/K2+</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="9" data-price="28.80" class="bs-card" data-goals="prevention longevity">
+        <li data-sub="1" data-kind="formula" data-order="8" data-price="28.80" class="bs-card" data-goals="prevention longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-magnesium.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -1060,7 +1052,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Magnesium Bisglycinate"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Magnesium Bisglycinate</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-sub="1" data-kind="formula" data-order="10" data-price="34.20" class="bs-card" data-goals="longevity">
+        <li data-sub="1" data-kind="formula" data-order="9" data-price="34.20" class="bs-card" data-goals="longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-omega3.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -1138,7 +1130,8 @@ document.addEventListener('DOMContentLoaded', function () {
       list.sort(function (a, b) {
         if (sort.value === 'low') return a.dataset.price - b.dataset.price;
         if (sort.value === 'high') return b.dataset.price - a.dataset.price;
-        return a.dataset.order - b.dataset.order;
+        var last = function (c) { return f === 'all' && c.dataset.collagen === 'bone' ? 999 : +c.dataset.order; };   /* user 2026-11-27: on All, Bone Health (2 fields) goes last so the first row stays even */
+        return last(a) - last(b);
       }).forEach(function (li) { ul.appendChild(li); });
     });
     count.textContent = n; live.textContent = n + (n === 1 ? ' product' : ' products') + ' shown.';
@@ -1158,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   sort.addEventListener('change', draw);
   var qg = new URLSearchParams(location.search).get('goal'), qi = tabs.map(function (t) { return t.dataset.f; }).indexOf(qg);   /* ?goal=bone from the menu opens that filter */
-  if (qi > 0) select(qi);
+  if (qi > 0) select(qi); else draw();   /* first draw puts Bone Health last on All */
   ind.style.transition = 'none'; place(tabs.filter(function (t) { return t.tabIndex === 0; })[0] || tabs[0]);   /* the chosen tab (?goal=) without sliding */
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { place(tabs.filter(function (t) { return t.tabIndex === 0; })[0] || tabs[0]); requestAnimationFrame(function () { ind.style.transition = ''; }); });
   window.addEventListener('resize', function () { place(tabs.filter(function (t) { return t.tabIndex === 0; })[0] || tabs[0]); });
@@ -1182,6 +1175,17 @@ document.addEventListener('DOMContentLoaded', function () {
     c.card.dataset.price = price.toFixed(2);
   }
   function resort() { var srt = document.getElementById('sh-sort'); if (srt && srt.value !== 'featured') srt.dispatchEvent(new Event('change')); }
+  /* Bone Health flavor (2026-11-27): Chocolate swaps the pack shot, the hover photo and the product-page link */
+  root.querySelectorAll('[data-collagen="bone"] [data-o="flavor"]').forEach(function (sel) {
+    var card = sel.closest('[data-kind]'), img = card.querySelector('.bs-card__img'), alt = card.querySelector('.bs-card__alt');
+    var base = { img: img.getAttribute('src'), alt: alt && alt.getAttribute('src') };
+    sel.addEventListener('change', function () {
+      var ch = sel.value === 'choc';
+      img.setAttribute('src', ch ? base.img.replace('collagen-bone-pouch', 'collagen-chocolate-pouch') : base.img);
+      if (alt) alt.setAttribute('src', ch ? base.alt.replace('hover-collagen-bone-', 'hover-collagen-chocolate-') : base.alt);
+      card.querySelectorAll('a[href*="formula="]').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace(/formula=[a-z]+/, 'formula=' + (ch ? 'chocolate' : 'bone'))); });
+    });
+  });
   function drawPrices() { pcards.forEach(draw1); resort(); }   /* own name: a second draw() replaced the filter's draw() (hoisting) and broke the filter */
   sw.addEventListener('click', function () { sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); drawPrices(); });
   drawPrices();
