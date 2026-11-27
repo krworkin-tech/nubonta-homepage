@@ -346,10 +346,12 @@ document.addEventListener('DOMContentLoaded', function () {
 </style>
 <style>
 /* back link above the title (user 2026-11-27: no breadcrumbs, so a way back to the list): the .link-arrow text link, arrow pointing left */
-.bph__back { width: fit-content; justify-self: start; margin-bottom: var(--space-24); }   /* underline only under the words */
+.bph__back { width: fit-content; justify-self: start; margin-bottom: var(--space-4); }   /* underline only under the words; + the 12px row gap = 16px to the title, the same as title -> "Written by" (user 2026-11-27) */
 .bph__back .icon { transform: scaleX(-1); }
 .bph__back:hover .icon { transform: scaleX(-1) translateX(0.25rem); }
-.bph { padding-top: var(--space-32) !important; }   /* the link sits 32px under the header, the title 24px under it */
+.bph__top h1 { text-wrap: pretty !important; }   /* lines run the full column width (user 2026-11-27: balanced lines looked cut off at ~70%); "pretty" still avoids a lone last word */
+.bph { padding-top: var(--space-64) !important; }   /* content starts 64px under the header on every white-top page (user 2026-11-27), 56 on phones */
+@media (max-width: 767px) { .bph { padding-top: var(--space-56, 3.5rem) !important; } }
 </style>
 <div class="bph__progress" aria-hidden="true"><span></span></div>
 <section class="band band--white bl bph" aria-labelledby="bph-title">

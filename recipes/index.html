@@ -339,6 +339,10 @@ document.addEventListener('DOMContentLoaded', function () {
 .bl-top2__lead { max-width: 48rem; margin-top: var(--space-16); font-size: var(--fs-20); line-height: 1.75rem;   /* 20px (user 2026-11-26) */ color: var(--color-muted-on-light); text-wrap: pretty; }
 .bl-top2__rule { height: 1px; margin-top: var(--space-32); background: color-mix(in srgb, var(--color-charcoal) 15%, transparent); }
 html[data-blog-v="2"] .bll__bar { padding-top: var(--space-32); }
+/* user 2026-11-27: the filter + count only on Version 2; Version 1 (photo banner) goes straight from the banner into the cards */
+html[data-blog-v="1"] .bll__bar { display: none; }
+html[data-blog-v="1"] .bll .bl-cards { padding-top: var(--space-64); }
+@media (max-width: 767px) { html[data-blog-v="1"] .bll .bl-cards { padding-top: var(--space-32); } }
 /* "Version 1 / Version 2" pill (design preview, remove once the client picks): same white pill as the homepage hero switch; ?version=2 opens V2 */
 .bl-vsw { position: absolute; top: var(--space-24); right: var(--space-24); z-index: 5; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-pill);
   background: var(--color-white); color: var(--color-charcoal); box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.25); }
@@ -392,6 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
     at = (n + 2) % 2;
     tops.forEach(function (t, i) { t.hidden = i !== at; });
     document.documentElement.dataset.blogV = at + 1;
+    if (!at) { var all = document.querySelector('.bll .bl-pill[data-cat="All"]'); if (all && all.getAttribute('aria-pressed') !== 'true') all.click(); }   /* V1 has no filter: back to All */
     document.querySelectorAll('[data-vlabel]').forEach(function (o) { o.textContent = 'Version ' + (at + 1); });
     try { history.replaceState(null, '', location.pathname + (at ? '?version=2' : '') + location.hash); } catch (e) {}
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
@@ -408,25 +413,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .band.bll { padding-top: 0; }   /* only the bar's 64px under the banner */
 .bll__bar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-24); padding-top: var(--space-64); margin-bottom: var(--space-48); }   /* 64px under the banner, no line (Figma 7100:3214) */
-.bll__pills { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.bl-pill { height: 2.75rem; padding: 0 var(--space-24); border-radius: var(--radius-pill); background: var(--bl-paper); font: 500 var(--fs-16)/1.5rem var(--font-sans); white-space: nowrap; transition: background-color 0.25s, color 0.25s; }
-.bl-pill:hover { background: color-mix(in srgb, var(--color-stone) 50%, var(--color-white)); }
-.bl-pill[aria-pressed="true"] { background: var(--color-charcoal); color: var(--color-white); }
 .bll__count { color: var(--color-muted-on-light); white-space: nowrap; }
 .bll__more { display: flex; justify-content: center; margin-top: var(--space-64); }
 .bll__more[hidden] { display: none; }
 @media (max-width: 767px) {
   .bll__bar { padding-top: var(--space-32); margin-bottom: var(--space-32); flex-direction: column; align-items: stretch; }
-  .bll__pills { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--page-margin) * -1); padding-inline: var(--page-margin); scrollbar-width: none; }
-  .bll__pills::-webkit-scrollbar { display: none; }
+  .bll__pills { align-self: flex-start; }
   .bll__more { margin-top: var(--space-48); }
 }
 </style>
+<!-- FILTER PILLS = the homepage bestseller filter (22-bestsellers .bs__tabs), reused on Blog, Recipes, Reviews and FAQ (user 2026-11-27: "reuse
+     components: make this menu the same as the one on the homepage"). Soft beige track, 4px padding + gaps, 40px pills (44 on phones), muted text,
+     the chosen pill = Charcoal indicator that slides under it (0.55s). The pages keep their own buttons (.bl-pill, aria-pressed) and filter scripts;
+     this file only restyles them and adds the sliding indicator. Pasted into blog/blog_build.py (-> recipes, reviews) and faq/faq_build.py. -->
+<style>
+.bl-filter { position: relative; display: inline-flex; flex-wrap: nowrap; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-pill); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.bl-filter::-webkit-scrollbar { display: none; }
+.bl-filter .bl-pill { position: relative; z-index: 1; flex: none; height: 2.5rem; padding: 0 var(--space-24); border-radius: var(--radius-pill); background: none !important; font: 500 var(--fs-16)/1.5rem var(--font-sans); color: var(--color-muted-on-light); white-space: nowrap; transition: color 0.45s var(--ease-out); }
+.bl-filter .bl-pill:hover { color: var(--color-charcoal); }
+.bl-filter .bl-pill[aria-pressed="true"] { color: var(--color-white); }
+.bl-filter .bl-pill:focus-visible { outline: 2px solid var(--color-charcoal); outline-offset: 2px; }
+.bl-filter__ind { position: absolute; z-index: 0; left: 0; top: var(--space-4); height: 2.5rem; width: 0; border-radius: var(--radius-pill); background: var(--color-charcoal); transition: transform 0.55s var(--ease-out), width 0.55s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .bl-filter__ind { transition: none; } }
+@media (max-width: 767px) {
+  .bl-filter .bl-pill { height: 2.75rem; padding: 0 var(--space-16); }
+  .bl-filter__ind { height: 2.75rem; }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {   /* sliding indicator under the chosen pill (homepage bestseller filter) */
+  document.querySelectorAll('.bl-filter').forEach(function (bar) {
+    var ind = document.createElement('span'); ind.className = 'bl-filter__ind'; ind.setAttribute('aria-hidden', 'true'); bar.insertBefore(ind, bar.firstChild);
+    function place() { var b = bar.querySelector('.bl-pill[aria-pressed="true"]') || bar.querySelector('.bl-pill'); if (!b) return; ind.style.width = b.offsetWidth + 'px'; ind.style.transform = 'translateX(' + b.offsetLeft + 'px)'; }
+    ind.style.transition = 'none'; place();
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { place(); requestAnimationFrame(function () { ind.style.transition = ''; }); });
+    new MutationObserver(place).observe(bar, { attributes: true, subtree: true, attributeFilter: ['aria-pressed'] });
+    window.addEventListener('resize', place);
+    if (window.ResizeObserver) new ResizeObserver(function () {
+      var t = ind.style.transition; ind.style.transition = 'none'; place(); requestAnimationFrame(function () { ind.style.transition = t; });
+    }).observe(bar);   /* the row can be hidden at load (Version 1 / Version 2 switch): place the pill again, without sliding, once it shows */
+  });
+});
+</script>
+
 <section class="band band--white bl bll" aria-labelledby="bll-title">
   <div class="container">
     <h2 class="sr-only" id="bll-title">All recipes</h2>
     <div class="bll__bar">
-      <div class="bll__pills" role="group" aria-label="Filter by topic"><button class="bl-pill" type="button" data-cat="All" aria-pressed="true">All</button><button class="bl-pill" type="button" data-cat="Smoothies" aria-pressed="false">Smoothies</button><button class="bl-pill" type="button" data-cat="Drinks" aria-pressed="false">Drinks</button><button class="bl-pill" type="button" data-cat="Baking" aria-pressed="false">Baking</button><button class="bl-pill" type="button" data-cat="Snacks &amp; savory" aria-pressed="false">Snacks &amp; savory</button><button class="bl-pill" type="button" data-cat="Desserts" aria-pressed="false">Desserts</button></div>
+      <div class="bll__pills bl-filter" role="group" aria-label="Filter by topic"><button class="bl-pill" type="button" data-cat="All" aria-pressed="true">All</button><button class="bl-pill" type="button" data-cat="Smoothies" aria-pressed="false">Smoothies</button><button class="bl-pill" type="button" data-cat="Drinks" aria-pressed="false">Drinks</button><button class="bl-pill" type="button" data-cat="Baking" aria-pressed="false">Baking</button><button class="bl-pill" type="button" data-cat="Snacks &amp; savory" aria-pressed="false">Snacks &amp; savory</button><button class="bl-pill" type="button" data-cat="Desserts" aria-pressed="false">Desserts</button></div>
       <p class="t-body bll__count" aria-live="polite"><span data-bll-count>28</span> recipes</p>
     </div>
     <ul class="bl-cards" data-bll-list>
@@ -481,7 +515,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   more.addEventListener('click', function () { shown += PAGE; draw(); });
-  draw();
+  /* user 2026-11-27: with "All" chosen, cards that sit in one row have titles of the same length (all 1-line, all 2-line...), so the rows line up.
+     Greedy, keeps the newest-first order as much as it can: each row starts with the next card and takes the next cards with the same title
+     line count; a row that can't be filled takes the closest ones. Re-done when the column count or the fonts change; phones (1 column) = original order. */
+  var original = cards.slice(), list = root.querySelector('[data-bll-list]'), lastKey = '';
+  function arrange() {
+    var cols = getComputedStyle(list).gridTemplateColumns.split(' ').length;
+    var keep = cards.map(function (c) { return c.hidden; });
+    original.forEach(function (c) { c.hidden = false; });
+    var lines = new Map(original.map(function (c) { var t = c.querySelector('.bl-card__title'); return [c, Math.round(t.offsetHeight / parseFloat(getComputedStyle(t).lineHeight))]; }));
+    var key = cols + ':' + original.map(function (c) { return lines.get(c); }).join('');
+    cards.forEach(function (c, i) { c.hidden = keep[i]; });
+    if (key === lastKey) return; lastKey = key;
+    var order = original.slice();
+    if (cols > 1) {
+      var tail = original.filter(function (c) { return c.hasAttribute('data-last'); });   /* cards marked data-last (e.g. stories without a video) always stay at the end */
+      var left = original.filter(function (c) { return !c.hasAttribute('data-last'); }), mixed = [], full = []; order = [];
+      /* exact rows first: cards grouped by title line count (newest first inside each group), cut into rows of `cols`;
+         full rows keep the place of their first card; the leftovers of every group go together at the end, sorted by length */
+      var groups = new Map();
+      left.forEach(function (c) { var n = lines.get(c); if (!groups.has(n)) groups.set(n, []); groups.get(n).push(c); });
+      groups.forEach(function (g) {
+        for (var k = 0; k + cols <= g.length; k += cols) full.push(g.slice(k, k + cols));
+        mixed = mixed.concat(g.slice(g.length - g.length % cols));
+      });
+      full.sort(function (a, b) { return original.indexOf(a[0]) - original.indexOf(b[0]); });
+      mixed.sort(function (a, b) { return lines.get(a) - lines.get(b) || original.indexOf(a) - original.indexOf(b); });
+      var pref = +list.dataset.preferLines || 0;   /* data-prefer-lines="2" on the list: rows with that title length come first (Reviews, user 2026-11-27) */
+      if (pref) full = full.filter(function (r) { return lines.get(r[0]) === pref; }).concat(full.filter(function (r) { return lines.get(r[0]) !== pref; }));
+      full.forEach(function (r) { order = order.concat(r); });
+      order = order.concat(mixed);   /* rows that couldn't be matched go to the end of the list */
+      order = order.concat(tail);
+    }
+    order.forEach(function (c) { list.appendChild(c); });
+    cards = order; draw();
+  }
+  draw(); arrange();
+  if (document.fonts) document.fonts.ready.then(arrange);
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(arrange, 150); });
 })();
 </script><script>   /* phones: no scroll effects on the blog (user 2026-11-25): runs before base.js (deferred), so it finds no reveals and everything shows at once */
 document.addEventListener('DOMContentLoaded', function () {
