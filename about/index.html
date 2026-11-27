@@ -287,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .akh .tagline > span { overflow: hidden; padding: 0 0.12em 0.12em 0; margin-bottom: -0.12em; }   /* room for the italic "life." */
 .akh__logo { flex: none; width: 29.375rem; line-height: 0; }   /* user 2026-11-26 (Figma 7166:10950): the white wordmark instead of the tagline, 470px wide at 1920 */
 .akh__logo img { display: block; width: 100%; height: auto; }
+.akh__title { flex: none; font: 400 var(--fs-64)/4.5rem var(--font-serif); letter-spacing: -0.005em; }   /* user 2026-11-27: "About us" instead of the wordmark; same size as the Blog / FAQ banner titles (64/72, 36/40 phones) */
 .akh__lead { max-width: 34.6875rem; font: 400 var(--fs-24)/2rem var(--font-sans); padding-block: var(--space-4); }
 .akh__lead strong { font-weight: 600; }
 .motion .akh .tagline > span > span { display: inline-block; transform: translateY(105%); animation: akh-rise 1s var(--ease-out) forwards; }
@@ -303,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .akh .tagline { font-size: min(2.5rem, 9.6vw); line-height: 1.15; }
   .akh__lead { font-size: var(--fs-18); line-height: 1.75rem; padding: 0; }
   .akh__logo { width: min(15rem, 64vw); }
+  .akh__title { font-size: var(--fs-36, 2.25rem); line-height: 2.5rem; }
 }
 @media (max-width: 767px) { .akh h2.t-heading-serif, .akh .av3l__open { font-size: var(--fs-36, 2.25rem); line-height: 2.5rem; } }
 </style>
@@ -310,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <img class="akh__img" src="/v2/shared/media/about/about-hero-three-women-2026-11-26b.webp" srcset="/v2/shared/media/about/about-hero-three-women-2026-11-26b-1200.webp 1200w, /v2/shared/media/about/about-hero-three-women-2026-11-26b.webp 2560w" sizes="100vw" alt="Three women laughing together on a bench, one holding a Nubonta Collagen Peptides pouch" width="2560" height="1113">
   <div class="container">
     <div class="akh__row">
-      <h1 class="akh__logo" id="akh-title"><span class="sr-only">About </span><img src="/v2/assets/logo/nubonta-wordmark-white.svg" alt="Nubonta" width="470" height="96"></h1>
+      <h1 class="akh__title" id="akh-title">About us</h1>
       <p class="akh__lead"><strong>Founded by Bone Coach&reg; Kevin Ellis.</strong> Made to help you build stronger bones for an active life.</p>
     </div>
   </div>
