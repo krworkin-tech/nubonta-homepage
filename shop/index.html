@@ -902,7 +902,8 @@ html.qa-open { overflow: hidden; }
 .qa__addp::before { content: "·"; margin: 0 var(--space-8) 0 var(--space-4); }
 .qa__more { margin-top: var(--space-8); }   /* 2026-11-27 user: a little more room under Add to bag */
 .qa__more .icon { margin-left: var(--space-8); }
-.qa__img img.is-tight { height: 64%; }   /* tight-cropped single pouch (chocolate): same size as the card cut-outs */
+.qa__img img.is-tight { height: 64%; }
+.qa__img img.is-stack { width: 88%; height: 88%; }   /* 3 / 6-pouch stacks: as big as the box allows, 6% left on each side */   /* tight-cropped single pouch (chocolate): same size as the card cut-outs */
 .qa__more[hidden] { display: none; }
 @media (max-width: 767px) {
   .qa { width: 100%; max-width: none; max-height: 92vh; margin: auto 0 0; border-radius: var(--radius-card) var(--radius-card) 0 0; }   /* bottom sheet */
@@ -1206,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (st.qty !== '1') src = pre + 'product/qty/qty-' + f + '-pouch-' + st.qty + '.webp';
     else if (f === 'chocolate') { src = pre + 'products/pack/collagen-chocolate-pouch.webp'; tight = true; }
     else src = pre + 'products/collagen-' + f + '-pouch.webp';
-    im.src = src; im.classList.toggle('is-tight', tight);
+    im.src = src; im.classList.toggle('is-tight', tight); im.classList.toggle('is-stack', st.qty !== '1');
   }
   function price() {
     var m = +st.qty, off = offs(m, st.plan === 'sub'), full = st.list * m, p = full * (1 - off);
@@ -1226,7 +1227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var was = card.querySelector('.bs-card__was, .bd-card__was'), now = card.querySelector('.bs-card__price, .bd-card__price'), a = card.querySelector('h3 a');
     st = { list: parseFloat((was || now).textContent.replace(/[^0-9.]/g, '')), formula: 'bone', flavor: 'plain', qty: '1', plan: card.dataset.qaPlan };
     qa.querySelector('.qa__t').textContent = a.textContent.trim();
-    var img = card.querySelector('.bs-card__img, .bd-card__img'); var qi = qa.querySelector('.qa__img img'); qi.src = img.getAttribute('src'); qi.classList.remove('is-tight');
+    var img = card.querySelector('.bs-card__img, .bd-card__img'); var qi = qa.querySelector('.qa__img img'); qi.src = img.getAttribute('src'); qi.classList.remove('is-tight', 'is-stack');
     var more = qa.querySelector('.qa__more'), href = a.getAttribute('href'); more.href = href; more.hidden = !href || href === '#';
     build(); qa.showModal(); document.documentElement.classList.add('qa-open');
   }
