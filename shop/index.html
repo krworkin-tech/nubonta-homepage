@@ -17,7 +17,7 @@
 <script>document.documentElement.classList.add('js'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer src="/v2/shared/base.js"></script>
+<script defer src="/v2/shared/base.js?v=20261127"></script>
 <script>document.documentElement.classList.add('nb-preview');</script>
 </head>
 <body class="theme-final theme-v2" id="top">
@@ -839,6 +839,80 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ===== homepage phone rule (19-phone-rules): price + button on one line along a row ===== */
 @media (max-width: 767px) { .bs-card__info, .bd-card__info { grid-template-rows: auto 1fr auto; } }
 
+/* ===== card options (2026-11-27): one 44px row per choice, label left, value right; the select opens the site's designed dropdown ===== */
+.sco { display: grid; gap: var(--space-8); margin: var(--space-16) 0 var(--space-12); }
+.sco__f { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: 2.75rem; padding: 0 var(--space-40) 0 var(--space-16); border: 1px solid color-mix(in srgb, var(--color-charcoal) 15%, transparent); border-radius: var(--radius-pill); background: var(--color-white); cursor: pointer; transition: border-color 0.2s; }
+.sco__f:hover { border-color: color-mix(in srgb, var(--color-charcoal) 40%, transparent); }
+.sco__f:focus-within { border-color: var(--color-charcoal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-charcoal) 10%, transparent); }
+.sco__f::after { content: ""; position: absolute; right: var(--space-16); top: 50%; width: 0.4375rem; height: 0.4375rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.sco__f[hidden] { display: none; }
+.bs-card__badge[hidden], .bd-card__badge[hidden], .bs-card__was[hidden], .bd-card__was[hidden] { display: none !important; }   /* no discount = no tag, no old price */
+.sco__l { flex: none; color: var(--color-muted-on-light); font: 400 var(--fs-16)/1.5rem var(--font-sans); }
+.sco select { appearance: none; -webkit-appearance: none; min-width: 0; flex: 1; height: 2.625rem; padding: 0; border: 0; background: none; color: var(--color-charcoal); font: 500 var(--fs-16)/1.5rem var(--font-sans); text-align: right; text-align-last: right; cursor: pointer; }
+.sco select:focus { outline: none; }
+.bs-card__info .sco, .bd-card__info .sco { align-self: end; }
+@media (max-width: 767px) {
+  .sco__f { padding: 0 var(--space-32) 0 var(--space-12); }
+  .sco__l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }   /* narrow phone cards: the value alone (the label stays for screen readers) */
+  .sco select { text-align: left; text-align-last: left; }
+  .sco__f::after { right: var(--space-12); }
+}
+/* ===== quick-add popup (2026-11-27): Add to bag opens it; centred on desktop, a bottom sheet on phones ===== */
+.qa { width: min(34rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); margin: auto; padding: 0; border: 0; border-radius: var(--radius-card); background: var(--color-white); color: var(--color-charcoal); box-shadow: 0 2rem 5rem -1rem rgb(0 0 0 / 0.35); overflow: hidden; }
+.qa::backdrop { background: rgb(16 16 15 / 0.45); }
+.qa[open] { display: flex; }
+.motion .qa[open] { animation: qa-in 0.35s var(--ease-out); }
+@keyframes qa-in { from { opacity: 0; transform: translateY(1rem); } }
+html.qa-open { overflow: hidden; }
+.qa__in { position: relative; display: flex; flex-direction: column; width: 100%; max-height: inherit; }
+.qa__x { position: absolute; top: var(--space-16); right: var(--space-16); z-index: 2; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--color-white); transition: background-color 0.2s; }
+.qa__x:hover { background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
+.qa__x .icon { font-size: var(--fs-24); }
+.qa__head { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: center; gap: var(--space-20, 1.25rem); padding: var(--space-32) var(--space-64) var(--space-24) var(--space-32); }
+.qa__img { display: grid; place-items: center; aspect-ratio: 1; border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); }
+.qa__img img { width: 72%; height: 72%; object-fit: contain; }
+.qa__t { font: 400 var(--fs-24)/2rem var(--font-serif); }
+.qa__price { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-12); margin-top: var(--space-8); }
+.qa__now { font: 500 var(--fs-20)/1.75rem var(--font-sans); }
+.qa__was { color: var(--color-muted-on-light); font: 400 var(--fs-18, 1.125rem)/1.75rem var(--font-sans); }
+.qa__tag { padding: 0.125rem var(--space-12); border-radius: var(--radius-pill); background: var(--color-charcoal); color: var(--color-white); font: 500 var(--fs-14)/1.5rem var(--font-sans); letter-spacing: 0.04em; }
+.qa__was[hidden], .qa__tag[hidden], .qa__grp[hidden] { display: none; }
+.qa__body { flex: 1; overflow-y: auto; padding: 0 var(--space-32); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 10%, transparent); }
+.qa__grp { margin: var(--space-24) 0 0; padding: 0; border: 0; min-width: 0; }   /* margin, not padding: a fieldset draws its legend above the padding */
+.qa__grp:last-child { margin-bottom: var(--space-24); }
+.qa__grp legend { padding: 0; margin-bottom: var(--space-12); font: 500 var(--fs-14)/1.25rem var(--font-sans); letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-muted-on-light); }
+.qa__pills { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.qa__opt { position: relative; cursor: pointer; }
+.qa__opt input { position: absolute; opacity: 0; pointer-events: none; }
+.qa__pill { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 2.75rem; padding: 0 var(--space-20, 1.25rem); border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 18%, transparent); font: 500 var(--fs-16)/1.5rem var(--font-sans); transition: box-shadow 0.2s, background-color 0.2s; }
+.qa__opt:hover .qa__pill, .qa__opt:hover .qa__card { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 45%, transparent); }
+.qa__opt input:checked + .qa__pill, .qa__opt input:checked + .qa__card { background: color-mix(in srgb, var(--color-stone) 28%, var(--color-white)); box-shadow: inset 0 0 0 2px var(--color-charcoal); }   /* the PDP's selected look: 2px ring + soft beige */
+.qa__opt input:focus-visible + .qa__pill, .qa__opt input:focus-visible + .qa__card { outline: 2px solid var(--color-charcoal); outline-offset: 2px; }
+.qa__dot { width: 1rem; height: 1rem; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); }
+.qa__cards { display: grid; gap: var(--space-8); }
+.qa__card { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr) auto; align-items: start; column-gap: var(--space-12); padding: var(--space-16) var(--space-20, 1.25rem); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 18%, transparent); transition: box-shadow 0.2s, background-color 0.2s; }
+.qa__radio { width: 1.25rem; height: 1.25rem; border-radius: 50%; margin-top: 0.125rem; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--color-charcoal) 45%, transparent); }
+.qa__opt input:checked + .qa__card .qa__radio { box-shadow: inset 0 0 0 6px var(--color-charcoal); }
+.qa__card b { display: block; font: 500 var(--fs-16)/1.5rem var(--font-sans); }
+.qa__card small { display: block; color: var(--color-muted-on-light); font: 400 var(--fs-16)/1.5rem var(--font-sans); }
+.qa__card em { font: 500 var(--fs-16)/1.5rem var(--font-sans); font-style: normal; white-space: nowrap; }
+.qa__foot { display: grid; gap: var(--space-12); justify-items: center; padding: var(--space-24) var(--space-32) var(--space-32); }
+.qa__add { width: 100%; min-height: 3.5rem; gap: var(--space-8); font-size: var(--fs-18, 1.125rem); }
+.qa__add .icon { font-size: var(--fs-20); }
+.qa__addp::before { content: "·"; margin: 0 var(--space-8) 0 var(--space-4); }
+.qa__more .icon { margin-left: var(--space-8); }
+.qa__more[hidden] { display: none; }
+@media (max-width: 767px) {
+  .qa { width: 100%; max-width: none; max-height: 92vh; margin: auto 0 0; border-radius: var(--radius-card) var(--radius-card) 0 0; }   /* bottom sheet */
+  @keyframes qa-up { from { transform: translateY(100%); } }
+  .motion .qa[open] { animation: qa-up 0.4s var(--ease-out); }
+  .qa__head { grid-template-columns: 5rem minmax(0, 1fr); gap: var(--space-16); padding: var(--space-24) var(--space-64) var(--space-16) var(--space-16); }
+  .qa__t { font-size: var(--fs-20); line-height: 1.75rem; }
+  .qa__body { padding: 0 var(--space-16); }
+  .qa__foot { padding: var(--space-16) var(--space-16) calc(var(--space-16) + env(safe-area-inset-bottom)); border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 10%, transparent); }
+  .qa__x { top: var(--space-12); right: var(--space-12); }
+}
+@media (prefers-reduced-motion: reduce) { .qa[open] { animation: none; } }
 /* ===== page: toolbar, groups (the top is 19-shop-hero, a copy of the blog top) ===== */
 .sh { padding-block: var(--space-64) var(--space-96); }
 html[data-blog-v="2"] .sh { padding-top: var(--space-48); }
@@ -892,7 +966,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
       <section class="sh__group" data-group="formula" aria-labelledby="sh-formulas">
         <div class="sh__gh"><h2 id="sh-formulas">Single products</h2><p class="t-body">Subscribe to any formula and save 10%.</p></div>
         <ul class="bs__grid">
-        <li data-kind="formula" data-order="0" data-price="44.10" class="bs-card" data-goals="bone prevention">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-qa-formula="1" data-qa-flavor="bone" data-kind="formula" data-order="0" data-price="44.10" class="bs-card" data-goals="bone prevention">
           <div class="bs-card__media">
             <a href="/pdp/v1/" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/collagen-bone-pouch.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-collagen.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -904,7 +978,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Collagen Peptides"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Collagen Peptides</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="1" data-price="48.60" class="bs-card" data-goals="bone longevity practitioner">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-kind="formula" data-order="1" data-price="48.60" class="bs-card" data-goals="bone longevity practitioner">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/annatrol.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-annatrol.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -916,7 +990,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Annatrol"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Annatrol</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="2" data-price="64.00" class="bs-card" data-goals="bone practitioner">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="one" data-kind="formula" data-order="2" data-price="64.00" class="bs-card" data-goals="bone practitioner">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/osteofrax.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-osteofrax.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">New</span></div>
@@ -928,7 +1002,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="OsteoFrax"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> OsteoFrax</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="3" data-price="46.80" class="bs-card" data-goals="prevention longevity">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-kind="formula" data-order="3" data-price="46.80" class="bs-card" data-goals="prevention longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/creatine-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-creatine.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -952,7 +1026,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="D3 + K2" disabled>Sold out<span class="sr-only"> D3 + K2</span></button>
         </li>
-        <li data-kind="formula" data-order="5" data-price="30.60" class="bs-card" data-goals="bone longevity">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-kind="formula" data-order="5" data-price="30.60" class="bs-card" data-goals="bone longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/d3k2-plus.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-d3k2-plus.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -964,7 +1038,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="D3/K2+"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> D3/K2+</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="6" data-price="28.80" class="bs-card" data-goals="prevention longevity">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-kind="formula" data-order="6" data-price="28.80" class="bs-card" data-goals="prevention longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/magnesium.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-magnesium.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -976,7 +1050,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
           </div>
           <button class="bs-add" type="button" data-name="Magnesium Bisglycinate"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to bag<span class="sr-only"> Magnesium Bisglycinate</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
         </li>
-        <li data-kind="formula" data-order="7" data-price="34.20" class="bs-card" data-goals="longevity">
+        <li data-qa="1" data-qa-qty="months" data-qa-plan="sub" data-kind="formula" data-order="7" data-price="34.20" class="bs-card" data-goals="longevity">
           <div class="bs-card__media">
             <a href="#" tabindex="-1" aria-hidden="true"><img class="bs-card__img" src="/v2/shared/media/products/omega3.webp" alt="" width="900" height="900" loading="lazy"><img class="bs-card__alt" src="/v2/shared/media/lifestyle/hover-omega3.webp" alt="" loading="lazy"></a>
             <div class="bs-card__badges"><span class="bs-card__badge bs-card__badge--dark">10% off</span></div>
@@ -993,7 +1067,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
       <section class="sh__group" data-group="bundle" aria-labelledby="sh-bundles">
         <div class="sh__gh"><h2 id="sh-bundles">Bundles</h2><p class="t-body">Formulas that work together, for less.</p></div>
         <ul class="bd__grid">
-      <li data-goals="bone" data-kind="bundle" data-order="0" data-price="122.40" class="bd-card">
+      <li data-qa="1" data-qa-qty="packs" data-qa-plan="sub" data-kind="bundle" data-order="0" data-price="122.40" class="bd-card">
         <div class="bd-card__media">
           <a href="/pdp/v1/" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-clinical-group.webp" alt="" width="1160" height="1093" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-clinical-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1005,7 +1079,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
         </div>
           <button class="bd-add" type="button"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add bundle<span class="sr-only"> Clinical Bone Strength</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
       </li>
-      <li data-goals="bone longevity" data-kind="bundle" data-order="1" data-price="123.28" class="bd-card">
+      <li data-qa="1" data-qa-qty="packs" data-qa-plan="sub" data-qa-flavor="all" data-kind="bundle" data-order="1" data-price="123.28" class="bd-card">
         <div class="bd-card__media">
           <a href="/pdp/v1/" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-ritual-group.webp" alt="" width="1384" height="1103" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-ritual-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1017,7 +1091,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
         </div>
           <button class="bd-add" type="button"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add bundle<span class="sr-only"> Bone Renewal Ritual</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
       </li>
-      <li data-goals="bone prevention longevity" data-kind="bundle" data-order="2" data-price="206.10" class="bd-card">
+      <li data-qa="1" data-qa-qty="packs" data-qa-plan="sub" data-qa-flavor="all" data-kind="bundle" data-order="2" data-price="206.10" class="bd-card">
         <div class="bd-card__media">
           <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-ultimate-group.webp" alt="" width="1400" height="997" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-ultimate-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1033,6 +1107,23 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
       </section>
     </div>
     <p class="sr-only" aria-live="polite" id="sh-live"></p>
+    <dialog class="qa" id="qa" aria-labelledby="qa-title">
+      <form class="qa__in" method="dialog">
+        <button class="qa__x" type="button" aria-label="Close" data-qa-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <div class="qa__head">
+          <div class="qa__img"><img src="" alt="" width="900" height="900"></div>
+          <div class="qa__hd">
+            <h2 class="qa__t" id="qa-title"></h2>
+            <p class="qa__price"><span class="qa__now"></span><s class="qa__was"></s><span class="qa__tag"></span></p>
+          </div>
+        </div>
+        <div class="qa__body" data-qa-body></div>
+        <div class="qa__foot">
+          <button class="btn btn--dark qa__add" type="button" data-qa-add><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg><span>Add to bag</span><span class="qa__addp"></span></button>
+          <a class="link-arrow qa__more" href="#">View full details<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </form>
+    </dialog>
   </div>
 </section>
 <script>
@@ -1080,11 +1171,59 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () { place(tabs.filter(function (t) { return t.tabIndex === 0; })[0] || tabs[0]); });
   /* Add to bag / Add bundle: the homepage behaviour (bag count bumps, "Added" for a moment) */
   var bag = document.querySelector('[data-bag] [data-count]'), bagBtn = bag && bag.parentElement;
+  function bump(b) {
+    if (bag) { var n = (parseInt(bag.textContent, 10) || 0) + 1; bag.textContent = n; bag.dataset.count = n; bagBtn.setAttribute('aria-label', 'Bag, ' + n + (n === 1 ? ' item' : ' items')); }
+    if (b) { b.classList.add('is-done'); clearTimeout(b._t); b._t = setTimeout(function () { b.classList.remove('is-done'); }, 1600); }
+  }
+  /* quick-add popup (2026-11-27, like healthybonesco.com/collections/all, as a popup): options, live price, Add to bag.
+     Pricing = the PDP placeholder rules: one-time 0 / 5 / 10 %, Subscribe & save 10 / 15 / 20 % total for 1 / 3 / 6 months. */
+  var qa = document.getElementById('qa'), qbody = qa.querySelector('[data-qa-body]'), money = function (n) { return '$' + n.toFixed(2); }, cur = null, st = {};
+  function grp(name, legend, inner, attr) { return '<fieldset class="qa__grp"' + (attr || '') + '><legend>' + legend + '</legend>' + inner + '</fieldset>'; }
+  function pills(name, items) { return '<div class="qa__pills">' + items.map(function (it) { return '<label class="qa__opt"><input type="radio" name="qa-' + name + '" value="' + it[0] + '"' + (st[name] === it[0] ? ' checked' : '') + '><span class="qa__pill">' + (it[2] ? '<span class="qa__dot" style="background:' + it[2] + '"></span>' : '') + it[1] + '</span></label>'; }).join('') + '</div>'; }
+  function offs(m, sub) { var i = m === 1 ? 0 : m === 3 ? 1 : 2; return sub ? [0.10, 0.15, 0.20][i] : [0, 0.05, 0.10][i]; }
+  function planCards() {
+    var m = +st.qty, weeks = m * 4, a = Math.round(offs(m, true) * 100), b = Math.round(offs(m, false) * 100);
+    return '<div class="qa__cards">' + [['sub', 'Subscribe &amp; save', 'Delivered every ' + weeks + ' weeks. Skip or cancel anytime.', a], ['one', 'One-time purchase', 'Pay once, no subscription.', b]].map(function (c) {
+      return '<label class="qa__opt"><input type="radio" name="qa-plan" value="' + c[0] + '"' + (st.plan === c[0] ? ' checked' : '') + '><span class="qa__card"><span class="qa__radio" aria-hidden="true"></span><span><b>' + c[1] + '</b><small>' + c[2] + '</small></span><em>' + (c[3] ? 'Save ' + c[3] + '%' : '') + '</em></span></label>';
+    }).join('') + '</div>';
+  }
+  function build() {
+    var d = cur.dataset, h = '';
+    if (d.qaFormula) h += grp('formula', 'Formula', pills('formula', [['bone', 'Bone Health'], ['basic', 'Basic'], ['total', 'Total Body']]));
+    if (d.qaFlavor) h += grp('flavor', 'Flavor', pills('flavor', [['plain', 'Unflavored', '#efe9e1'], ['choc', 'Chocolate Dream', '#997049']]), d.qaFlavor === 'bone' && st.formula !== 'bone' ? ' hidden' : '');
+    h += grp('qty', 'Quantity', pills('qty', d.qaQty === 'packs' ? [['1', '1-month pack'], ['3', '3-month pack']] : [['1', '1 month'], ['3', '3 months'], ['6', '6 months']]));
+    h += grp('plan', 'Purchase', planCards());
+    qbody.innerHTML = h; price();
+  }
+  function price() {
+    var m = +st.qty, off = offs(m, st.plan === 'sub'), full = st.list * m, p = full * (1 - off);
+    qa.querySelector('.qa__now').textContent = money(p);
+    var w = qa.querySelector('.qa__was'); w.textContent = money(full); w.hidden = off === 0;
+    var t = qa.querySelector('.qa__tag'); t.textContent = Math.round(off * 100) + '% off'; t.hidden = off === 0;
+    qa.querySelector('.qa__addp').textContent = money(p);
+  }
+  qbody.addEventListener('change', function (e) {
+    var n = e.target.name.replace('qa-', ''); st[n] = e.target.value;
+    if (n === 'formula' && st.formula !== 'bone') st.flavor = 'plain';
+    if (n === 'formula' || n === 'qty') { var f = document.activeElement && document.activeElement.name; build(); var back = qbody.querySelector('input[name="' + f + '"]:checked'); if (back) back.focus(); } else price();
+  });
+  function openQa(card, btn) {
+    cur = card; cur._btn = btn;
+    var was = card.querySelector('.bs-card__was, .bd-card__was'), now = card.querySelector('.bs-card__price, .bd-card__price'), a = card.querySelector('h3 a');
+    st = { list: parseFloat((was || now).textContent.replace(/[^0-9.]/g, '')), formula: 'bone', flavor: 'plain', qty: '1', plan: card.dataset.qaPlan };
+    qa.querySelector('.qa__t').textContent = a.textContent.trim();
+    var img = card.querySelector('.bs-card__img, .bd-card__img'); qa.querySelector('.qa__img img').src = img.getAttribute('src');
+    var more = qa.querySelector('.qa__more'), href = a.getAttribute('href'); more.href = href; more.hidden = !href || href === '#';
+    build(); qa.showModal(); document.documentElement.classList.add('qa-open');
+  }
+  qa.addEventListener('close', function () { document.documentElement.classList.remove('qa-open'); if (cur && cur._btn) cur._btn.focus(); });
+  qa.querySelector('[data-qa-close]').addEventListener('click', function () { qa.close(); });
+  qa.addEventListener('click', function (e) { if (e.target === qa) qa.close(); });   /* click on the dimmed area */
+  qa.querySelector('[data-qa-add]').addEventListener('click', function () { var b = cur && cur._btn; qa.close(); bump(b); });
   root.querySelectorAll('.bs-add, .bd-add').forEach(function (b) {
-    b.addEventListener('click', function () {
-      if (bag) { var n = (parseInt(bag.textContent, 10) || 0) + 1; bag.textContent = n; bag.dataset.count = n; bagBtn.setAttribute('aria-label', 'Bag, ' + n + (n === 1 ? ' item' : ' items')); }
-      b.classList.add('is-done'); clearTimeout(b._t); b._t = setTimeout(function () { b.classList.remove('is-done'); }, 1600);
-    });
+    var card = b.closest('[data-kind]');
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.addEventListener('click', function () { if (card && card.dataset.qa) openQa(card, b); else bump(b); });
   });
 });
 </script>

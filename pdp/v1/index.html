@@ -3190,7 +3190,7 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
   function list(s) { return [].filter.call(s.options, function (o) { return !(o.disabled && o.value === ''); }); }
   function place() {
     if (!dd || !sel) return;
-    var r = sel.getBoundingClientRect(), h = dd.offsetHeight, below = innerHeight - r.bottom - 8;
+    var r = (sel.closest('[data-dd-anchor]') || sel).getBoundingClientRect(), h = dd.offsetHeight, below = innerHeight - r.bottom - 8;   /* 2026-11-27: a wrapper with data-dd-anchor (e.g. a Shop card option row) sets the list's width and place */
     dd.style.minWidth = r.width + 'px';
     dd.style.left = Math.min(r.left, innerWidth - dd.offsetWidth - 8) + 'px';
     dd.style.top = (below < h && r.top - 8 > below ? r.top - h - 8 : r.bottom + 8) + 'px';
@@ -3229,11 +3229,25 @@ html:not(.motion) .ft__press-row [aria-hidden] { display: none !important; }
     if (s.value !== o.value) { s.value = o.value; s.dispatchEvent(new Event('input', { bubbles: true })); s.dispatchEvent(new Event('change', { bubbles: true })); }
     close(); s.focus();
   }
-  var touchAt = 0;
-  document.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') touchAt = Date.now(); }, true);
+  /* 2026-11-27 (user: the designed list must show every time a dropdown opens): a click anywhere on the select's own label / wrapper opens it,
+     and touch screens get the designed list too (was: the phone's own picker) */
+  function target(t) {
+    if (!t.closest) return null;
+    var s = t.closest('select'); if (s) return s;
+    var w = t.closest('label, [data-dd-anchor]'); return w ? w.querySelector('select') : null;
+  }
+  var touchAt = 0, t0 = null;
+  document.addEventListener('touchstart', function (e) { var p = e.touches[0]; t0 = p ? { x: p.clientX, y: p.clientY } : null; }, { capture: true, passive: true });
+  document.addEventListener('touchend', function (e) {   /* a tap (not a swipe, so the page still scrolls over the rows) opens the designed list */
+    var s = target(e.target), p = e.changedTouches[0]; if (!s || s.multiple || s.size > 1 || s.disabled || !t0 || !p) return;
+    if (Math.abs(p.clientX - t0.x) > 10 || Math.abs(p.clientY - t0.y) > 10) return;
+    e.preventDefault(); touchAt = Date.now(); s.focus({ preventScroll: true });
+    if (sel === s) close(); else open(s);
+  }, { capture: true, passive: false });
+  document.addEventListener('touchstart', function (e) { var s = target(e.target); if (s) touchAt = Date.now(); }, { capture: true, passive: true });   /* keeps the synthetic mousedown from opening it twice */
   document.addEventListener('mousedown', function (e) {
-    if (Date.now() - touchAt < 800) return;   /* touch: leave the phone's own picker */
-    var s = e.target.closest && e.target.closest('select');
+    if (Date.now() - touchAt < 800) { if (dd && !dd.contains(e.target) && !target(e.target)) close(); return; }   /* the touch already opened it */
+    var s = target(e.target);
     if (s && !s.multiple && !(s.size > 1) && !s.disabled) {
       e.preventDefault(); s.focus();
       if (sel === s) close(); else open(s);
