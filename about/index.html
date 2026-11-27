@@ -140,7 +140,11 @@ html.menu-open { overflow: hidden; }
 html:not([data-menu-v="2"]) .nav-v2, html[data-menu-v="2"] .nav-v3, html:not([data-menu-v="2"]) .mnav-v2, html[data-menu-v="2"] .mnav-v3 { display: none !important; }   /* Menu 1 = .nav-v3 (HBC-style), Menu 2 = .nav-v2 */
 .hdd { position: relative; }
 .hdd__btn { gap: var(--space-4); cursor: pointer; }
-.hdd__btn::after { right: calc(var(--space-12) + 1.25rem); }
+.hdd__btn::after { right: calc(var(--space-12) + 0.875rem); }
+/* 2026-11-27 (user: "spacing feels off"): the arrow shape only fills the middle 8px of its 16px box, so the arrow sat 8px from its word and the
+   next item looked 40px away (36 elsewhere). Now: word -> arrow 6px, arrow -> next item 36px, like every other gap in the bar. */
+.hdr__menu .hdd__btn { gap: 0.125rem; }
+.hdr__menu .hdd__btn .hdd__chev { margin-right: -0.25rem; }
 .hdd__chev { font-size: var(--fs-16); transition: transform 0.35s var(--ease-out); }
 .hdd__btn[aria-expanded="true"] .hdd__chev { transform: rotate(180deg); }
 .hdd__btn[aria-expanded="true"]::after { transform: scaleX(1); }
