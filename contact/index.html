@@ -14,6 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/v2/shared/base.css?v=20261126">
+<script>/* site version (2026-11-27): client link 1 = /?sv=1, link 2 = /?sv=2. Remembered for this tab, so every page opens on that
+   version (hero, menu, blog / recipes / reviews / FAQ / shop tops) unless its own ?hero= / ?menu= / ?version= says otherwise; the pills still flip. */
+(function () { var m = /[?&]sv=([12])/.exec(location.search), v = m && m[1];
+  try { if (v) sessionStorage.setItem('nbSv', v); else v = sessionStorage.getItem('nbSv'); } catch (e) {}
+  window.NB_SV = v === '2' ? 2 : 1;
+  if (window.NB_SV === 2) document.addEventListener('click', function (e) {   /* links keep ?sv=2, so a page opened in a new tab is Version 2 too */
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.origin !== location.origin || /[?&]sv=/.test(a.search) || a.getAttribute('href').charAt(0) === '#') return;
+    var u = new URL(a.href); u.searchParams.set('sv', '2'); a.href = u.href; }, true);
+})();</script>
 <script>document.documentElement.classList.add('js'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -435,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ===== menu versions (2026-11-27): dropdowns (both versions), version pill ===== */
   var root = document.documentElement, qv = new URLSearchParams(location.search).get('menu');
-  root.dataset.menuV = '1';
+  root.dataset.menuV = '1';   /* no ?menu= -> the site version of the client link (2026-11-27) */
   var pill = document.createElement('div'); pill.className = 'mvsw'; pill.setAttribute('role', 'group'); pill.setAttribute('aria-label', 'Menu version (design preview)');
   pill.innerHTML = '<button type="button" data-mstep="-1" aria-label="Previous menu version"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button><output aria-live="polite"></output><button type="button" class="mvsw__now" data-mstep="1"></button><button type="button" data-mstep="1" aria-label="Next menu version"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>';
   hdr.appendChild(pill);
