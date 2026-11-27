@@ -345,7 +345,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-48); }
 .hero__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }
 .hero__ctas .icon { margin-left: var(--space-8); }
-.hero__icons { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.5rem; margin-left: 1.3125rem; }   /* 40px under the buttons, 21px in (Figma) */
+.hero__act { display: grid; width: max-content; }
+@media (min-width: 1024px) { .hero__act .hero__icons { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr; gap: 0; justify-items: center; } }   /* 4 equal columns: the icons are centred under the buttons (label widths differ a lot) */   /* buttons + icons share one width (user 2026-11-27: the icons sat right of the buttons) */
+.hero__icons { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; margin-top: 2.5rem; }   /* 40px under the buttons, spread across exactly the buttons' width (was 21px in, Figma) */
 .hero__icons li { display: grid; justify-items: center; row-gap: var(--space-16); }
 .hero__icons li > img:first-child { width: 3.5rem; height: 3.5rem; }
 .hero__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
@@ -357,6 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 1279px) { .hero__title { font-size: 3.5rem; } }
 /* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
 @media (max-width: 1023px) {
+  .hero__act { display: contents; }   /* phones / tablets keep their own order (buttons, then icons) */
   .hero { flex-direction: column; min-height: 0; }
   .hero__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
   .hero__media img { object-position: 50% 0%; }
@@ -401,6 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h1 class="hero__title" id="hero-title"><span class="ln"><span>Strengthen the structure</span></span> <span class="ln"><span>that carries your <em>life.</em></span></span></h1>
       <p class="hero__sub h-in">Daily formulas for healthy aging.</p>
     </div>
+    <div class="hero__act">
     <div class="hero__ctas h-in">
       <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
@@ -414,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <li class="sep" aria-hidden="true"></li>
       <li><img src="shared/media/hero/hero3-icon-4.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-4.svg" alt="Built for real life" width="60" height="25"></li>
     </ul>
+    </div>
   </div>
 </section>
 
@@ -468,7 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero2__ctas { display: flex; flex-wrap: wrap; gap: var(--space-24); margin-top: var(--space-48); }
 .hero2__ctas .btn { min-height: 4rem; padding-inline: var(--space-32); font-size: var(--fs-20); line-height: 1.5rem; }
 .hero2__ctas .icon { margin-left: var(--space-8); }
-.hero2__icons { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.5rem; margin-left: 1.3125rem; }   /* 40px under the buttons, 21px in (Figma) */
+.hero2__act { display: grid; width: max-content; }
+@media (min-width: 1024px) { .hero2__act .hero2__icons { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr; gap: 0; justify-items: center; } }   /* 4 equal columns: the icons are centred under the buttons (label widths differ a lot) */   /* buttons + icons share one width (user 2026-11-27: the icons sat right of the buttons) */
+.hero2__icons { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; margin-top: 2.5rem; }   /* 40px under the buttons, spread across exactly the buttons' width (was 21px in, Figma) */
 .hero2__icons li { display: grid; justify-items: center; row-gap: var(--space-16); }
 .hero2__icons li > img:first-child { width: 3.5rem; height: 3.5rem; }
 .hero2__icons .lbl { height: 1.5547rem; width: auto; }   /* the outlined labels at their Figma size (~25px tall) */
@@ -477,6 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 1279px) { .hero2__title { font-size: 3.5rem; } }
 /* phones + tablets (no Figma frame yet): copy on the dark, the photo (woman + D3/K2+), then buttons and the icons */
 @media (max-width: 1023px) {
+  .hero2__act { display: contents; }   /* phones / tablets keep their own order (buttons, then icons) */
   .hero2 { flex-direction: column; min-height: 0; }
   .hero2__media { position: relative; order: 1; aspect-ratio: 1 / 1; }
   .hero2__media img { object-position: 50% 0%; }
@@ -538,6 +546,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h1 class="hero2__title" id="hero2-title"><span class="ln"><span>Strengthen the structure</span></span> <span class="ln"><span>that carries your <em>life.</em></span></span></h1>
       <p class="hero2__sub h2-in">Daily formulas for healthy aging.</p>
     </div>
+    <div class="hero2__act">
     <div class="hero2__ctas h2-in">
       <a class="btn btn--light" href="#bestsellers">Shop bestsellers<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <a class="btn btn--ghost" href="#reasons-title">Find your path</a>
@@ -551,6 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <li class="sep" aria-hidden="true"></li>
       <li><img src="shared/media/hero/hero3-icon-4.svg" alt="" width="56" height="56"><img class="lbl" src="shared/media/hero/hero3-label-4.svg" alt="Built for real life" width="60" height="25"></li>
     </ul>
+    </div>
   </div>
 </section>
 
