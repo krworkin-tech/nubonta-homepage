@@ -900,7 +900,9 @@ html.qa-open { overflow: hidden; }
 .qa__add { width: 100%; min-height: 3.5rem; gap: var(--space-8); font-size: var(--fs-18, 1.125rem); }
 .qa__add .icon { font-size: var(--fs-20); }
 .qa__addp::before { content: "·"; margin: 0 var(--space-8) 0 var(--space-4); }
+.qa__more { margin-top: var(--space-8); }   /* 2026-11-27 user: a little more room under Add to bag */
 .qa__more .icon { margin-left: var(--space-8); }
+.qa__img img.is-tight { height: 64%; }   /* tight-cropped single pouch (chocolate): same size as the card cut-outs */
 .qa__more[hidden] { display: none; }
 @media (max-width: 767px) {
   .qa { width: 100%; max-width: none; max-height: 92vh; margin: auto 0 0; border-radius: var(--radius-card) var(--radius-card) 0 0; }   /* bottom sheet */
@@ -1193,7 +1195,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (d.qaFlavor) h += grp('flavor', 'Flavor', pills('flavor', [['plain', 'Unflavored', '#efe9e1'], ['choc', 'Chocolate Dream', '#997049']]), d.qaFlavor === 'bone' && st.formula !== 'bone' ? ' hidden' : '');
     h += grp('qty', 'Quantity', pills('qty', d.qaQty === 'packs' ? [['1', '1-month pack'], ['3', '3-month pack']] : [['1', '1 month'], ['3', '3 months'], ['6', '6 months']]));
     h += grp('plan', 'Purchase', planCards());
-    qbody.innerHTML = h; price();
+    qbody.innerHTML = h; price(); art();
+  }
+  /* 2026-11-27 user: Collagen's picture follows formula, flavor and quantity (3 / 6 months = the PDP's pouch stacks) */
+  function art() {
+    var im = qa.querySelector('.qa__img img');
+    if (!cur.dataset.qaFormula) return;
+    var f = st.formula === 'bone' && st.flavor === 'choc' ? 'chocolate' : st.formula, src, tight = false,
+        pre = cur.querySelector('.bs-card__img').getAttribute('src').split('shared/media/')[0] + 'shared/media/';   /* same folder as the card picture, so it works on the live /shop/ too */
+    if (st.qty !== '1') src = pre + 'product/qty/qty-' + f + '-pouch-' + st.qty + '.webp';
+    else if (f === 'chocolate') { src = pre + 'products/pack/collagen-chocolate-pouch.webp'; tight = true; }
+    else src = pre + 'products/collagen-' + f + '-pouch.webp';
+    im.src = src; im.classList.toggle('is-tight', tight);
   }
   function price() {
     var m = +st.qty, off = offs(m, st.plan === 'sub'), full = st.list * m, p = full * (1 - off);
@@ -1205,6 +1218,7 @@ document.addEventListener('DOMContentLoaded', function () {
   qbody.addEventListener('change', function (e) {
     var n = e.target.name.replace('qa-', ''); st[n] = e.target.value;
     if (n === 'formula' && st.formula !== 'bone') st.flavor = 'plain';
+    if (n === 'flavor') art();
     if (n === 'formula' || n === 'qty') { var f = document.activeElement && document.activeElement.name; build(); var back = qbody.querySelector('input[name="' + f + '"]:checked'); if (back) back.focus(); } else price();
   });
   function openQa(card, btn) {
@@ -1212,7 +1226,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var was = card.querySelector('.bs-card__was, .bd-card__was'), now = card.querySelector('.bs-card__price, .bd-card__price'), a = card.querySelector('h3 a');
     st = { list: parseFloat((was || now).textContent.replace(/[^0-9.]/g, '')), formula: 'bone', flavor: 'plain', qty: '1', plan: card.dataset.qaPlan };
     qa.querySelector('.qa__t').textContent = a.textContent.trim();
-    var img = card.querySelector('.bs-card__img, .bd-card__img'); qa.querySelector('.qa__img img').src = img.getAttribute('src');
+    var img = card.querySelector('.bs-card__img, .bd-card__img'); var qi = qa.querySelector('.qa__img img'); qi.src = img.getAttribute('src'); qi.classList.remove('is-tight');
     var more = qa.querySelector('.qa__more'), href = a.getAttribute('href'); more.href = href; more.hidden = !href || href === '#';
     build(); qa.showModal(); document.documentElement.classList.add('qa-open');
   }
