@@ -861,11 +861,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .sco select { appearance: none; -webkit-appearance: none; display: block; width: 100%; height: 2.625rem; padding: 0 var(--space-40) 0 var(--space-16); border: 0; border-radius: var(--radius-pill); background: none; color: var(--color-charcoal); font: 500 var(--fs-16)/1.5rem var(--font-sans); text-overflow: ellipsis; cursor: pointer; }
 .sco select:focus { outline: none; }
 .bs-card__info .sco, .bd-card__info .sco { align-self: end; }
-/* bundles balanced (user 2026-11-27): title + text stay at the top, the fields sit on one line just above the price */
+/* bundles balanced (user 2026-11-27): title + text stay at the top; fields stacked like the single products, bottom-aligned so every month field sits right above the price (extra space goes under the text) */
 .bd-card__info { grid-template-rows: auto auto 1fr auto; align-content: start; }
-.bd-card__info .sco { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-.bd-card__info .sco__f--wide { grid-column: auto; }
-.bd-card__info .sco__f:only-child { grid-column: 1 / -1; }
 .sco__f:has([data-o="flavor"]) .sco__l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .sco__f:has(select:disabled) { cursor: not-allowed; }
 .sco__f:has(select:disabled) .sco__box { border-color: color-mix(in srgb, var(--color-charcoal) 8%, transparent); background: color-mix(in srgb, var(--color-charcoal) 4%, var(--color-white)); }
@@ -890,7 +887,7 @@ html[data-blog-v="2"] .sh { padding-top: var(--space-48); }
 .sh__sort select { height: 3rem; padding: 0 var(--space-40) 0 var(--space-16); border: 1px solid color-mix(in srgb, var(--color-charcoal) 18%, transparent); border-radius: var(--radius-pill); background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310100F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center / 1.25rem; appearance: none; color: var(--color-charcoal); font: 400 var(--fs-16)/1.5rem var(--font-sans); cursor: pointer; }   /* the contact field look: 48px pill, hairline, chevron */
 .sh__sort select:hover { border-color: color-mix(in srgb, var(--color-charcoal) 40%, transparent); }
 .sh__sort select:focus-visible { outline: none; border-color: var(--color-charcoal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-charcoal) 10%, transparent); }
-.sh__group[hidden] { display: none; }
+.sh__group[hidden], .bs-card[hidden], .bd-card[hidden] { display: none !important; }   /* the cards set their own display, which beat [hidden]: filtered-out bundles stayed visible 
 .sh__group + .sh__group { margin-top: var(--space-64); }   /* 64 between the two groups (the FAQ topic spacing, user 2026-11-27: no huge gaps) */
 .sh__gh { display: flex; justify-content: space-between; align-items: end; gap: var(--space-24); margin-bottom: var(--space-32); }
 .sh__gh h2 { font: 400 var(--fs-32)/2.5rem var(--font-serif); }   /* = the FAQ topic titles (32/40, 24/32 phones) */
@@ -1080,7 +1077,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
       <section class="sh__group" data-group="bundle" aria-labelledby="sh-bundles">
         <div class="sh__gh"><h2 id="sh-bundles">Bundles</h2><p class="t-body">Formulas that work together, for less.</p></div>
         <ul class="bd__grid">
-      <li data-sub="1" data-kind="bundle" data-order="0" data-price="122.40" class="bd-card">
+      <li data-sub="1" data-goals="bone" data-kind="bundle" data-order="0" data-price="122.40" class="bd-card">
         <div class="bd-card__media">
           <a href="/pdp/v1/" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-clinical-group.webp" alt="" width="1160" height="1093" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-clinical-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1092,7 +1089,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
         </div>
           <button class="bd-add" type="button"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add bundle<span class="sr-only"> Clinical Bone Strength</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
       </li>
-      <li data-sub="1" data-kind="bundle" data-order="1" data-price="123.28" class="bd-card">
+      <li data-sub="1" data-goals="bone longevity" data-kind="bundle" data-order="1" data-price="123.28" class="bd-card">
         <div class="bd-card__media">
           <a href="/pdp/v1/" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-ritual-group.webp" alt="" width="1384" height="1103" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-ritual-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1104,7 +1101,7 @@ section.sh ~ section.reviews { padding-top: 0; }   /* the homepage review band a
         </div>
           <button class="bd-add" type="button"><span class="is-idle-label"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add bundle<span class="sr-only"> Bone Renewal Ritual</span></span><span class="is-done-label"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Added</span></button>
       </li>
-      <li data-sub="1" data-kind="bundle" data-order="2" data-price="206.10" class="bd-card">
+      <li data-sub="1" data-goals="bone prevention longevity" data-kind="bundle" data-order="2" data-price="206.10" class="bd-card">
         <div class="bd-card__media">
           <a href="#" tabindex="-1" aria-hidden="true"><span class="bd-card__stand"><img class="bd-card__img" src="/v2/shared/media/bundles/bundle-ultimate-group.webp" alt="" width="1400" height="997" loading="lazy"></span><img class="bd-card__alt" src="/v2/shared/media/bundles/bundle-ultimate-pouch.webp" alt="" width="1200" height="1200" loading="lazy"></a>
           <div class="bd-card__badges"><span class="bd-card__badge bd-card__badge--dark">10% off</span></div>
@@ -1167,14 +1164,14 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () { place(tabs.filter(function (t) { return t.tabIndex === 0; })[0] || tabs[0]); });
   /* Subscribe & save switch + each card's Quantity (2026-11-27). Placeholder pricing = the PDP rules:
      subscribe 10 / 15 / 20 % off for 1 / 3 / 6 months, one-time 0 / 5 / 10 %; a card without a subscribe price (OsteoFrax) always uses one-time. */
-  var money = function (n) { return '$' + n.toFixed(2); }, sw = root.querySelector('[data-sh-sub]'), cards = [];
+  var money = function (n) { return '$' + n.toFixed(2); }, sw = root.querySelector('[data-sh-sub]'), pcards = [];
   root.querySelectorAll('[data-kind]').forEach(function (card) {
     var box = card.querySelector('.sco'), q = box && box.querySelector('[data-o="qty"]'); if (!q || q.disabled) return;
     var was = card.querySelector('.bs-card__was, .bd-card__was'), now = card.querySelector('.bs-card__price, .bd-card__price');
     var tag = [].slice.call(card.querySelectorAll('.bs-card__badge, .bd-card__badge')).filter(function (b) { return /% off/i.test(b.textContent); })[0];
     if (!was) { was = document.createElement('p'); was.className = now.className.replace('price', 'was'); now.parentElement.insertBefore(was, now); }
     var c = { card: card, q: q, was: was, now: now, tag: tag, sub: card.hasAttribute('data-sub'), list: parseFloat((card.hasAttribute('data-sub') ? was : now).textContent.replace(/[^0-9.]/g, '')) };
-    cards.push(c); q.addEventListener('change', function () { draw1(c); resort(); });
+    pcards.push(c); q.addEventListener('change', function () { draw1(c); resort(); });
   });
   function draw1(c) {
     var on = sw.getAttribute('aria-checked') === 'true' && c.sub, m = +c.q.value, i = m === 1 ? 0 : m === 3 ? 1 : 2;
@@ -1185,9 +1182,9 @@ document.addEventListener('DOMContentLoaded', function () {
     c.card.dataset.price = price.toFixed(2);
   }
   function resort() { var srt = document.getElementById('sh-sort'); if (srt && srt.value !== 'featured') srt.dispatchEvent(new Event('change')); }
-  function draw() { cards.forEach(draw1); resort(); }
-  sw.addEventListener('click', function () { sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); draw(); });
-  draw();
+  function drawPrices() { pcards.forEach(draw1); resort(); }   /* own name: a second draw() replaced the filter's draw() (hoisting) and broke the filter */
+  sw.addEventListener('click', function () { sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); drawPrices(); });
+  drawPrices();
   /* Add to bag / Add bundle: the homepage behaviour (bag count bumps, "Added" for a moment) */
   var bag = document.querySelector('[data-bag] [data-count]'), bagBtn = bag && bag.parentElement;
   root.querySelectorAll('.bs-add, .bd-add').forEach(function (b) {
